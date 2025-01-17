@@ -29,33 +29,6 @@
       button:hover {
         background-color: #4c1d95;
       }
-      /* Animation styles */
-      .toast-notification {
-        transition: opacity 0.3s ease-in-out;
-      }
-      .fade {
-        animation: fade 0.5s;
-      }
-      @keyframes fade {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
-      .slide-left {
-        animation: slide-left 0.5s;
-      }
-      @keyframes slide-left {
-        from {
-          transform: translateX(-100%);
-        }
-        to {
-          transform: translateX(0);
-        }
-      }
-      /* Add more animation styles as needed */
     </style>
   </head>
   <body>
@@ -65,7 +38,7 @@
     <button onclick="showToast2()">Show Toast 2</button>
     <button onclick="showToast3()">Show Toast 3</button>
 
-    <script src="Toast.js"></script>
+    <script src="/scripts/Toast.js"></script>
     <script>
       function showToast() {
         const toast = Toast.makeText(
