@@ -29,6 +29,33 @@
       button:hover {
         background-color: #4c1d95;
       }
+      /* Animation styles */
+      .toast-notification {
+        transition: opacity 0.3s ease-in-out;
+      }
+      .fade {
+        animation: fade 0.5s;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .slide-left {
+        animation: slide-left 0.5s;
+      }
+      @keyframes slide-left {
+        from {
+          transform: translateX(-100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+      /* Add more animation styles as needed */
     </style>
   </head>
   <body>
@@ -48,6 +75,7 @@
         );
         toast.setStyle("success");
         toast.setPosition(Toast.POSITION_BOTTOM_CENTER);
+        toast.setIcon("test.svg", Toast.ICON_SIZE.MED);
         toast.show();
       }
 
@@ -71,22 +99,22 @@
         )
           .setStyle({
             background: "linear-gradient(90deg, #6d28d9, #8b5cf6, #6d28d9)", // Purple gradient
-            backgroundSize: "200% 200%", // For animation
-            color: "#FFFFFF", // Text color
-            padding: "12px 24px", // Padding (Android-like)
-            borderRadius: "24px", // Rounded corners like Android toast
-            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Box shadow
-            fontSize: "14px", // Smaller font size (Android-like)
-            fontFamily: "Roboto, Arial, sans-serif", // Android-like font
-            border: "none", // No border
-            animation: "seaWaves 5s ease infinite", // Sea waves animation
-            minWidth: "auto", // Auto width based on content
-            maxWidth: "300px", // Max width like Android toast
-            height: "auto", // Auto height based on content
-            lineHeight: "1.5", // Line height for better text alignment
+            backgroundSize: "200% 200%",
+            color: "#FFFFFF",
+            padding: "12px 24px",
+            borderRadius: "200px",
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+            fontSize: "14px",
+            fontFamily: "Roboto, Arial, sans-serif",
+            border: "none",
+            animation: "seaWaves 5s ease infinite",
+            minWidth: "100px",
+            maxWidth: "250px",
+            height: "20px",
+            lineHeight: "1.5",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center", // Sea waves animation
+            justifyContent: "center",
             keyframes: `
               0% {
                 background-position: 0% 50%;
@@ -103,8 +131,7 @@
           .setPosition(Toast.POSITION_TOP_RIGHT)
           .setAnimation(Toast.SLIDE_TOP)
           .show();
-          
       }
     </script>
   </body>
-</html> 
+</html>

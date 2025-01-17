@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast JS By V1.0.0 (Beta) - Soufiano Dev</title>
+    <style>
+      html {
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+      }
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #1a1a1a;
+        --primary-color: #6d28d9;
+        --secondary-color: #4c1d95;
+        --border-color: #e0e0e0;
+        --code-bg-color: #e9e9e9;
+        --example-bg-color: #e0e7ff;
+        --example-border-color: #6d28d9;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --scrollbar-track: #f1f1f1;
+        --scrollbar-thumb: #9f7aea;
+        --scrollbar-thumb-hover: #805ad5;
+
+        .pre-code {
+          background: #ffffff;
+          color: #000000;
+          --code-bg-color: #ffffff;
+          padding: 20px;
+          border-radius: 8px;
+          font-family: "JetBrains Mono", monospace;
+          line-height: 1.5;
+          overflow-x: auto;
+          border: 1px solid #e0e0e0;
+        }
+
+        /* Custom Scrollbar for WebKit (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+          width: 12px; /* Vertical scrollbar width */
+          height: 12px; /* Horizontal scrollbar height */
+        }
+
+        ::-webkit-scrollbar-track {
+          background: var(--scrollbar-track);
+          border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: var(--scrollbar-thumb);
+          border-radius: 6px;
+          border: 3px solid var(--scrollbar-track);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: var(--scrollbar-thumb-hover);
+        }
+
+        /* Horizontal Scrollbar Specific Styles */
+        ::-webkit-scrollbar-track:horizontal {
+          background: var(--scrollbar-track);
+          border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb:horizontal {
+          background: var(--scrollbar-thumb);
+          border-radius: 6px;
+          border: 3px solid var(--scrollbar-track);
+        }
+
+        ::-webkit-scrollbar-thumb:horizontal:hover {
+          background: var(--scrollbar-thumb-hover);
+        }
+      }
+
+      [data-theme="dark"] {
+        --bg-color: #011627;
+        --text-color: #d6deeb;
+        --primary-color: #7e57c2;
+        --secondary-color: #6d28d9;
+        --border-color: #1e2d3d;
+        --code-bg-color: #1e2d3d;
+        --example-bg-color: #2a3a4d;
+        --example-border-color: #7e57c2;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        --os-size: 12px;
+        --os-padding-perpendicular: 0;
+        --os-track-bg: #2d3748;
+        --os-track-border-radius: 6px;
+        --os-thumb-bg: #9f7aea;
+        --os-thumb-border-radius: 6px;
+        --os-thumb-bg-hover: #805ad5;
+
+        .pre-code {
+          background: #041729;
+          --code-bg-color: #041729;
+          color: #d6d6d6;
+          padding: 20px;
+          border-radius: 8px;
+          font-family: monospace;
+          line-height: 1.5;
+          overflow-x: auto;
+        }
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--secondary-color);
+        margin-top: 0;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin: 0.5rem 0;
+      }
+
+      a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: opacity 0.3s ease;
+      }
+
+      a:hover {
+        opacity: 0.8;
+      }
+
+      code {
+        background-color: var(--code-bg-color);
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.9rem;
+      }
+
+      .pre-code {
+        background: var(--code-bg-color);
+        color: var(--text-color);
+        padding: 20px;
+        border-radius: 8px;
+        font-family: "JetBrains Mono", monospace;
+        line-height: 1.5;
+        overflow-x: auto;
+        margin-bottom: 20px;
+      }
+
+      /* Light Mode Syntax Highlighting */
+      .keyword {
+        color: #0033b3;
+      }
+      .string {
+        color: #067d17;
+      }
+      .function {
+        color: #871094;
+      }
+      .comment {
+        color: #8c8c8c;
+      }
+      .operator {
+        color: #000000;
+      }
+      .variable {
+        color: #000000;
+      }
+      .number {
+        color: #000000;
+      }
+
+      /* Dark Mode Syntax Highlighting */
+      [data-theme="dark"] .keyword {
+        color: #e06c75;
+      } /* Pink */
+      [data-theme="dark"] .string {
+        color: #98c379;
+      } /* Green */
+      [data-theme="dark"] .function {
+        color: #61afef;
+      } /* Blue */
+      [data-theme="dark"] .comment {
+        color: #5c6370;
+      } /* Gray */
+      [data-theme="dark"] .operator {
+        color: #e06c75;
+      } /* Pink */
+      [data-theme="dark"] .variable {
+        color: #abb2bf;
+      } /* Light Gray */
+      [data-theme="dark"] .number {
+        color: #d19a66;
+      } /* Orange */
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .section {
+        margin-bottom: 2.5rem;
+      }
+
+      .example {
+        background-color: var(--example-bg-color);
+        padding: 1rem;
+        border-left: 4px solid var(--example-border-color);
+        border-radius: 8px;
+        margin: 1rem 0;
+      }
+
+      .property-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0;
+      }
+
+      .property-table th,
+      .property-table td {
+        border: 1px solid var(--border-color);
+        padding: 0.75rem;
+        text-align: left;
+      }
+
+      .property-table th {
+        background-color: var(--code-bg-color);
+        font-weight: 600;
+      }
+
+      .theme-switch {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: var(--primary-color);
+        color: var(--bg-color);
+        border: none;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease, background-color 0.3s ease;
+        z-index: 1000;
+      }
+
+      .theme-switch:hover {
+        transform: scale(1.1);
+      }
+
+      .theme-switch:active {
+        transform: scale(0.95);
+      }
+
+      .theme-switch i {
+        font-size: 1.25rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section {
+        animation: fadeIn 0.5s ease-in-out;
+      }
+
+      header {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 2rem 0;
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      header h1 {
+        color: white;
+        margin: 0;
+      }
+
+      header p {
+        font-size: 1.25rem;
+        margin: 0.5rem 0 0;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding: 1rem 0;
+        border-top: 1px solid var(--border-color);
+        font-size: 0.9rem;
+        color: var(--text-color);
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.75rem;
+        }
+
+        h3 {
+          font-size: 1.25rem;
+        }
+
+        .container {
+          padding: 1rem;
+        }
+
+        .property-table th,
+        .property-table td {
+          padding: 0.5rem;
+        }
+
+        .theme-switch {
+          top: 10px;
+          right: 10px;
+          padding: 0.5rem;
+        }
+
+        .theme-switch i {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.75rem;
+        }
+
+        h2 {
+          font-size: 1.5rem;
+        }
+
+        h3 {
+          font-size: 1.1rem;
+        }
+
+        .property-table th,
+        .property-table td {
+          padding: 0.25rem;
+          font-size: 0.8rem;
+        }
+
+        .theme-switch {
+          top: 5px;
+          right: 5px;
+          padding: 0.25rem;
+        }
+
+        .theme-switch i {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <button class="theme-switch" id="theme-switch">
+      <!-- Default icon (moon for light mode) -->
+      <svg
+        id="moon-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-moon"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+      <!-- Sun icon (hidden by default) -->
+      <svg
+        id="sun-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="feather feather-sun"
+        style="display: none"
+      >
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    </button>
+
+    <header>
+      <div class="container">
+        <h1>Toast JS By V1.0.0 (Beta)</h1>
+        <p>
+          A lightweight and customizable library for displaying Toast
+          Notifications.
+        </p>
+        <p><strong>Developed by Soufiano Dev</strong></p>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="section">
+        <h2>Table of Contents</h2>
+        <ul>
+          <li><a href="#class-overview">Class Overview</a></li>
+          <li><a href="#static-properties">Static Properties</a></li>
+          <li><a href="#methods">Methods</a></li>
+          <li><a href="#usage-examples">Usage Examples</a></li>
+          <li><a href="#customization">Customization</a></li>
+        </ul>
+      </div>
+
+      <div class="section" id="class-overview">
+        <h2>Class Overview</h2>
+        <p>
+          The <code>Toast</code> class encapsulates all the functionality
+          required to create and manage toast notifications. It supports:
+        </p>
+        <ul>
+          <li>Customizable duration (short or long).</li>
+          <li>
+            Multiple positions on the screen (top-left, top-center, top-right,
+            bottom-left, bottom-center, bottom-right).
+          </li>
+          <li>Customizable styles (predefined or custom CSS).</li>
+          <li>Support for icons (static images or animated videos).</li>
+          <li>Dismissible toasts with a close button.</li>
+          <li>
+            Animation effects (fade, slide-top, slide-bottom, slide-left,
+            slide-right).
+          </li>
+          <li>Callback functions for additional functionality.</li>
+        </ul>
+      </div>
+
+      <div class="section" id="static-properties">
+        <h2>Static Properties</h2>
+        <h3>Duration Constants</h3>
+        <table class="property-table">
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>LENGTH_SHORT</code></td>
+            <td>3000</td>
+            <td>Toast duration of 3 seconds.</td>
+          </tr>
+          <tr>
+            <td><code>LENGTH_LONG</code></td>
+            <td>6500</td>
+            <td>Toast duration of 6.5 seconds.</td>
+          </tr>
+        </table>
+
+        <h3>Position Constants</h3>
+        <table class="property-table">
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>POSITION_TOP_LEFT</code></td>
+            <td>"top-left"</td>
+            <td>Position at the top-left.</td>
+          </tr>
+          <tr>
+            <td><code>POSITION_TOP_CENTER</code></td>
+            <td>"top-center"</td>
+            <td>Position at the top-center.</td>
+          </tr>
+          <tr>
+            <td><code>POSITION_TOP_RIGHT</code></td>
+            <td>"top-right"</td>
+            <td>Position at the top-right.</td>
+          </tr>
+          <tr>
+            <td><code>POSITION_BOTTOM_LEFT</code></td>
+            <td>"bottom-left"</td>
+            <td>Position at the bottom-left.</td>
+          </tr>
+          <tr>
+            <td><code>POSITION_BOTTOM_CENTER</code></td>
+            <td>"bottom-center"</td>
+            <td>Position at the bottom-center.</td>
+          </tr>
+          <tr>
+            <td><code>POSITION_BOTTOM_RIGHT</code></td>
+            <td>"bottom-right"</td>
+            <td>Position at the bottom-right.</td>
+          </tr>
+        </table>
+
+        <h3>Icon Position Constants</h3>
+        <table class="property-table">
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>ICON_POSITION_START</code></td>
+            <td>"start"</td>
+            <td>Icon appears before the text.</td>
+          </tr>
+          <tr>
+            <td><code>ICON_POSITION_END</code></td>
+            <td>"end"</td>
+            <td>Icon appears after the text.</td>
+          </tr>
+        </table>
+
+        <h3>Animation Constants</h3>
+        <table class="property-table">
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>FADE</code></td>
+            <td>"fade"</td>
+            <td>Fade-in and fade-out animation.</td>
+          </tr>
+          <tr>
+            <td><code>SLIDE_TOP</code></td>
+            <td>"slide-top"</td>
+            <td>Slide-in from the top.</td>
+          </tr>
+          <tr>
+            <td><code>SLIDE_BOTTOM</code></td>
+            <td>"slide-bottom"</td>
+            <td>Slide-in from the bottom.</td>
+          </tr>
+          <tr>
+            <td><code>SLIDE_LEFT</code></td>
+            <td>"slide-left"</td>
+            <td>Slide-in from the left.</td>
+          </tr>
+          <tr>
+            <td><code>SLIDE_RIGHT</code></td>
+            <td>"slide-right"</td>
+            <td>Slide-in from the right.</td>
+          </tr>
+        </table>
+
+        <h3>Icon Size Constants</h3>
+        <table class="property-table">
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>ICON_SIZE.SMALL</code></td>
+            <td>{ width: "20px", height: "20px" }</td>
+            <td>Small icon size.</td>
+          </tr>
+          <tr>
+            <td><code>ICON_SIZE.MEDIUM</code></td>
+            <td>{ width: "24px", height: "24px" }</td>
+            <td>Medium icon size.</td>
+          </tr>
+          <tr>
+            <td><code>ICON_SIZE.LARGE</code></td>
+            <td>{ width: "32px", height: "32px" }</td>
+            <td>Large icon size.</td>
+          </tr>
+          <tr>
+            <td><code>ICON_SIZE.EXTRA_LARGE</code></td>
+            <td>{ width: "48px", height: "48px" }</td>
+            <td>Extra large icon size.</td>
+          </tr>
+        </table>
+
+        <h3>Predefined Style Constants</h3>
+        <table class="property-table">
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td><code>STYLE_DEFAULT_1</code></td>
+            <td>
+              { backgroundColor: "#323232", color: "#fff", padding: "10px 20px",
+              borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              fontSize: "14px", fontFamily: "system-ui, -apple-system,
+              sans-serif" }
+            </td>
+            <td>Default style with dark background.</td>
+          </tr>
+          <tr>
+            <td><code>STYLE_DEFAULT_2</code></td>
+            <td>
+              { backgroundColor: "rgba(0, 0, 0, 0.8)", color: "#fff", padding:
+              "10px 20px", borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0,
+              0, 0.3)", fontSize: "14px", fontFamily: "system-ui, -apple-system,
+              sans-serif" }
+            </td>
+            <td>Default style with semi-transparent background.</td>
+          </tr>
+          <tr>
+            <td><code>STYLE_SUCCESS</code></td>
+            <td>
+              { backgroundColor: "#4CAF50", color: "#fff", padding: "10px 20px",
+              borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              fontSize: "14px", fontFamily: "system-ui, -apple-system,
+              sans-serif" }
+            </td>
+            <td>Success style with green background.</td>
+          </tr>
+          <tr>
+            <td><code>STYLE_ERROR</code></td>
+            <td>
+              { backgroundColor: "#F44336", color: "#fff", padding: "10px 20px",
+              borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              fontSize: "14px", fontFamily: "system-ui, -apple-system,
+              sans-serif" }
+            </td>
+            <td>Error style with red background.</td>
+          </tr>
+          <tr>
+            <td><code>STYLE_WARNING</code></td>
+            <td>
+              { backgroundColor: "#FF9800", color: "#fff", padding: "10px 20px",
+              borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              fontSize: "14px", fontFamily: "system-ui, -apple-system,
+              sans-serif" }
+            </td>
+            <td>Warning style with orange background.</td>
+          </tr>
+          <tr>
+            <td><code>STYLE_INFO</code></td>
+            <td>
+              { backgroundColor: "#2196F3", color: "#fff", padding: "10px 20px",
+              borderRadius: "5px", boxShadow: "0 2px 4px rgba(0, 0, 0, 0.3)",
+              fontSize: "14px", fontFamily: "system-ui, -apple-system,
+              sans-serif" }
+            </td>
+            <td>Info style with blue background.</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="section" id="methods">
+        <h2>Methods</h2>
+
+        <h3><code>makeText(context, text, duration)</code></h3>
+        <p>
+          Creates a new <code>Toast</code> instance with predefined text and
+          duration.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+          <li>
+            <code>context</code>: The DOM element where the toast will be
+            appended.
+          </li>
+          <li><code>text</code>: The text to display in the toast.</li>
+          <li>
+            <code>duration</code> (optional): The duration of the toast.
+            Defaults to <code>Toast.LENGTH_SHORT</code>.
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>A new <code>Toast</code> instance.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">toast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Hello Toast!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">toast</span>.<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>setText(text)</code></h3>
+        <p>
+          Sets the text content of the toast. Used for advanced customizations
+          after creating a toast instance.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+          <li><code>text</code>: The text to display.</li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">toast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Hello Toast!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">toast</span>.<span class="function">setText</span>(<span class="string">"Operation successful!"</span>)
+  .<span class="function">setStyle</span>(<span class="string">"success"</span>)
+  .<span class="function">setIcon</span>(<span class="string">"checkmark.png"</span>, <span class="function">Toast</span>.<span class="variable">ICON_SIZE</span>.<span class="variable">MEDIUM</span>)
+  .<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>setDuration(duration)</code></h3>
+        <p>Sets the duration of the toast.</p>
+        <h4>Parameters</h4>
+        <ul>
+          <li>
+            <code>duration</code>: The duration in milliseconds or one of the
+            duration constants (<code>LENGTH_SHORT</code>,
+            <code>LENGTH_LONG</code>).
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">toast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Hello Toast!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">toast</span>.<span class="function">setDuration</span>(<span class="number">5000</span>); <span class="comment">// 5 seconds</span>
+<span class="variable">toast</span>.<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>setStyle(style)</code></h3>
+        <p>
+          Sets the style of the toast. Can be a predefined style name or a
+          custom style object.
+        </p>
+        <h4>Parameters</h4>
+        <ul>
+          <li>
+            <code>style</code>: A string (e.g., <code>"success"</code>) or an
+            object containing CSS properties.
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">toast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Hello Toast!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+
+<span class="comment">// Apply custom styles</span>
+<span class="variable">toast</span>.<span class="function">setStyle</span>({
+  <span class="variable">backgroundColor</span>: <span class="string">"#4A5568"</span>,
+  <span class="variable">color</span>: <span class="string">"#FFFFFF"</span>,
+  <span class="variable">padding</span>: <span class="string">"15px 25px"</span>,
+  <span class="variable">borderRadius</span>: <span class="string">"10px"</span>,
+  <span class="variable">boxShadow</span>: <span class="string">"0 4px 6px rgba(0, 0, 0, 0.2)"</span>,
+  <span class="variable">fontSize</span>: <span class="string">"16px"</span>,
+  <span class="variable">fontFamily</span>: <span class="string">"Arial, sans-serif"</span>,
+});
+
+<span class="variable">toast</span>.<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>setPosition(position)</code></h3>
+        <p>Sets the position of the toast on the screen.</p>
+        <h4>Parameters</h4>
+        <ul>
+          <li>
+            <code>position</code>: One of the position constants (e.g.,
+            <code>POSITION_TOP_CENTER</code>).
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="variable">toast</span>.<span class="function">setPosition</span>(<span class="function">Toast</span>.<span class="variable">POSITION_TOP_CENTER</span>);</code></pre>
+        </div>
+
+        <h3><code>setAnimation(animationClass)</code></h3>
+        <p>Sets the animation effect for the toast.</p>
+        <h4>Parameters</h4>
+        <ul>
+          <li>
+            <code>animationClass</code>: One of the animation constants (e.g.,
+            <code>FADE</code>).
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="variable">toast</span>.<span class="function">setAnimation</span>(<span class="function">Toast</span>.<span class="variable">SLIDE_TOP</span>);</code></pre>
+        </div>
+
+        <h3><code>setIcon(iconPath, size, position)</code></h3>
+        <p>Sets an icon for the toast.</p>
+        <h4>Parameters</h4>
+        <ul>
+          <li><code>iconPath</code>: The path to the icon (image or video).</li>
+          <li>
+            <code>size</code> (optional): The size of the icon (e.g.,
+            <code>ICON_SIZE.MEDIUM</code>).
+          </li>
+          <li>
+            <code>position</code> (optional): The position of the icon relative
+            to the text (<code>ICON_POSITION_START</code> or
+            <code>ICON_POSITION_END</code>).
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="comment">// Using a predefined icon size</span>
+<span class="variable">toast</span>.<span class="function">setIcon</span>(<span class="string">"https://example.com/icon.png"</span>, <span class="function">Toast</span>.<span class="variable">ICON_SIZE</span>.<span class="variable">SMALL</span>).<span class="function">show</span>();
+
+<span class="comment">// Using a custom icon size</span>
+<span class="variable">toast</span>.<span class="function">setIcon</span>(<span class="string">"https://example.com/icon.png"</span>, { <span class="variable">width</span>: <span class="string">"30px"</span>, <span class="variable">height</span>: <span class="string">"30px"</span> });</code></pre>
+        </div>
+
+        <h3><code>setDismissible(dismissible)</code></h3>
+        <p>Makes the toast dismissible by adding a close button.</p>
+        <h4>Parameters</h4>
+        <ul>
+          <li>
+            <code>dismissible</code> (optional): Whether the toast is
+            dismissible. Defaults to <code>true</code>.
+          </li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="variable">toast</span>.<span class="function">setDismissible</span>(<span class="keyword">true</span>).<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>addCallback(callback)</code></h3>
+        <p>Adds a callback function to be executed when the toast is shown.</p>
+        <h4>Parameters</h4>
+        <ul>
+          <li><code>callback</code>: A function to execute.</li>
+        </ul>
+        <h4>Returns</h4>
+        <p>The <code>Toast</code> instance for method chaining.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="variable">toast</span>.<span class="function">addCallback</span>(() <span class="operator">=></span> <span class="variable">console</span>.<span class="function">log</span>(<span class="string">"Toast dismissed!"</span>)).<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>show()</code></h3>
+        <p>Displays the toast.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="variable">toast</span>.<span class="function">show</span>();</code></pre>
+        </div>
+
+        <h3><code>hide()</code></h3>
+        <p>Hides the toast.</p>
+        <div class="example">
+          <h4>Example</h4>
+          <pre
+            class="pre-code"
+          ><code><span class="variable">toast</span>.<span class="function">hide</span>();</code></pre>
+        </div>
+      </div>
+
+      <div class="section" id="usage-examples">
+        <h2>Usage Examples</h2>
+        <div class="example">
+          <h3>1. Create a simple toast with default settings:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">toast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Hello Toast!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">toast</span>.<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>2. Create a success toast with custom style:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">successToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Operation Successful!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_LONG</span>
+);
+<span class="variable">successToast</span>.<span class="function">setStyle</span>(<span class="string">"success"</span>).<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>3. Create an error toast with custom position:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">errorToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Error occurred!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">errorToast</span>.<span class="function">setPosition</span>(<span class="function">Toast</span>.<span class="variable">POSITION_TOP_RIGHT</span>)
+  .<span class="function">setStyle</span>(<span class="string">"error"</span>)
+  .<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>4. Create a toast with an icon:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">iconToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Toast with Icon!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">iconToast</span>.<span class="function">setIcon</span>(
+  <span class="string">"https://example.com/icon.png"</span>,
+  <span class="function">Toast</span>.<span class="variable">ICON_SIZE</span>.<span class="variable">SMALL</span>
+).<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>5. Create a dismissible toast:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">dismissibleToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"You can close this toast."</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">dismissibleToast</span>.<span class="function">setDismissible</span>(<span class="keyword">true</span>).<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>6. Create a toast with a callback after it disappears:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">callbackToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Callback after hide!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">callbackToast</span>.<span class="function">addCallback</span>(() <span class="operator">=></span> <span class="variable">console</span>.<span class="function">log</span>(<span class="string">"Toast dismissed!"</span>))
+  .<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>7. Create a toast with animation:</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">animatedToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"Slide-in animation!"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">animatedToast</span>.<span class="function">setAnimation</span>(<span class="function">Toast</span>.<span class="variable">SLIDE_LEFT</span>).<span class="function">show</span>();</code></pre>
+        </div>
+
+        <div class="example">
+          <h3>8. Create a toast with custom text direction (RTL):</h3>
+          <pre
+            class="pre-code"
+          ><code><span class="keyword">const</span> <span class="variable">rtlToast</span> <span class="operator">=</span> <span class="function">Toast</span>.<span class="function">makeText</span>(
+  <span class="variable">document</span>.<span class="variable">body</span>,
+  <span class="string">"مرحبا بالعالم"</span>,
+  <span class="function">Toast</span>.<span class="variable">LENGTH_SHORT</span>
+);
+<span class="variable">rtlToast</span>.<span class="function">setStyle</span>(<span class="string">"info"</span>)
+  .<span class="function">setTextDirection</span>(<span class="string">"rtl"</span>)
+  .<span class="function">show</span>();</code></pre>
+        </div>
+      </div>
+
+      <div class="section" id="customization">
+        <h2>Customization</h2>
+        <p>You can customize the toast by:</p>
+        <ul>
+          <li>Adding custom styles using <code>setStyle</code>.</li>
+          <li>Using custom icons with <code>setIcon</code>.</li>
+          <li>Defining custom animations with <code>setAnimation</code>.</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer class="py-6 bg-gray-900 text-center">
+      <p class="text-gray-400" data-translate="footerText">
+        &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        Soufiano Dev. All rights reserved.
+      </p>
+    </footer>
+
+    <script>
+      // Theme Switch Logic
+      const themeSwitch = document.getElementById("theme-switch");
+      const body = document.body;
+      const moonIcon = document.getElementById("moon-icon");
+      const sunIcon = document.getElementById("sun-icon");
+
+      // Check localStorage for theme preference
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme) {
+        body.setAttribute("data-theme", savedTheme);
+        // Update icons based on the saved theme
+        if (savedTheme === "dark") {
+          moonIcon.style.display = "none";
+          sunIcon.style.display = "block";
+        } else {
+          moonIcon.style.display = "block";
+          sunIcon.style.display = "none";
+        }
+      }
+
+      themeSwitch.addEventListener("click", () => {
+        const isDarkMode = body.getAttribute("data-theme") === "dark";
+        // Toggle theme
+        body.setAttribute("data-theme", isDarkMode ? "light" : "dark");
+        localStorage.setItem("theme", isDarkMode ? "light" : "dark");
+
+        // Toggle icons
+        if (isDarkMode) {
+          moonIcon.style.display = "block";
+          sunIcon.style.display = "none";
+        } else {
+          moonIcon.style.display = "none";
+          sunIcon.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
