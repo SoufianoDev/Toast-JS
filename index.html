@@ -38,7 +38,7 @@
     <button onclick="showToast2()">Show Toast 2</button>
     <button onclick="showToast3()">Show Toast 3</button>
 
-    <script src="/scripts/Toast.js"></script>
+    <script src="/libs/js/Toast.js"></script>
     <script>
       function showToast() {
         const toast = Toast.makeText(
@@ -48,7 +48,7 @@
         );
         toast.setStyle("success");
         toast.setPosition(Toast.POSITION_BOTTOM_CENTER);
-        toast.setIcon("test.svg", Toast.ICON_SIZE.MED);
+        toast.setIcon("./assets/test.svg", Toast.ICON_SIZE.MED);
         toast.show();
       }
 
@@ -100,7 +100,10 @@
               }
             `,
           })
-          .setIcon("checkmark_150x150.webm", Toast.ICON_SIZE.EXTRA_LARGE)
+          .setIcon(
+            "./assets/checkmark_150x150.webm",
+            Toast.ICON_SIZE.EXTRA_LARGE
+          )
           .setPosition(Toast.POSITION_TOP_RIGHT)
           .setAnimation(Toast.SLIDE_TOP)
           .show();
