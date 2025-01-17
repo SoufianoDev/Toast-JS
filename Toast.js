@@ -444,7 +444,6 @@ class Toast {
     }, 300);
   }
 }
-
 window.Toast = Toast;
 
 // class Toast {
