@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast Notification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #6d28d9;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin: 10px;
+      }
+      button:hover {
+        background-color: #4c1d95;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="toast-notification" class="toast-notification"></div>
+
+    <button onclick="showToast()">Show Toast 1</button>
+    <button onclick="showToast2()">Show Toast 2</button>
+    <button onclick="showToast3()">Show Toast 3</button>
+
+    <script src="Toast.js"></script>
+    <script>
+      function showToast() {
+        const toast = Toast.makeText(
+          document.body,
+          "This is Toast 1!",
+          Toast.LENGTH_SHORT
+        );
+        toast.setStyle("success");
+        toast.setPosition(Toast.POSITION_BOTTOM_CENTER);
+        toast.show();
+      }
+
+      function showToast2() {
+        const toast2 = Toast.makeText(
+          document.body,
+          "This is Toast 2!",
+          Toast.LENGTH_SHORT
+        );
+        toast2.setStyle("info");
+        toast2.setPosition(Toast.POSITION_BOTTOM_LEFT);
+        toast2.setAnimation(Toast.SLIDE_LEFT);
+        toast2.show();
+      }
+
+      function showToast3() {
+        const toast3 = Toast.makeText(
+          document.body,
+          "This is a custom styled toast!",
+          Toast.LENGTH_LONG
+        )
+          .setStyle({
+            background: "linear-gradient(90deg, #6d28d9, #8b5cf6, #6d28d9)", // Purple gradient
+            backgroundSize: "200% 200%", // For animation
+            color: "#FFFFFF", // Text color
+            padding: "12px 24px", // Padding (Android-like)
+            borderRadius: "24px", // Rounded corners like Android toast
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)", // Box shadow
+            fontSize: "14px", // Smaller font size (Android-like)
+            fontFamily: "Roboto, Arial, sans-serif", // Android-like font
+            border: "none", // No border
+            animation: "seaWaves 5s ease infinite", // Sea waves animation
+            minWidth: "auto", // Auto width based on content
+            maxWidth: "300px", // Max width like Android toast
+            height: "auto", // Auto height based on content
+            lineHeight: "1.5", // Line height for better text alignment
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center", // Sea waves animation
+            keyframes: `
+              0% {
+                background-position: 0% 50%;
+              }
+              50% {
+                background-position: 100% 50%;
+              }
+              100% {
+                background-position: 0% 50%;
+              }
+            `,
+          })
+          .setIcon("checkmark_150x150.webm", Toast.ICON_SIZE.EXTRA_LARGE)
+          .setPosition(Toast.POSITION_TOP_RIGHT)
+          .setAnimation(Toast.SLIDE_TOP)
+          .show();
+          
+      }
+    </script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast Test</title>
+    <script src="Toast.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #6d28d9;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+      button:hover {
+        background-color: #4c1d95;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="toast-notification" class="toast-notification"></div>
+
+    <button onclick="showToast()">Show Toast</button>
+    <script>
+      function showToast() {
+        const toast = new Toast();
+        toast
+          .setText("This is a toast notification!")
+          .setDuration(Toast.LENGTH_LONG)
+          .setStyle("success")
+          .setPosition(Toast.POSITION_BOTTOM_CENTER)
+          .show();
+      }
+    </script>
+  </body>
+</html> -->
