@@ -10,19 +10,13 @@
 
 <h1 class="title"><strong>🍞 Toast.js Library V1.0.0 - By Soufiano Dev 🎩🪄</strong></h1>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Sansita&display=swap');
-
-.title {
-  text-align: center;
-  font-family: 'Sansita', sans-serif;
-  font-size: 8dvh;  
-}
-</style>
-
 <div align="center">
   <img src="https://soufianodev.github.io/Toast-JS/assets/Toast-JS_Logo.png" alt="Toast.js Logo" style="max-width: 300px; height: 300px; border-radius: 20px; object-fit: cover;">
 </div>
+
+
+### **Demo Test:**
+
 
 ## Introduction
 
