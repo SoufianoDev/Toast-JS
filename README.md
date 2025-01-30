@@ -1,9 +1,9 @@
-<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px; justify-content: center; margin-top: 8dvh;">
-<img src="https://img.shields.io/badge/version-1.0.0-blue" alt="Version Badge">
-<img src="https://img.shields.io/badge/_javascript-gray?style=flat&logo=javascript" alt="JavaScript Badge">
-<img src="https://img.shields.io/badge/soufiane__hanane__1-gray?logo=instagram&labelColor=%23FF0069&link=https%3A%2F%2Fwww.instagram.com%2Fsoufiane_hanane1%3Figsh%3DN2d6ZTJ1ZGttZG41%2F" alt="Instagram Badge">
-<img src="https://img.shields.io/badge/Support_me_on_Ko--fi-gray?logo=kofi&logoColor=%23fff&logoSize=amg&labelColor=%23FF6433&link=https%3A%2F%2Fko-fi.com%2FT6T819SFP2" alt="Ko-fi Badge">
-</div>
+![version](https://img.shields.io/badge/version-1.0.0-blue)
+![js](https://img.shields.io/badge/_javascript-gray?style=flat&logo=javascript)
+![insta](https://img.shields.io/badge/soufiane__hanane__1-gray?logo=instagram&labelColor=%23FF0069&link=https%3A%2F%2Fwww.instagram.com%2Fsoufiane_hanane1%3Figsh%3DN2d6ZTJ1ZGttZG41%2F)
+![Static Badge](https://img.shields.io/badge/Support_me_on_Ko--fi-gray?logo=kofi&logoColor=%23fff&logoSize=amg&labelColor=%23FF6433&link=https%3A%2F%2Fko-fi.com%2FT6T819SFP2)
+
+
 
 <h1 class="title"><strong>🍞 Toast.js Library V1.0.0 - By Soufiano Dev 🎩🪄</strong></h1>
 
