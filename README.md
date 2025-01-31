@@ -13,7 +13,7 @@
 
 
 ### **Demo Test:**
-
+![DemoTest](https://soufianodev.github.io/Toast-JS/assets/Demo_Test.gif)
 
 ## Introduction
 
