@@ -66,7 +66,7 @@ Add the notification container to your body:
 ## Simple HTML Example
 
 ```javascript
-const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT);
+const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT)
 toast.show();
 ```
 
