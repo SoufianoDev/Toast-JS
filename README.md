@@ -34,19 +34,6 @@
 ![DemoTest](https://soufianodev.github.io/Toast-JS/assets/Demo_Test.gif)
 
 
-
-### Actual Use Of The Library By **Soufiano Dev**:
-
-<div style="display: flex; justify-content: center; margin-bottom: 3vh;">
-  <video src="https://soufianodev.github.io/Toast-JS/assets/Real_Use_By_Dev.webm" alt="Actual Use By Dev" style="width: 720px; max-width: 100%; height: auto;" controls autoplay loop muted></video>
-</div>
-
-## **Script:**
-
-<div style="display: flex; justify-content: center;">
-  <img src="assets/Script_From_Translate_js.png" width="720" style="max-width: 100%;" alt="">
-</div>
-
 # Installation:
 
 ### Add Toast.js to Your Project
@@ -138,6 +125,21 @@ errorToast.setAnimation(Toast.SLIDE_TOP)
 errorToast.setDismissible(true)
 errorToast.show();
 ```
+
+
+
+### Actual Use Of The Library By **Soufiano Dev**:
+![acutualUse](https://soufianodev.github.io/Toast-JS/assets/Real_Use_By_Dev.gif)
+
+
+
+**Script:**
+
+<div style="display: flex; justify-content: center;">
+  <img src="assets/Script_From_Translate_js.png" width="720" style="max-width: 100%;" alt="">
+</div>
+
+
 
 ### ℹ️ Information Toast
 
