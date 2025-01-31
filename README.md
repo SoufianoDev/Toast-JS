@@ -34,6 +34,7 @@
 ![DemoTest](https://soufianodev.github.io/Toast-JS/assets/Demo_Test.gif)
 
 
+
 # Installation:
 
 ### Add Toast.js to Your Project
@@ -127,20 +128,6 @@ errorToast.show();
 ```
 
 
-
-### Actual Use Of The Library By **Soufiano Dev**:
-![acutualUse](https://soufianodev.github.io/Toast-JS/assets/Real_Use_By_Dev.gif)
-
-
-
-**Script:**
-
-<div style="display: flex; justify-content: center;">
-  <img src="assets/Script_From_Translate_js.png" width="720" style="max-width: 100%;" alt="">
-</div>
-
-
-
 ### ℹ️ Information Toast
 
 Use for informational messages, like user tips or updates.
@@ -196,6 +183,20 @@ const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT)
 toast.setDismissible(true)
 toast.show();
 ```
+
+### **Actual Use Of The Library By Soufiano Dev:**
+
+  <img src="/assets/Real_Use_By_Dev.gif" alt="Actual Use By Dev" ></img>
+
+
+### **Script:**
+
+<div style="display: flex; justify-content: center;">
+  <img src="assets/Script_From_Translate_js.png" alt="">
+</div>
+
+
+
 
 ## Features
 
