@@ -12,8 +12,6 @@
 </div>
 
 
-### **Demo Test:**
-![DemoTest](https://soufianodev.github.io/Toast-JS/assets/Demo_Test.gif)
 
 ## Introduction
 
@@ -28,14 +26,14 @@
 
 ### Quick Links
 
-- [Full Documentation 📚](https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html)
-- [Live Demo 🔗](https://soufianodev.github.io/Toast-JS/)
+- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html">Full Documentation 📚</a>
+- <a href="https://soufianodev.github.io/Toast-JS/" target="_blank">Live Demo 🔗</a>
 
 ### **Demo Test:**
 
-<div style="display: flex; justify-content: center;">
-  <video src="https://soufianodev.github.io/Toast-JS/assets/Demo_Test.webm" alt="Actual Use By Dev" style="width: 720px; max-width: 100%; height: auto;" controls autoplay loop muted></video>
-</div>
+![DemoTest](https://soufianodev.github.io/Toast-JS/assets/Demo_Test.gif)
+
+
 
 ### Actual Use Of The Library By **Soufiano Dev**:
 
