@@ -26,7 +26,7 @@
 
 ### Quick Links
 
-- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html">Full Documentation 📚</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html" target="_blank">Full Documentation 📚</a>
 - <a href="https://soufianodev.github.io/Toast-JS/" target="_blank">Live Demo 🔗</a>
 
 ### **Demo Test:**
