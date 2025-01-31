@@ -205,7 +205,7 @@ toastIcon.show();
 
 ## Developer Notes
 
-Toast.js is authored by **Soufiane Dev**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit [Toast.js Docs 📚](https://soufianodev.github.io/Toast-JS/docs).
+Toast.js is authored by **Soufiane Dev**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html">Toast.js Docs 📚</a> .
 
 ---
 
