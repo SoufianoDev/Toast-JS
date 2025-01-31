@@ -189,6 +189,12 @@ toastIcon.show();
 
 **Make toast dismissible:**
 
+```javascript
+const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT)
+toast.setDismissible(true)
+toast.show();
+```
+
 ## Features
 
 - ✅ **Predefined Styles**: Success, error, info, warning, and default.
