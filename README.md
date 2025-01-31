@@ -5,7 +5,7 @@
 
 
 
-<h1 class="title"><strong>🍞 Toast JS Library V1.0.0 - By Soufiano Dev 🎩🪄</strong></h1>
+<h1 class="title"><strong>🍞 Toast JS Library  - By Soufiano Dev 🎩🪄</strong></h1>
 
 <div align="center">
   <img src="https://soufianodev.github.io/Toast-JS/assets/Toast-JS_Logo.png" alt="Toast.js Logo" style="max-width: 300px; height: 300px; border-radius: 20px; object-fit: cover;">
@@ -184,7 +184,7 @@ toast.setDismissible(true)
 toast.show();
 ```
 
-## **Actual Use Of The Library By Soufiano Dev:**
+## **Actual Use Of The Library By Dev Soufiano :**
 
   <img src="/assets/Real_Use_By_Dev.gif" alt="Actual Use By Dev" ></img>
 
