@@ -218,8 +218,6 @@ Toast.js is authored by **Soufiane Dev**. The library prioritizes ease of use wh
 
 ---
 
-Created with ❤️ by **Soufiane Dev**
+Created with ❤️ by **Soufiane Dev** | Made in **Morocco** 🇲🇦
 
-Made in **Morocco** 🇲🇦
 
----
