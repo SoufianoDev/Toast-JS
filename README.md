@@ -1,7 +1,17 @@
-![version](https://img.shields.io/badge/version-1.0.0-blue)
-![js](https://img.shields.io/badge/_javascript-gray?style=flat&logo=javascript)
-![insta](https://img.shields.io/badge/soufiane__hanane__1-gray?logo=instagram&labelColor=%23FF0069&link=https%3A%2F%2Fwww.instagram.com%2Fsoufiane_hanane1%3Figsh%3DN2d6ZTJ1ZGttZG41%2F)
-![Static Badge](https://img.shields.io/badge/Support_me_on_Ko--fi-gray?logo=kofi&logoColor=%23fff&logoSize=amg&labelColor=%23FF6433&link=https%3A%2F%2Fko-fi.com%2FT6T819SFP2)
+<div  >
+  <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html" target="_blank">
+    <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="Version 1.0.0">
+  </a>
+  <a href="https://www.instagram.com/soufiane_hanane1" target="_blank">
+    <img src="https://img.shields.io/badge/soufiane__hanane__1-gray?logo=instagram&labelColor=%23FF0069" alt="Soufiane Hanane on Instagram">
+  </a>
+  <a href="https://ko-fi.com/T6T819SFP2" target="_blank">
+    <img src="https://img.shields.io/badge/Support_me_on_Ko--fi-gray?logo=kofi&logoColor=%23fff&logoSize=amg&labelColor=%23FF6433" alt="Support me on Ko-fi">
+  </a>
+  <a href="https://www.javascript.com" target="_blank">
+    <img src="https://img.shields.io/badge/_javascript-gray?style=flat&logo=javascript" alt="JavaScript">
+  </a>
+</div>
 
 
 
