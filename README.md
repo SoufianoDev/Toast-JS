@@ -1,18 +1,23 @@
-<div  >
+<div >
+  <!-- Library Version -->
   <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html" target="_blank">
-    <img src="https://img.shields.io/badge/version-1.0.0-blue" alt="Version 1.0.0">
+    <img src="https://img.shields.io/badge/Version-1.0.0_Beta-007BFF?style=for-the-badge&logo=bookstack&logoColor=white" alt="Version Badge">
   </a>
-  <a href="https://www.instagram.com/soufiane_hanane1" target="_blank">
-    <img src="https://img.shields.io/badge/soufiane__hanane__1-gray?logo=instagram&labelColor=%23FF0069" alt="Soufiane Hanane on Instagram">
-  </a>
-  <a href="https://ko-fi.com/T6T819SFP2" target="_blank">
-    <img src="https://img.shields.io/badge/Support_me_on_Ko--fi-gray?logo=kofi&logoColor=%23fff&logoSize=amg&labelColor=%23FF6433" alt="Support me on Ko-fi">
-  </a>
+  &nbsp;&nbsp;&nbsp;
+
+  <!-- JavaScript -->
   <a href="https://www.javascript.com" target="_blank">
-    <img src="https://img.shields.io/badge/_javascript-gray?style=flat&logo=javascript" alt="JavaScript">
+    <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  </a>
+  &nbsp;&nbsp;&nbsp;
+
+
+
+  <!-- Instagram -->
+  <a href="https://www.instagram.com/soufiane_hanane1?igsh=N2d6ZTJ1ZGttZG41/" target="_blank">
+    <img src="https://img.shields.io/badge/-soufiane__hanane1-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram">
   </a>
 </div>
-
 
 
 <h1 class="title"><strong>🍞 Toast JS Library  - By Soufiano Dev 🎩🪄</strong></h1>
