@@ -98,7 +98,7 @@ Here's a basic HTML file demonstrating Toast.js:
     <script>
       function showSuccessToast() {
         const successToast = Toast.makeText(document.body,"✅ Success! Operation completed.",Toast.LENGTH_SHORT)
-        successToast.setStyle("success")
+        successToast.setStyle(Toast.STYLE_SUCCESS)
         successToast.setPosition(Toast.POSITION_TOP_CENTER)
         successToast.setAnimation(Toast.SLIDE_TOP)
         successToast.show();
@@ -106,7 +106,7 @@ Here's a basic HTML file demonstrating Toast.js:
 
       function showErrorToast() {
         const errorToast = Toast.makeText(document.body,"❌ Error! Something went wrong.",Toast.LENGTH_LONG)
-        errorToast.setStyle("error")
+        errorToast.setStyle("error") //Toast.STYLE_ERROR
         errorToast.setPosition(Toast.POSITION_TOP_RIGHT)
         errorToast.setAnimation(Toast.SLIDE_RIGHT)
         errorToast.show();
@@ -124,9 +124,9 @@ Use this toast to show success messages (e.g., operation completed).
 
 ```javascript
 const successToast = Toast.makeText(document.body,"✅ Success! Your action was completed successfully.",Toast.LENGTH_SHORT);
-successToast.setStyle("success")
-successToast.setPosition(Toast.POSITION_BOTTOM_CENTER)
-successToast.show();
+    successToast.setStyle("success") // Toast.STYLE_SUCCESS
+    successToast.setPosition(Toast.POSITION_BOTTOM_CENTER)
+    successToast.show();
 ```
 
 ### ❌ Error Toast
@@ -135,11 +135,11 @@ Display error notifications with a predefined error style.
 
 ```javascript
 const errorToast = Toast.makeText(document.body,"❌ Oops! Something went wrong. Please try again later.",Toast.LENGTH_LONG);
-errorToast.setStyle("error")
-errorToast.setPosition(Toast.POSITION_TOP_RIGHT)
-errorToast.setAnimation(Toast.SLIDE_TOP)
-errorToast.setDismissible(true)
-errorToast.show();
+    errorToast.setStyle(Toast.STYLE_ERROR)
+    errorToast.setPosition(Toast.POSITION_TOP_RIGHT)
+    errorToast.setAnimation(Toast.SLIDE_TOP)
+    errorToast.setDismissible(true)
+    errorToast.show();
 ```
 
 
@@ -148,12 +148,12 @@ errorToast.show();
 Use for informational messages, like user tips or updates.
 
 ```javascript
-function showInfoToast() {const infoToast = Toast.makeText(document.body,"ℹ️ Here's an important update for you!",Toast.LENGTH_SHORT);
-  infoToast.setStyle("info")
-  infoToast.setPosition(Toast.POSITION_TOP_LEFT)
-  infoToast.setAnimation(Toast.FADE)
-  infoToast.show();
-}
+const infoToast = Toast.makeText(document.body,"ℹ️ Here's an important update for you!",Toast.LENGTH_SHORT);
+    infoToast.setStyle("info") // Toast.STYLE_INFO
+    infoToast.setPosition(Toast.POSITION_TOP_LEFT)
+    infoToast.setAnimation(Toast.FADE)
+    infoToast.show();
+
 ```
 
 ### 🎨 Custom Toast
