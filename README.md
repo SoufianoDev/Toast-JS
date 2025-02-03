@@ -180,7 +180,7 @@ toast
   .show();
 ```
 
-**SetIcon Using URL:**
+### **SetIcon Using URL:**
 
 ```javascript
 let iconUrl ="https://soufianodev.github.io/Toast-JS/assets/checkmark_150x150.webm";
@@ -191,7 +191,26 @@ toastIcon.setIcon(iconUrl); //Supported formats: .svg , .png, .jpg, .jpeg, .webm
 toastIcon.show();
 ```
 
-**Make toast dismissible:**
+### ⏳ Custom Duration Toast
+
+Set a custom duration for your toast notification.
+
+```javascript
+const customDurationToast1 = Toast.makeText(document.body, "This toast will be visible for 9 seconds.", 9000); // 9 seconds
+customDurationToast1.setStyle("info");
+customDurationToast1.setPosition(Toast.POSITION_BOTTOM_LEFT);
+customDurationToast1.show();
+```
+### ⏲️ Another Custom Duration Example
+
+```javascript
+const customDurationToast2 = Toast.makeText(document.body, "This toast will be visible for 15 seconds.", Toast.LENGTH_SHORT); // LEGTH_SHORT = 3000 But now Duration = 15000 
+customDurationToast2.setDuration(15000); // 15 seconds
+customDurationToast2.show();
+```
+
+
+### **Make toast dismissible:**
 
 ```javascript
 const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT)
@@ -199,9 +218,11 @@ toast.setDismissible(true)
 toast.show();
 ```
 
+
+
 ## **Actual Use Of The Library By Dev Soufiano :**
 
-  <img src="/assets/Real_Use_By_Dev.gif" alt="Actual Use By Dev" ></img>
+<img src="/assets/Real_Use_By_Dev.gif" alt="Actual Use By Dev" ></img>
 
 
 ### **Script:**
@@ -209,6 +230,7 @@ toast.show();
 <div style="display: flex; justify-content: center;">
   <img src="assets/Script_From_Translate_js.png" alt="">
 </div>
+
 
 
 
