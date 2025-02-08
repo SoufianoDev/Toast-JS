@@ -6,6 +6,12 @@
     <title>Toast-JS: Dynamic Notifications</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+  integrity="sha512-... (optional integrity hash)"
+  crossorigin="anonymous"
+/>
 
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap");
@@ -109,6 +115,28 @@
           opacity: 0.5;
         }
       }
+
+      
+.flag {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    "Noto Emoji", sans-serif;
+}
+
+.flag img {
+  display: none;
+}
+
+@supports (font-variation-settings: normal) {
+  .flag img {
+    display: inline-block;
+    width: 20px;
+    height: 15px;
+    vertical-align: middle;
+    margin-left: 5px;
+  }
+}
+
+
     </style>
   </head>
   <body class="flex flex-col items-center justify-center min-h-screen">
@@ -193,8 +221,8 @@
       </div>
 
       <!-- Footer -->
-      <footer class="mt-auto py-6 text-gray-400 text-sm text-center">
-        Made with 💛💜 by
+      <footer class="mt-auto py-6 text-gray-400 text-lg text-center">
+        created with 💛💜 by
         <a
           href="https://github.com/soufianodev"
           target="_blank"
@@ -203,8 +231,27 @@
         >
           Soufiano Dev
         </a>
+        | Made in <strong>Morocco</strong> 
+        <span class="flag">
+          <img src="https://flagcdn.com/ma.svg" alt="Moroccan Flag" width="20" height="20" style="vertical-align: middle;">
+        </span> 
+        <div class="flex justify-center space-x-6" style="margin-top: 4vh;">
+          <a
+            href="https://github.com/SoufianoDev/Toast-JS/"
+            target="_blank"
+            class="text-gray-400 hover:text-[#6e5494] transition duration-300"
+          >
+            <i class="fab fa-github text-4xl"></i>
+          </a>
+          <a
+            href="https://www.instagram.com/soufiane_hanane1?igsh=N2d6ZTJ1ZGttZG41/" 
+            target="_blank"
+            class="text-gray-400 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#833ab4] hover:via-[#fd1d1d] hover:to-[#fcb045] transition duration-300"
+          >
+            <i class="fab fa-instagram text-4xl"></i>
+          </a>
+        </div>
       </footer>
-    </div>
 
     <!-- Toast-JS -->
     <script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.0.0/Toast.js"></script>

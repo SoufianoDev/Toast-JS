@@ -250,15 +250,22 @@ toast.show();
 
 ```javascript
 const customCloseToast = Toast.makeText(
-  document.body, "This toast has a custom close button color!", 7000);  //Note: Toast notification will be automatically hidden if duration < 6.5 seconds.
+  document.body, "This toast has a custom close button color!", 7000); //Note: Toast notification will be automatically hidden if duration < 6.5 seconds.
 
 customCloseToast.setStyle(Toast.STYLE_LIGHT_MODE)
 .setPosition(Toast.POSITION_TOP_CENTER)
-// .setDuration(7000) 
 .setDismissible(true,"#000000") // Set close button color to black);
 customCloseToast.show();
 
 ```
+
+&nbsp;&nbsp;&nbsp;
+
+### **Result :**
+<div align="center">
+
+<img src="/assets/SED.png">
+</div>
 
 
 ## Using Toast-JS with React
@@ -278,7 +285,7 @@ To use **Toast-JS** in a React web application, follow these steps:
 <div id="toast-notification" class="toast-notification"></div>
 ```
 
-3. **React Component Example**: Here is a simple React component that demonstrates how to use Toast.js.
+3. **React Component Example**: Here is a simple React component that demonstrates how to use Toast-JS.
 
 ```javascript
 import React from 'react';
@@ -315,7 +322,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 ### **Script:**
 
 <div style="display: flex; justify-content: center;">
-  <img src="assets/Script_From_Translate_js.png" alt="">
+  <img src="/assets/Script_From_Translate_js.png" alt="">
 </div>
 
 ## Features
@@ -350,8 +357,8 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 ### Old Versions
 
-<a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_0_0.html">Toast-JS V2.0.0 Docs 📚</a>
+<a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1_0_0.html">Toast-JS V1.0.0 (Beta) Docs 📚</a>
 
 ---
 
-Created with 💛💜 by **Soufiano Dev** | Made in **Morocco** 🇲🇦
+<p>Created with 💛💜 by <strong>Soufiano Dev</strong> | Made in <strong>Morocco</strong> <img src="https://flagcdn.com/ma.svg" alt="Moroccan Flag" width="20" height="20" style="vertical-align: middle;"></p>
