@@ -15,7 +15,7 @@
   </a>
   &nbsp;&nbsp;&nbsp;
 
-<a href = "https://github.com/SoufianoDev/Toast-JS/blob/main/LICENCE.txt">
+<a href = "https://github.com/SoufianoDev/Toast-JS/blob/main/LICENCE">
 <img src="https://img.shields.io/badge/License-MIT-FF5733?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="MIT License Badge"> </a> &nbsp;&nbsp;&nbsp;
 
   <!-- Instagram -->
