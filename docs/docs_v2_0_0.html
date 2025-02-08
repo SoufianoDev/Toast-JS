@@ -1737,11 +1737,10 @@
 </footer>
 
 <!-- Toast-JS -->
-<script src="https://github.com/SoufianoDev/Toast-JS/libs/js/v2.0.0/Toast.js"></script>
-
+<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.0.0/Toast.js"></script>
 <script>
 
-    const domain = "https://soufianodev.github.io/Toast-JS/".trim();
+    const domain = "https://soufianodev.github.io/Toast-JS".trim();
 
   // Theme Switch Logic
   const themeSwitch = document.getElementById("theme-switch");
@@ -1823,8 +1822,10 @@
 
     const body = document.body;
     const isDarkMode = body.getAttribute("data-theme") === "dark";
+        const checkmarkIcon = domain + "/assets/ic_checkmark2.webm".trim();
+
     const copiedMessage = Toast.makeText(document.body, "Code copied to clipboard!", Toast.LENGTH_SHORT);
-    const checkmarkIcon = domain + "/assets/ic_checkmark2.webm"
+
     if (isDarkMode) {
       copiedMessage
         .setStyle(Toast.STYLE_LIGHT_MODE)
@@ -1856,7 +1857,7 @@
       .setStyle(Toast.STYLE_ERROR)
       .setPosition(Toast.POSITION_TOP_RIGHT)
       .setAnimation(Toast.WOBBLE_IN, Toast.WOBBLE_OUT)
-      .setIcon(domain + "/assets/ic_error.svg", Toast.ICON_SIZE.MEDIUM)
+      .setIcon("https://soufianodev.github.io/Toast-JS/assets/ic_error.svg", Toast.ICON_SIZE.MEDIUM)
       .show();
 
     copyBtn.innerHTML = copyIcon;
