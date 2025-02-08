@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toast Notification</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #6d28d9;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        margin: 10px;
+      }
+      button:hover {
+        background-color: #4c1d95;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="toast-notification" class="toast-notification"></div>
+
+    <button onclick="showToastDefaultStyle1()">Show Toast (Default1)</button>
+    <button onclick="showToastWithDefaultStyle2()">
+      Show Toast (Default2)
+    </button>
+    <button onclick="showSuccessToast()">Show Toast (Success)</button>
+    <button onclick="showToastWithInfoStyle()">Show Toast (Info)</button>
+    <button onclick="showToastWithWarningStyle()">Show Toast (Warning)</button>
+    <button onclick="showToastWithErrorStyle()">Show Toast (Error)</button>
+    <button onclick="showToastAnimatedIcon()">
+      Show Toast Custom With Animated Icon
+    </button>
+    <button onclick="showCustomToast()">
+      Show Custom Toast With Normal Icon
+    </button>
+    <button onclick="showCustomToastWithAnimation()">
+      Show Custom Toast With Animation
+    </button>
+
+    <script src="/libs/js/v1.0.0/Toast.js"></script>
+    <script>
+      function showToastDefaultStyle1() {
+        const defaultToast1 = Toast.makeText(
+          document.body,
+          "This is Toast With Default Style 1!",
+          Toast.LENGTH_SHORT
+        );
+        defaultToast1.show();
+      }
+
+      function showToastWithDefaultStyle2() {
+        const defaultToast2 = Toast.makeText(
+          document.body,
+          "This is Toast With Default Style 2!",
+          Toast.LENGTH_SHORT
+        );
+        defaultToast2.setStyle(Toast.STYLE_DEFAULT_2);
+        defaultToast2.show();
+      }
+
+      function showSuccessToast() {
+        let gifLink =
+          "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXN1aTRmY3JvM211eTQ2ZDhhZmd4dzQwZXBqc2lkYmFrOHQ2dGx6ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Mf8Fh1MFTjTvk28GKP/giphy.gif";
+
+        const toast = Toast.makeText(
+          document.body,
+          "This is Success Toast !",
+          Toast.LENGTH_SHORT
+        );
+        toast.setStyle(Toast.STYLE_SUCCESS);
+        toast.setPosition(Toast.POSITION_BOTTOM_CENTER);
+        toast.setIcon(gifLink, Toast.ICON_SIZE.MEDIUM);
+        toast.show();
+      }
+
+      function showToastWithInfoStyle() {
+        const infoToast = Toast.makeText(
+          document.body,
+          "This is Info Toast!",
+          Toast.LENGTH_SHORT
+        );
+        infoToast.setStyle(Toast.STYLE_INFO);
+        infoToast.setPosition(Toast.POSITION_BOTTOM_LEFT);
+        infoToast.setAnimation(Toast.SLIDE_IN_LEFT, Toast.SLIDE_OUT_LEFT);
+        infoToast.show();
+      }
+
+      function showToastWithWarningStyle() {
+        const errorToast = Toast.makeText(
+          document.body,
+          "This is Error Toast !",
+          Toast.LENGTH_SHORT
+        );
+        errorToast.setStyle(Toast.STYLE_WARNING);
+        errorToast.setPosition(Toast.POSITION_BOTTOM_CENTER);
+        errorToast.show();
+      }
+
+      function showToastWithErrorStyle() {
+        const errorToast = Toast.makeText(
+          document.body,
+          "This is Error Toast !",
+          Toast.LENGTH_SHORT
+        );
+        errorToast.setStyle(Toast.STYLE_ERROR);
+        errorToast.setPosition(Toast.POSITION_BOTTOM_CENTER);
+        errorToast.show();
+      }
+
+      function showToastAnimatedIcon() {
+        const animatedIconToast = Toast.makeText(
+          document.body,
+          "This is a custom styled toast!",
+          Toast.LENGTH_LONG
+        );
+        animatedIconToast.setStyle({
+          color: "#FFFFFF",
+          background: "linear-gradient(90deg, #6d28d9, #8b5cf6, #6d28d9)",
+          backgroundSize: "200% 200%",
+          padding: "12px 24px",
+          borderRadius: "200px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+          fontSize: "14px",
+          fontFamily: "Roboto, Arial, sans-serif",
+          border: "none",
+          minWidth: "100px",
+          maxWidth: "250px",
+          height: "20px",
+          lineHeight: "1.5",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        });
+        animatedIconToast.setIcon(
+          "./assets/checkmark_150x150.webm",
+          Toast.ICON_SIZE.EXTRA_LARGE,
+        );
+        animatedIconToast.setPosition(Toast.POSITION_TOP_RIGHT);
+        animatedIconToast.setAnimation(Toast.SLIDE_IN_TOP, Toast.SLIDE_OUT_TOP);
+        animatedIconToast.show();
+      }
+
+      function showCustomToast() {
+        const toastStyle = {
+          background: "linear-gradient(90deg, #ff7eb3, #ff758c)",
+          display: "flex",
+          color: "#fff",
+          borderRadius: "10px",
+          fontSize: "clamp(12px, 3vw, 14px)",
+          boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+          padding: "8px 16px",
+          width: "fit-content",
+          maxWidth: "400px",
+          height: "auto",
+          justifyContent: "center",
+          alignItems: "center",
+          textAlign: "center",
+          transition: "all 0.3s ease",
+          WebkitTransition: "all 0.3s ease",
+          MozTransition: "all 0.3s ease",
+          msTransition: "all 0.3s ease",
+
+          "@media (max-width: 480px)": {
+            width: "90%",
+            maxWidth: "none",
+            padding: "20vh 20vh",
+            borderRadius: "8px",
+          },
+        };
+
+        const toast5 = Toast.makeText(
+          document.body,
+          " styled custom toast ",
+          Toast.LENGTH_LONG
+        );
+        toast5
+          .setStyle(toastStyle)
+          .setIcon("./assets/Toast-JS_Logo.png", "large")
+          .setIconShape(Toast.ICON_SHAPE_SQUIRCLE)
+          .setPosition(Toast.POSITION_BOTTOM_CENTER)
+          .setDismissible(true)
+          .setAnimation(Toast.LIGHT_SPEED_IN_LEFT, Toast.LIGHT_SPEED_OUT_RIGHT) // Custom animation
+          .addCallback(() =>
+            console.log("Toast is displayed : \n  ", toastStyle)
+          )
+          .show();
+      }
+
+      function showCustomToastWithAnimation() {
+        const toast6 = Toast.makeText(document.body, "Hello, World!");
+        toast6
+          .setPosition(Toast.POSITION_TOP_RIGHT)
+          .setAnimation(Toast.WOBBLE_IN, Toast.WOBBLE_OUT)
+          .setStyle("success")
+          .setDuration(8000)
+          .setDismissible(true)
+          .show();
+      }
+      //
+      // const toastStyle2 = {
+      //   background: "linear-gradient(90deg, #ff7eb3, #ff758c)",
+      //   display: "flex",
+      //   flexDirection: "column", // Ensure elements stack neatly if necessary
+      //   color: "#fff",
+      //   borderRadius: "10px",
+      //   fontSize: "clamp(12px, 1.8vw, 16px)", // Responsive font size
+      //   boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+      //   padding: "12px 20px", // Adequate padding for content
+      //   width: "calc(100% - 40px)", // Leave a margin on mobile (20px per side)
+      //   maxWidth: "400px", // Limit the maximum width for larger screens
+      //   height: "auto",
+      //   justifyContent: "center",
+      //   alignItems: "center",
+      //   textAlign: "center",
+      //   transition: "all 0.3s ease",
+      //   WebkitTransition: "all 0.3s ease", // For Safari and older Chrome
+      //   MozTransition: "all 0.3s ease", // For Firefox
+      //   msTransition: "all 0.3s ease", // For older Edge
+      //   margin: "0 auto", // Center the toast horizontally
+      //
+      //   // Media query for tablets
+      //   "@media (max-width: 768px)": {
+      //     fontSize: "14px", // Adjust font size for tablets
+      //     padding: "10px 16px", // Slightly smaller padding for tablets
+      //     width: "calc(100% - 60px)", // Add more space on tablet screens (30px per side)
+      //   },
+      //
+      //   // Media query for mobile devices
+      //   "@media (max-width: 480px)": {
+      //     fontSize: "12px", // Smaller font size for mobile
+      //     padding: "8px 14px", // Reduced padding for mobile
+      //     width: "calc(100% - 40px)", // Ensure it doesn't touch edges on mobile
+      //     borderRadius: "8px", // Slightly smaller border radius
+      //   },
+      // };
+    </script>
+  </body>
+</html>
