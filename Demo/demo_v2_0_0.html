@@ -7,7 +7,6 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <script src="/libs/js/v2.0.0/Toast.js"></script>
   <style>
     @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap");
     body {
@@ -115,6 +114,8 @@
 <body class="flex flex-col items-center justify-center min-h-screen">
 <!-- Background Animation -->
 <div class="background-animation" id="background-animation"></div>
+<div id="toast-notification" class="toast-notification"></div>
+
 
 <!-- Content -->
 <div class="flex flex-col items-center justify-center min-h-screen space-y-8 p-4">
@@ -205,15 +206,15 @@
   </footer>
 </div>
 
+<!-- Toast-JS -->
+<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.0.0/Toast.js"></script>
+
 <script>
-  // Welcome toast on page load
-  window.onload = () => {
-    showWelcomeToast();
-  };
+ 
 
   function showWelcomeToast() {
 
-    const welcomeToast = Toast.makeText(document.body, "Welcome to Toast-JS!", Toast.LENGTH_LONG)
+    const welcomeToast = Toast.makeText(document.body, "Welcome to Toast-JS!", Toast.LENGTH_LONG);
     const welcomeToastStyle = {
       background: "linear-gradient(90deg, #fceabb, #f8b500)",
       color: "#000000",
@@ -248,7 +249,11 @@
     welcomeToast.setIcon("/assets/Welcome_to_React+Toast-Js.gif", Toast.ICON_SIZE.EXTRA_LARGE);
     welcomeToast.show();
   }
-  
+
+   // Welcome toast on page load
+  window.onload = () => {
+    showWelcomeToast();
+  };
   // Function to show a custom toast
   function showCustomToast() {
     const customToast = Toast.makeText(
