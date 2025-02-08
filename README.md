@@ -15,7 +15,8 @@
   </a>
   &nbsp;&nbsp;&nbsp;
 
-<img src="https://img.shields.io/badge/License-MIT-FF5733?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="MIT License Badge">  &nbsp;&nbsp;&nbsp;
+<a href = "https://github.com/SoufianoDev/Toast-JS/blob/main/LICENCE.txt">
+<img src="https://img.shields.io/badge/License-MIT-FF5733?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="MIT License Badge"> </a> &nbsp;&nbsp;&nbsp;
 
   <!-- Instagram -->
   <a href="https://www.instagram.com/soufiane_hanane1?igsh=N2d6ZTJ1ZGttZG41/" target="_blank">
