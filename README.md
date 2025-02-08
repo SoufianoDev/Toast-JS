@@ -345,7 +345,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 </a>
 &nbsp;&nbsp;&nbsp;
 
-- Toast-Js is authored by **Soufiane Hanane**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1.0.0/docs.html">Toast-JS V2.0.0 Docs 📚</a>
+- Toast-Js is authored by **Soufiane Hanane**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1_0_0.html">Toast-JS V2.0.0 Docs 📚</a>
 
 ### Old Versions
 
