@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toast-JS: Dynamic Notifications</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="/libs/js/v2.0.0/Toast.js"></script>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Poppins:wght@600;700&display=swap");
+    body {
+      font-family: "Roboto", sans-serif;
+      background: linear-gradient(135deg, #1f2937, #111827);
+      color: #fff;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body {
+      overflow: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #1f2937 #111827;
+    }
+
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: #4a5568;
+      border-radius: 4px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+      background: #718096;
+    }
+
+    .glow {
+      text-shadow: 0 0 10px rgba(165, 180, 252, 0.7),
+      0 0 20px rgba(165, 180, 252, 0.5);
+    }
+
+    .toast-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    .toast-buttons button {
+      flex: 1 1 calc(25% - 1rem);
+      min-width: 150px;
+      max-width: 200px;
+    }
+
+    @media (max-width: 768px) {
+      .toast-buttons button {
+        flex: 1 1 calc(50% - 1rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .toast-buttons button {
+        flex: 1 1 100%;
+      }
+    }
+
+    .background-animation {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .background-animation div {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+      0 0 20px rgba(255, 255, 255, 0.3);
+      animation: float 5s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.5;
+      }
+      50% {
+        transform: translateY(-20px) translateX(20px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen">
+<!-- Background Animation -->
+<div class="background-animation" id="background-animation"></div>
+
+<!-- Content -->
+<div class="flex flex-col items-center justify-center min-h-screen space-y-8 p-4">
+  <h1 class="text-4xl md:text-6xl font-bold text-center glow">
+    Toast-JS v2.0.0
+  </h1>
+  <p class="text-base md:text-xl text-gray-300 text-center max-w-2xl px-4">
+    Elevate your apps with beautiful, dynamic notifications. Toast-JS makes
+    it easy to create stunning alerts that captivate your users.
+  </p>
+  <div id="toast-notification" class="toast-notification"></div>
+  <div class="toast-buttons">
+
+  <button
+    onclick="showWelcomeToast()"
+    class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-yellow-500 hover:to-yellow-700 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+  >
+    Welcome Toast
+  </button>
+
+    <button
+            onclick="showCustomToast()"
+            class="bg-gradient-to-r from-pink-500 to-red-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-pink-600 hover:to-red-600 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Custom Toast
+    </button>
+    <button
+            onclick="showSuccessToast()"
+            class="bg-gradient-to-r from-green-500 to-teal-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-green-600 hover:to-teal-600 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Success Toast
+    </button>
+    <button
+            onclick="showWarningToast()"
+            class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-yellow-600 hover:to-orange-600 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Warning Toast
+    </button>
+    <button
+            onclick="showErrorToast()"
+            class="bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-red-600 hover:to-orange-600 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Error Toast
+    </button>
+    <button
+            onclick="showInfoToast()"
+            class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-blue-600 hover:to-indigo-600 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Info Toast
+    </button>
+    <button
+            onclick="showNeonToast()"
+            class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-cyan-600 hover:to-blue-600 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Neon Toast
+    </button>
+    <button
+            onclick="showGradientToast()"
+            class="bg-gradient-to-r from-pink-300 to-purple-300 text-black px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-pink-400 hover:to-purple-400 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Gradient Toast
+    </button>
+    <button
+            onclick="showDarkToast()"
+            class="bg-gradient-to-r from-gray-700 to-gray-900 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-gray-800 hover:to-gray-950 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Dark Mode Toast
+    </button>
+    <button
+            onclick="showLightToast()"
+            class="bg-gradient-to-r from-gray-100 to-gray-300 text-black px-4 py-2 md:px-6 md:py-3 rounded-lg shadow-lg hover:from-gray-200 hover:to-gray-400 transition duration-300 text-sm md:text-lg font-semibold transform hover:scale-105"
+    >
+      Light Mode Toast
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto py-6 text-gray-400 text-sm text-center">
+    Made with 💛💜 by
+    <a
+            href="https://github.com/soufianodev"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-purple-400 hover:text-purple-300"
+    >
+      Soufiano Dev
+    </a>
+  </footer>
+</div>
+
+<script>
+  // Welcome toast on page load
+  window.onload = () => {
+    showWelcomeToast();
+  };
+
+  function showWelcomeToast() {
+
+    const welcomeToast = Toast.makeText(document.body, "Welcome to Toast-JS!", Toast.LENGTH_LONG)
+    const welcomeToastStyle = {
+      background: "linear-gradient(90deg, #fceabb, #f8b500)",
+      color: "#000000",
+      fontWeight: "bold",
+      borderRadius: "10px",
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+      fontSize: "clamp(12px, 3vw, 14px)",
+      padding: "8px 16px",
+      width: "fit-content",
+      maxWidth: "400px",
+      height: "auto",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+      transition: "all 0.3s ease",
+      WebkitTransition: "all 0.3s ease",
+      MozTransition: "all 0.3s ease",
+      msTransition: "all 0.3s ease",
+      "@media (max-width: 480px)": {
+        width: "90%",
+        maxWidth: "none",
+        padding: "20vh 20vh",
+        borderRadius: "8px",
+      },
+    };
+
+    welcomeToast.setStyle(welcomeToastStyle);
+    welcomeToast.setPosition(Toast.POSITION_TOP_CENTER);
+    welcomeToast.setAnimation(Toast.LIGHT_SPEED_IN_LEFT, Toast.LIGHT_SPEED_OUT_RIGHT);
+    welcomeToast.setDismissible(true, "#000000");
+    welcomeToast.setDuration(6000);
+    welcomeToast.setIcon("/assets/Welcome_to_React+Toast-Js.gif", Toast.ICON_SIZE.EXTRA_LARGE);
+    welcomeToast.show();
+  };
+  
+  // Function to show a custom toast
+  function showCustomToast() {
+    const customToast = Toast.makeText(
+            document.body,
+            "custom toast!",
+            Toast.LENGTH_LONG
+    );
+
+    const customToastStyle = {
+      background: "linear-gradient(90deg, #ff7eb3, #ff758c)",
+      display: "flex",
+      color: "#fff",
+      boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+      borderRadius: "10px",
+      fontSize: "clamp(12px, 3vw, 14px)",
+      padding: "8px 16px",
+      width: "fit-content",
+      maxWidth: "400px",
+      height: "auto",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+      transition: "all 0.3s ease",
+      WebkitTransition: "all 0.3s ease",
+      MozTransition: "all 0.3s ease",
+      msTransition: "all 0.3s ease",
+    };
+
+    customToast.setStyle(customToastStyle);
+    customToast.setIcon("/assets/Toast-JS_Logo.png", "large");
+    customToast.setPosition(Toast.POSITION_BOTTOM_RIGHT);
+    customToast.setAnimation(Toast.SLIDE_IN_BOTTOM, Toast.SLIDE_OUT_BOTTOM);
+    customToast.show();
+  }
+
+
+
+  // Function to show a success toast
+  function showSuccessToast() {
+    const successToast = Toast.makeText(
+            document.body,
+            "Success! Your action was completed.",
+            Toast.LENGTH_SHORT
+    )
+
+    successToast.setStyle(Toast.STYLE_SUCCESS)
+    successToast.setPosition(Toast.POSITION_BOTTOM_CENTER)
+    successToast.setIcon("/assets/ic_success.svg", "MEDIUM")
+    successToast.show();
+  }
+
+  // Function to show a warning toast
+  function showWarningToast() {
+    const warningToast = Toast.makeText(document.body, "Warning! Please be cautious.", Toast.LENGTH_LONG
+    );
+
+    const warningIcon =
+            "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNzd5YzEyanVvZHYwZHlwanhzMDBndWlnaHBnaDRzNGozazg1MHFjeSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/Xg4Lc2tzOXXdNCU4Qc/giphy.gif";
+
+    warningToast.setStyle(Toast.STYLE_WARNING3);
+    warningToast.setPosition(Toast.POSITION_TOP_RIGHT);
+    warningToast.setAnimation(Toast.SLIDE_IN_TOP, Toast.SLIDE_OUT_TOP);
+    warningToast.setIcon(warningIcon, Toast.ICON_SIZE.LARGE);
+    warningToast.show();
+  }
+
+  // Function to show an error toast
+  function showErrorToast() {
+    const errorToast = Toast.makeText(
+            document.body,
+            "Error! Something went wrong.",
+            Toast.LENGTH_LONG
+    );
+
+    errorToast.setStyle(Toast.STYLE_ERROR1);
+    errorToast.setPosition(Toast.POSITION_TOP_RIGHT);
+    errorToast.setAnimation(Toast.WOBBLE_IN, Toast.WOBBLE_OUT);
+    errorToast.setIcon("/assets/ic_error.svg", Toast.ICON_SIZE.MEDIUM);
+    errorToast.setIconShape(Toast.ICON_SHAPE_CIRCLE);
+    errorToast.show();
+  }
+
+  // Function to show an info toast
+  function showInfoToast() {
+    const infoToast = Toast.makeText(
+            document.body,
+            "Info: This is an informative message.",
+            Toast.LENGTH_SHORT
+    );
+
+    const infoIcon =
+            "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExdm02emozMHJpcnBnbjJrczZyYnMwbGJtMDlnOWw2ODZlM2ZmeWxlbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9dHM/iwb5SvZZBkr7nAfzXc/giphy.gif";
+
+    infoToast.setStyle("info");
+    infoToast.setPosition(Toast.POSITION_BOTTOM_LEFT);
+    infoToast.setAnimation(Toast.SLIDE_IN_LEFT, Toast.SLIDE_OUT_LEFT);
+    infoToast.setIcon(infoIcon, Toast.ICON_SIZE.LARGE);
+    infoToast.show();
+  }
+
+  // Function to show a neon toast
+  function showNeonToast() {
+    const neonToast = Toast.makeText(
+            document.body,
+            "✨ Neon Toast! Looks futuristic!",
+            Toast.LENGTH_LONG
+    );
+
+    neonToast.setStyle(Toast.STYLE_NEON);
+    neonToast.setPosition(Toast.POSITION_TOP_LEFT);
+    neonToast.setAnimation(
+            Toast.LIGHT_SPEED_IN_LEFT,
+            Toast.LIGHT_SPEED_OUT_RIGHT
+    );
+    neonToast.show();
+  }
+
+  // Function to show a gradient toast
+  function showGradientToast() {
+    const gradientToast = Toast.makeText(
+            document.body,
+            "Gradient Toast! So colorful!",
+            Toast.LENGTH_LONG
+    );
+
+    gradientToast.setStyle(Toast.STYLE_GRADIENT);
+    gradientToast.setPosition(Toast.POSITION_BOTTOM_CENTER);
+    gradientToast.setAnimation(
+            Toast.LIGHT_SPEED_IN_RIGHT,
+            Toast.LIGHT_SPEED_OUT_LEFT
+    );
+    gradientToast.show();
+  }
+
+  // Function to show a dark mode toast
+  function showDarkToast() {
+    const darkToast = Toast.makeText(
+            document.body,
+            "🌜 Dark Mode Toast! Sleek and modern.",
+            Toast.LENGTH_LONG
+    );
+
+    darkToast.setStyle(Toast.STYLE_DARK_MODE);
+    darkToast.setPosition(Toast.POSITION_BOTTOM_RIGHT);
+    darkToast.setAnimation(Toast.SLIDE_IN_RIGHT, Toast.SLIDE_OUT_RIGHT);
+    darkToast.show();
+  }
+
+  // Function to show a light mode toast
+  function showLightToast() {
+    const lightToast = Toast.makeText(
+            document.body,
+            "🌞 Light Mode Toast! Clean and simple.",
+            Toast.LENGTH_SHORT
+    );
+
+    lightToast.setPosition(Toast.POSITION_TOP_CENTER);
+    lightToast.setStyle(Toast.STYLE_LIGHT_MODE);
+    lightToast.setDismissible(true, "#000000");
+    lightToast.show();
+  }
+
+  // Background animation
+  const backgroundAnimation = document.getElementById("background-animation");
+  const numberOfElements = 50;
+
+  for (let i = 0; i < numberOfElements; i++) {
+    const element = document.createElement("div");
+    const size = Math.random() * 10 + 5; // Random size between 5px and 15px
+    const x = Math.random() * window.innerWidth; // Random X position
+    const y = Math.random() * window.innerHeight; // Random Y position
+    const duration = Math.random() * 5 + 5; // Random animation duration between 5s and 10s
+
+    element.style.width = `${size}px`;
+    element.style.height = `${size}px`;
+    element.style.left = `${x}px`;
+    element.style.top = `${y}px`;
+    element.style.animationDuration = `${duration}s`;
+
+    backgroundAnimation.appendChild(element);
+  }
+</script>
+</body>
+</html>
