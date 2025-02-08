@@ -336,7 +336,8 @@ ReactDOM.render(<App />, document.getElementById('root'));
 3. Create toast notifications using the API methods, e.g., `Toast.makeText`.
 
 ## Developer Notes
-- For a better, easier, and faster experience when working with the Toast-JS library, it is recommended to develop your project in the <a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm IDE</a> if you have the capability. However, if not, there's no issue you can work normally within the <a href="https://code.visualstudio.com/"  target="_blank"  >Visual Studio</a> Code environment.
+
+- For a better, easier, and faster experience when working with the Toast-JS library, it is recommended to develop your project in the <a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm IDE</a> if you have the capability. However, if not, there's no issue you can work normally within the <a href="https://code.visualstudio.com/"  target="_blank"  >Visual Studio Code</a> environment.
 
 <a href="https://www.jetbrains.com/webstorm/" target="_blank">
 <div align ="center">
