@@ -1,4 +1,4 @@
-<div>
+<div  style="vertical-align: middle;" >
   <!-- Library Version -->
   <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_0_0.html" target="_blank">
 <img src="https://img.shields.io/badge/Version-2.0.0-3B8A57?style=for-the-badge&logo=bookstack&logoColor=white" alt="Version Badge">  &nbsp;&nbsp;&nbsp;
