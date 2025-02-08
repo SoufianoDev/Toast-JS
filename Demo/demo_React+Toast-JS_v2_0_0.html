@@ -140,6 +140,9 @@
     <!-- React App Code -->
     <script type="text/babel">
       function App() {
+
+        const domain = "https://soufianodev.github.io/Toast-JS/".trim();
+
         // Welcome to toast on component mount
         React.useEffect(() => {
 
@@ -177,7 +180,7 @@
           welcomeToast.setAnimation(Toast.LIGHT_SPEED_IN_LEFT,Toast.LIGHT_SPEED_OUT_RIGHT)
           welcomeToast.setDismissible(true,"#000000")
           welcomeToast.setDuration(6000)
-          welcomeToast.setIcon("/assets/Welcome_to_React+Toast-Js.gif",Toast.ICON_SIZE.EXTRA_LARGE)
+          welcomeToast.setIcon(domain+"/assets/Welcome_to_React+Toast-Js.gif",Toast.ICON_SIZE.EXTRA_LARGE)
           welcomeToast.show();
         }, []);
 
@@ -216,7 +219,7 @@
           }
 
           customToast.setStyle(customToastStyle)
-          customToast.setIcon("/assets/Toast-JS_Logo.png", "large")
+          customToast.setIcon(domain+"/assets/Toast-JS_Logo.png", "large")
           customToast.setPosition(Toast.POSITION_BOTTOM_RIGHT)
           customToast.setAnimation(Toast.SLIDE_IN_BOTTOM,Toast.SLIDE_OUT_BOTTOM)
           customToast.show();
@@ -233,7 +236,7 @@
           successToast.setStyle("success")
           successToast.setPosition(Toast.POSITION_BOTTOM_CENTER)
           successToast.setAnimation(Toast.SLIDE_IN_BOTTOM_CENTER,Toast.SLIDE_OUT_BOTTOM_CENTER);
-          successToast.setIcon("/assets/ic_success.svg", "MEDIUM")
+          successToast.setIcon(domain +"/assets/ic_success.svg", "MEDIUM")
           successToast.show();
         };
 
@@ -260,7 +263,7 @@
           errorToast.setStyle(Toast.STYLE_ERROR)
           errorToast.setPosition(Toast.POSITION_TOP_RIGHT)
           errorToast.setAnimation(Toast.WOBBLE_IN,Toast.WOBBLE_OUT)
-          errorToast.setIcon("/assets/ic_error.svg", Toast.ICON_SIZE.MEDIUM)
+          errorToast.setIcon(domain + "/assets/ic_error.svg", Toast.ICON_SIZE.MEDIUM)
           errorToast.setIconShape(Toast.ICON_SHAPE_CIRCLE)
           errorToast.show();
         };
@@ -348,7 +351,7 @@
           welcomeToast.setAnimation(Toast.LIGHT_SPEED_IN_LEFT, Toast.LIGHT_SPEED_OUT_RIGHT);
           welcomeToast.setDismissible(true, "#000000");
           welcomeToast.setDuration(6000);
-          welcomeToast.setIcon("/assets/Welcome_to_React+Toast-Js.gif", Toast.ICON_SIZE.EXTRA_LARGE);
+          welcomeToast.setIcon(domain +"/assets/Welcome_to_React+Toast-Js.gif", Toast.ICON_SIZE.EXTRA_LARGE);
           welcomeToast.show();
         };
 
