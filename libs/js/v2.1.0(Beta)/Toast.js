@@ -3,7 +3,7 @@
  * @fileoverview Lightweight, customizable toast notification library.
  * @version 2.1.0
  * @license MIT
- * @copyright 2025 Soufiano Dev
+ * @copyright 2026 Soufiano Dev
  *
  * @author SoufianoDev
  *
