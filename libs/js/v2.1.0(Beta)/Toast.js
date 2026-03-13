@@ -5,7 +5,7 @@
  * @license MIT
  * @copyright 2025 Soufiano Dev
  *
- * @author Soufiane Hanane
+ * @author SoufianoDev
  *
  * CHANGELOG v2.1.0 (Audit Fixes):
  *  - [FIX-D01] CSS is now injected once at library load, not on every show() call.
