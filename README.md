@@ -1,7 +1,7 @@
 <div  style="vertical-align: middle;" >
   <!-- Library Version -->
-  <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_0_0.html" target="_blank">
-<img src="https://img.shields.io/badge/Version-2.0.0-3B8A57?style=for-the-badge&logo=bookstack&logoColor=white" alt="Version Badge">  &nbsp;&nbsp;&nbsp;
+  <a href="https://soufianodev.github.io/Toast-JS/docs/v2_1_0-beta.html" target="_blank">
+<img src="https://img.shields.io/badge/Version-2.1.0--beta-3B8A57?style=for-the-badge&logo=bookstack&logoColor=white" alt="Version Badge">  &nbsp;&nbsp;&nbsp;
 
   <!-- JavaScript -->
   <a href="https://www.javascript.com" target="_blank">
@@ -45,9 +45,9 @@
 
 ### Quick Links
 
-- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_0_0.html" target="_blank">Full Documentation 📚</a>
-- <a href="https://soufianodev.github.io/Toast-JS/Demo/demo_v2_0_0.html" target="_blank">JavaScript Live Demo 🔗</a>
-- <a href="https://soufianodev.github.io/Toast-JS/Demo/demo_React+Toast-JS_v2_0_0.html" target="_blank">React Live Demo ⚛️ 🔗</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_1_0-beta.html" target="_blank">Full Documentation</a>
+- <a href="https://soufianodev.github.io/Toast-JS/Demo/demo_2_1_0-beta.html" target="_blank">JavaScript Live Demo</a>
+- <a href="https://soufianodev.github.io/Toast-JS/Demo/demo_v2_1_0-beta-react.html" target="_blank">React Live Demo</a>
 
 ### **Demo Test:**
 
@@ -60,7 +60,7 @@
 Include the library via CDN in your HTML file:
 
 ```html
-<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.0.0/Toast.js"></script>
+<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
 ```
 
 Add the notification container to your body:
@@ -94,7 +94,7 @@ Here's a basic HTML file demonstrating Toast-JS:
     <button onclick="showErrorToast()">Show Error Toast</button>
 
     <!-- Include Toast.js Library -->
-    <script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.0.0/Toast.js"></script>
+    <script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
 
     <!-- Example Scripts -->
     <script>
@@ -268,6 +268,68 @@ customCloseToast.show();
 <img src="/assets/SED.png">
 </div>
 
+## New in v2.1.0-beta
+
+### Event System
+
+The v2.1.0-beta introduces an event system that allows you to listen for toast lifecycle events:
+
+```javascript
+const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT);
+
+// Listen for events
+toast.on('show', function(t) {
+  console.log('Toast is visible!');
+});
+
+toast.on('hide', function(t) {
+  console.log('Toast was hidden!');
+});
+
+toast.on('dismiss', function(t) {
+  console.log('User dismissed the toast!');
+});
+
+toast.show();
+```
+
+### setTextOverflow Method
+
+Control how text overflow is handled in your toasts:
+
+```javascript
+const toast = Toast.makeText(document.body, "This is a very long message that might overflow the toast container", Toast.LENGTH_LONG);
+
+// Options: 'ellipsis' (default), 'wrap', 'clip'
+toast.setTextOverflow('wrap');  // Text will wrap to multiple lines
+toast.setTextOverflow('ellipsis'); // Text will be truncated with ...
+toast.setTextOverflow('clip'); // Text will be clipped without ellipsis
+toast.show();
+```
+
+### ToastManager - Queue Multiple Toasts
+
+The new ToastManager prevents toast overlap by queuing multiple toasts:
+
+```javascript
+// Instead of toast.show(), use Toast.Manager.show() for automatic queuing
+const toast1 = Toast.makeText(document.body, "First toast", Toast.LENGTH_SHORT);
+const toast2 = Toast.makeText(document.body, "Second toast", Toast.LENGTH_SHORT);
+const toast3 = Toast.makeText(document.body, "Third toast", Toast.LENGTH_SHORT);
+
+// These will be queued and displayed one after another (max 3 visible at once)
+Toast.Manager.show(toast1);
+Toast.Manager.show(toast2);
+Toast.Manager.show(toast3);
+```
+
+
+### ARIA Accessibility
+
+Toasts now include proper ARIA attributes for screen reader support:
+- `role="alert"` for important notifications
+- `aria-live="assertive"` for immediate announcement
+- `aria-atomic="true"` for complete content reading
 
 ## Using Toast-JS with React
 
@@ -276,7 +338,7 @@ To use **Toast-JS** in a React web application, follow these steps:
 1. **Include the Toast.js Library**: Add the Toast.js script to your HTML file.
 
 ```html
-<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.0.0/Toast.js"></script>
+<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
 ```
 
 2. **Create a React Component**: Create a React component that will use the **Toast-JS** library to display notifications. Ensure your HTML file has a root element where the React component will be rendered, and include the notification container.
@@ -328,14 +390,18 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 ## Features
 
-- ✅ **Predefined Styles :** Success, error, info, warning, gradient, neon, metallic, glow, transparent, and more.
-- 🖌️ **Custom Decorations :** Set your own background, fonts, borders, and shadows.
-- 🎥 **Dynamic Icons :** Add images, SVGs, or videos (webm & mp4) as toast icons.
-- 🎭 **Animations :** Fade, slide, light-speed, wave, wobble, and custom keyframe animations.
-- 🌐 **Positioning :** Display toasts at various screen locations (top-left, top-center, bottom-right, etc.).
-- ⏲️ **Custom Durations :** Define how long each toast should remain visible.
-- 🔄 **Responsive Design :** Automatically adjusts layout for smaller screens.
-- ⚛️ **React Support :** Easily integrate with React web applications.
+- **Predefined Styles:** Success, error, info, warning, gradient, neon, metallic, glow, transparent, and more.
+- **Custom Decorations:** Set your own background, fonts, borders, and shadows.
+- **Dynamic Icons:** Add images, SVGs, or videos (webm & mp4) as toast icons.
+- **Animations:** Fade, slide, light-speed, wave, wobble, and custom keyframe animations.
+- **Positioning:** Display toasts at various screen locations (top-left, top-center, bottom-right, etc.).
+- **Custom Durations:** Define how long each toast should remain visible.
+- **Responsive Design:** Automatically adjusts layout for smaller screens.
+- **React Support:** Easily integrate with React web applications.
+- **Event System:** Listen for show, hide, and dismiss lifecycle events.
+- **ToastManager:** Queue multiple toasts to prevent overlap.
+- **Accessibility:** ARIA attributes for screen reader support.
+- **UMD Support:** Works with CommonJS, AMD, and browser globals (alpha).
 
 ## Adding Toasts to Your Application
 
@@ -354,11 +420,12 @@ ReactDOM.render(<App />, document.getElementById('root'));
 </a>
 &nbsp;&nbsp;&nbsp;
 
-- Toast-Js is authored by **Soufiane Hanane**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1_0_0.html">Toast-JS V2.0.0 Docs 📚</a>
+- Toast-Js is authored by **SoufianoDev**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_1_0-beta.html">Toast-JS V2.1.0-beta Docs</a>
 
 ### Old Versions
 
-<a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1_0_0.html">Toast-JS V1.0.0 (Beta) Docs 📚</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_0_0.html">Toast-JS V2.0.0 Docs</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1_0_0.html">Toast-JS V1.0.0 (Beta) Docs</a>
 
 ---
 

@@ -1,13 +1,13 @@
 /**
  * @file Toast.js
  * @fileoverview Lightweight, customizable toast notification library.
- * @version 2.1.0
+ * @version 2.1.0-beta
  * @license MIT
  * @copyright 2026 Soufiano Dev
  *
  * @author SoufianoDev
  *
- * CHANGELOG v2.1.0 (Audit Fixes):
+ * CHANGELOG v2.1.0-beta (Audit Fixes):
  *  - [FIX-D01] CSS is now injected once at library load, not on every show() call.
  *  - [FIX-S01] CSS sanitization added to block unsafe CSS injection in custom animations.
  *  - [FIX-U01] ToastManager added: queue system prevents toast overlap.
