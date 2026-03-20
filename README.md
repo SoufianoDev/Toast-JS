@@ -1,6 +1,6 @@
 <div  style="vertical-align: middle;" >
   <!-- Library Version -->
-  <a href="https://soufianodev.github.io/Toast-JS/docs/v2_1_0-beta.html" target="_blank">
+  <a href="https://soufianodev.github.io/Toast-JS/docs/v2.1.0-beta/" target="_blank">
 <img src="https://img.shields.io/badge/Version-2.1.0--beta-3B8A57?style=for-the-badge&logo=bookstack&logoColor=white" alt="Version Badge">  &nbsp;&nbsp;&nbsp;
 
   <!-- JavaScript -->
@@ -15,7 +15,7 @@
   </a>
   &nbsp;&nbsp;&nbsp;
 
-<a href = "https://github.com/SoufianoDev/Toast-JS/blob/main/LICENCE">
+<a href = "https://github.com/SoufianoDev/Toast-JS/blob/main/LICENSE">
 <img src="https://img.shields.io/badge/License-MIT-FF5733?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="MIT License Badge"> </a> &nbsp;&nbsp;&nbsp;
 
   <!-- Instagram -->
@@ -45,13 +45,13 @@
 
 ### Quick Links
 
-- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_1_0-beta.html" target="_blank">Full Documentation</a>
-- <a href="https://soufianodev.github.io/Toast-JS/Demo/demo_2_1_0-beta.html" target="_blank">JavaScript Live Demo</a>
-- <a href="https://soufianodev.github.io/Toast-JS/Demo/demo_v2_1_0-beta-react.html" target="_blank">React Live Demo</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/v2.1.0-beta/" target="_blank">Full Documentation</a>
+- <a href="https://soufianodev.github.io/Toast-JS/demos/v2.1.0-beta/" target="_blank">JavaScript Live Demo</a>
+- <a href="https://soufianodev.github.io/Toast-JS/demos/v2.1.0-beta/react.html" target="_blank">React Live Demo</a>
 
 ### **Demo Test:**
 
-![DemoTest](/assets/v2_demo._review.gif)
+![DemoTest](/assets/toast-demo-v2.1.0-beta.gif)
 
 # Installation:
 
@@ -420,12 +420,12 @@ ReactDOM.render(<App />, document.getElementById('root'));
 </a>
 &nbsp;&nbsp;&nbsp;
 
-- Toast-Js is authored by **SoufianoDev**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_1_0-beta.html">Toast-JS V2.1.0-beta Docs</a>
+- Toast-Js is authored by **SoufianoDev**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/v2.1.0-beta/">Toast-JS V2.1.0-beta Docs</a>
 
 ### Old Versions
 
-- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v2_0_0.html">Toast-JS V2.0.0 Docs</a>
-- <a href="https://soufianodev.github.io/Toast-JS/docs/docs_v1_0_0.html">Toast-JS V1.0.0 (Beta) Docs</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/v2/">Toast-JS V2.0.0 Docs</a>
+- <a href="https://soufianodev.github.io/Toast-JS/docs/v1/">Toast-JS V1.0.0 (Beta) Docs</a>
 
 ---
 

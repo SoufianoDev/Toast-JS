@@ -1,0 +1,68 @@
+{
+  "name": "@soufianodev/toast-js",
+  "version": "2.1.0",
+  "description": "Lightweight, customizable toast notification library with Android-style API. Supports React, Next.js, Vue, and vanilla JavaScript.",
+  "main": "dist/toast.umd.js",
+  "module": "dist/toast.esm.js",
+  "browser": "dist/toast.umd.js",
+  "unpkg": "dist/toast.umd.min.js",
+  "jsdelivr": "dist/toast.umd.min.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/toast.esm.js",
+      "require": "./dist/toast.umd.js",
+      "browser": "./dist/toast.umd.js",
+      "default": "./dist/toast.umd.js"
+    },
+    "./src/Toast.js": "./src/Toast.js"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "publish:npm": "node scripts/publish.js",
+    "test": "echo 'No tests configured yet'",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "toast",
+    "notification",
+    "toast-notification",
+    "alert",
+    "snackbar",
+    "android-toast",
+    "react-toast",
+    "vue-toast",
+    "nextjs-toast",
+    "lightweight",
+    "zero-dependency",
+    "ssr-compatible",
+    "accessible",
+    "aria",
+    "customizable",
+    "animated"
+  ],
+  "author": "Soufiano Dev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoufianoDev/Toast-JS.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SoufianoDev/Toast-JS/issues"
+  },
+  "homepage": "https://github.com/SoufianoDev/Toast-JS#readme",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "puppeteer": "^24.40.0"
+  }
+}
