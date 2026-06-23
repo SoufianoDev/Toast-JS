@@ -27,7 +27,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "publish:npm": "node scripts/publish.js",
-    "test": "echo 'No tests configured yet'",
+    "test": "node tests/regression/issue4/verify-issue4.js",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

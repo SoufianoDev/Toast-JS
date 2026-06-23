@@ -317,6 +317,7 @@
     this._events = Object.create(null);
     this.toastElement = null;
     this._timeoutId = null;
+    this._pendingShow = false;
   };
 
   // Duration constants
@@ -671,7 +672,7 @@
       return this;
     }
 
-    if (this.toastElement) return this;
+    if (this.toastElement || this._pendingShow) return this;
 
     // Resolve context if it was lazy
     if (!this.context) {
@@ -679,7 +680,9 @@
       if (!this.context) {
         var self = this;
         if (isLazyContext(this._originalContext)) {
+          this._pendingShow = true;
           this._originalContext.onReady(function(ctx) {
+            self._pendingShow = false;
             if (ctx) {
               self.context = ctx;
               self._doShow();
