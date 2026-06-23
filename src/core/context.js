@@ -226,6 +226,7 @@ function getContextFor(container) {
     var originalResolve = lazyCtx.resolve;
     
     lazyCtx.resolve = function() {
+      if (typeof document === 'undefined') return null;
       var element = document.querySelector(container);
       if (element) {
         this.forceResolve(element);

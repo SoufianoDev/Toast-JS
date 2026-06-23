@@ -202,6 +202,7 @@
       var lazyCtx = createLazyContext();
       var originalResolve = lazyCtx.resolve;
       lazyCtx.resolve = function() {
+        if (typeof document === 'undefined') return null;
         var element = document.querySelector(container);
         if (element) { this.forceResolve(element); return element; }
         return originalResolve.call(this);
