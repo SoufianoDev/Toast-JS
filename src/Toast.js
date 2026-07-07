@@ -318,6 +318,7 @@
     this.toastElement = null;
     this._timeoutId = null;
     this._pendingShow = false;
+    this._isHiding = false;
   };
 
   // Duration constants
@@ -801,7 +802,8 @@
   };
 
   Toast.prototype.hide = function() {
-    if (!this.toastElement) return;
+    if (!this.toastElement || this._isHiding) return;
+    this._isHiding = true;
 
     if (this._timeoutId !== null) {
       clearTimeout(this._timeoutId);
@@ -819,6 +821,7 @@
     setTimeout(function() {
       if (el.parentNode) el.parentNode.removeChild(el);
       if (self.toastElement === el) self.toastElement = null;
+      self._isHiding = false;
       self._emit("hide");
       ToastManager._onHide(self);
     }, 350);
