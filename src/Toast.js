@@ -327,6 +327,7 @@
     this._pendingShow = false;
     this._isHiding = false;
     this._injectedStyleIds = [];
+    this._stackOffset = 0;
   };
 
   // Duration constants
@@ -674,7 +675,14 @@
     positions[Toast.POSITION_BOTTOM_LEFT] = { bottom: "20px", left: "20px" };
     positions[Toast.POSITION_BOTTOM_CENTER] = { bottom: "20px", left: "50%", transform: "translateX(-50%)" };
     positions[Toast.POSITION_BOTTOM_RIGHT] = { bottom: "20px", right: "20px" };
-    return positions[this.position] || positions[Toast.POSITION_BOTTOM_CENTER];
+    var styles = positions[this.position] || positions[Toast.POSITION_BOTTOM_CENTER];
+    if (this._stackOffset) {
+      var isBottom = this.position.startsWith("bottom");
+      var prop = isBottom ? "bottom" : "top";
+      styles = Object.assign({}, styles);
+      styles[prop] = (20 + this._stackOffset) + "px";
+    }
+    return styles;
   };
 
   Toast.prototype.show = function() {
@@ -887,17 +895,7 @@
 
     _applyStackOffset: function(toast) {
       var index = this._active.length - 1;
-      var offsetPx = index * 72;
-      var isBottom = toast.position.startsWith("bottom");
-      var prop = isBottom ? "bottom" : "top";
-      var base = 20;
-
-      var originalGetPos = toast._getPositionStyles.bind(toast);
-      toast._getPositionStyles = function() {
-        var styles = originalGetPos();
-        styles[prop] = (base + offsetPx) + "px";
-        return styles;
-      };
+      toast._stackOffset = index * 72;
     },
 
     _onHide: function(hiddenToast) {
@@ -905,6 +903,7 @@
 
       this._active.forEach(function(toast, index) {
         if (!toast.toastElement) return;
+        toast._stackOffset = index * 72;
         var isBottom = toast.position.startsWith("bottom");
         var prop = isBottom ? "bottom" : "top";
         toast.toastElement.style[prop] = (20 + index * 72) + "px";
