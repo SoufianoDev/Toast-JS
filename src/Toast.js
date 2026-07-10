@@ -328,6 +328,7 @@
     this._isHiding = false;
     this._injectedStyleIds = [];
     this._stackOffset = 0;
+    this._managedByManager = false;
   };
 
   // Duration constants
@@ -861,7 +862,7 @@
       if (self.toastElement === el) self.toastElement = null;
       self._isHiding = false;
       self._emit("hide");
-      ToastManager._onHide(self);
+      if (self._managedByManager) ToastManager._onHide(self);
     }, 350);
   };
 
@@ -890,6 +891,7 @@
     _display: function(toast) {
       this._active.push(toast);
       this._applyStackOffset(toast);
+      toast._managedByManager = true;
       toast.show();
     },
 

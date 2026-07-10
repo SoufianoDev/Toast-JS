@@ -452,6 +452,7 @@
       // DOM reference & timer — initialised in show()
       this.toastElement = null;
       this._timeoutId   = null;           // [FIX-D08] was never stored before
+      this._managedByManager = false;
     }
 
     // ── Factory ───────────────────────────────────────────────────────────
@@ -1007,7 +1008,7 @@
         this._emit("hide");
 
         // [FIX-U01] Notify ToastManager so it can dequeue the next toast.
-        ToastManager._onHide(this);
+        if (this._managedByManager) ToastManager._onHide(this);
       }, 350);
     }
   }
@@ -1054,6 +1055,7 @@
     static _display(toast) {
       this._active.push(toast);
       this._applyStackOffset(toast);
+      toast._managedByManager = true;
       toast.show();
     }
 
