@@ -319,6 +319,7 @@
     this._timeoutId = null;
     this._pendingShow = false;
     this._isHiding = false;
+    this._injectedStyleIds = [];
   };
 
   // Duration constants
@@ -507,7 +508,10 @@
       style.id = name;
       style.textContent = "." + name + " { " + safeCss + " } " + safeKeyframes;
       var head = Dom.getHead();
-      if (head) Dom.append(head, style);
+      if (head) {
+        Dom.append(head, style);
+        this._injectedStyleIds.push(name);
+      }
       if (slot === "enter") this.enterAnimation = name;
       else this.exitAnimation = name;
     } else {
@@ -780,7 +784,10 @@
           kfStyle.id = kfId;
           kfStyle.textContent = _sanitizeCSS(this.customKeyframes);
           var head = Dom.getHead();
-          if (head) Dom.append(head, kfStyle);
+          if (head) {
+            Dom.append(head, kfStyle);
+            this._injectedStyleIds.push(kfId);
+          }
         }
       }
     }
@@ -801,6 +808,15 @@
     this._timeoutId = setTimeout(function() { self.hide(); }, this.duration);
   };
 
+  Toast.prototype._cleanupInjectedStyles = function() {
+    var ids = this._injectedStyleIds;
+    for (var i = 0; i < ids.length; i++) {
+      var el = Dom.getById(ids[i]);
+      if (el) Dom.remove(el);
+    }
+    ids.length = 0;
+  };
+
   Toast.prototype.hide = function() {
     if (!this.toastElement || this._isHiding) return;
     this._isHiding = true;
@@ -819,6 +835,7 @@
 
     var self = this;
     setTimeout(function() {
+      self._cleanupInjectedStyles();
       if (el.parentNode) el.parentNode.removeChild(el);
       if (self.toastElement === el) self.toastElement = null;
       self._isHiding = false;
