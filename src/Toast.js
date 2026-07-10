@@ -630,7 +630,7 @@
     if (lowerIcon.endsWith(".webm") || lowerIcon.endsWith(".mp4")) {
       media = Dom.createElement("video");
       if (media) {
-        media.autoplay = true; media.loop = true; media.muted = true; media.playbackRate = 1.0;
+        media.autoplay = true; media.loop = true; media.muted = true; media.playbackRate = 1.0; media.playsInline = true;
         Dom.setAttr(media, "aria-label", "Toast notification icon");
       }
     } else {
