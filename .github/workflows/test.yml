@@ -7,13 +7,13 @@ on:
     branches: [main]
   workflow_dispatch:
     inputs:
-      ios_test:
-        description: Run iOS Safari test via BrowserStack
+      browserstack_ios:
+        description: Run real iOS Safari test via BrowserStack
         type: boolean
         default: false
 
 jobs:
-  regression:
+  chromium:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,10 +24,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - run: node tests/regression/issue10/verify-issue10.js
-        name: Issue #10 - Video icon playsInline
+        name: Issue #10 - Video icon playsInline (Chromium)
 
-  ios-safari:
-    if: github.event_name == 'workflow_dispatch' && inputs.ios_test
+  webkit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -35,10 +34,24 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - name: Install dependencies
-        run: npm ci
-      - name: Build project
-        run: npm run build
+      - run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps webkit
+      - run: npm run build
+      - run: node tests/regression/issue10/verify-issue10-webkit.js
+        name: Issue #10 - Video icon playsInline (WebKit/Safari)
+
+  browserstack-ios:
+    if: github.event_name == 'workflow_dispatch' && inputs.browserstack_ios
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build
       - name: Start BrowserStack Local
         uses: browserstack/github-actions/setup-local@master
         with:
@@ -47,8 +60,8 @@ jobs:
         env:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
-      - name: Run iOS Safari test
-        run: node tests/regression/issue10/browserstack-ios.js
+      - run: node tests/regression/issue10/browserstack-ios.js
+        name: Run iOS Safari test via BrowserStack
         env:
           BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
           BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}

@@ -63,6 +63,7 @@
   },
   "sideEffects": false,
   "devDependencies": {
+    "playwright": "^1.61.1",
     "puppeteer": "^24.40.0"
   }
 }
