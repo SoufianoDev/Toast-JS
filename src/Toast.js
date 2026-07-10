@@ -129,6 +129,12 @@
       var raf = window.requestAnimationFrame || window.webkitRequestAnimationFrame ||
                 window.mozRequestAnimationFrame || function(cb) { return setTimeout(cb, 16); };
       try { return raf.call(window, callback); } catch (e) { return null; }
+    },
+    cancelFrame: function(id) {
+      if (id == null) return false;
+      var caf = window.cancelAnimationFrame || window.webkitCancelAnimationFrame ||
+                window.mozCancelAnimationFrame || function(id) { clearTimeout(id); };
+      try { caf.call(window, id); return true; } catch (e) { return false; }
     }
   };
 
@@ -317,6 +323,7 @@
     this._events = Object.create(null);
     this.toastElement = null;
     this._timeoutId = null;
+    this._rafId = null;
     this._pendingShow = false;
     this._isHiding = false;
     this._injectedStyleIds = [];
@@ -795,7 +802,8 @@
     Dom.append(this.context, this.toastElement);
 
     var self = this;
-    Dom.requestFrame(function() {
+    this._rafId = Dom.requestFrame(function() {
+      self._rafId = null;
       if (!self.toastElement) return;
       self.toastElement.style.opacity = "1";
       self.toastElement.style.transform = self.position.includes("center")
@@ -820,6 +828,11 @@
   Toast.prototype.hide = function() {
     if (!this.toastElement || this._isHiding) return;
     this._isHiding = true;
+
+    if (this._rafId !== null) {
+      Dom.cancelFrame(this._rafId);
+      this._rafId = null;
+    }
 
     if (this._timeoutId !== null) {
       clearTimeout(this._timeoutId);
