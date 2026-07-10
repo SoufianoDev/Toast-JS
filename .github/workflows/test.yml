@@ -26,20 +26,19 @@ jobs:
       - run: node tests/regression/issue10/verify-issue10.js
         name: Issue #10 - Video icon playsInline (Chromium)
 
-  webkit:
-    runs-on: ubuntu-latest
+  safari:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
       - run: npm ci
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps webkit
+      - name: Install Playwright WebKit (uses system Safari engine)
+        run: npx playwright install webkit
       - run: npm run build
       - run: node tests/regression/issue10/verify-issue10-webkit.js
-        name: Issue #10 - Video icon playsInline (WebKit/Safari)
+        name: Issue #10 - Video icon playsInline (macOS Safari)
 
   browserstack-ios:
     if: github.event_name == 'workflow_dispatch' && inputs.browserstack_ios
