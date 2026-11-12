@@ -106,6 +106,10 @@ Keep static checking and declaration emission separate:
 
 Inspect source, changelog, README, package exports, and existing distribution. Distinguish documented/public behavior from bugs or accidental implementation details. The baseline contract must be based on the approved current `main` surface; older-version behavior is included only where evidence or explicit requirements justify it.
 
+**Foundational evidence (2026-11-13):** The current-main API inventory is complete in `contracts/public-api.md`, produced by enumerating the runtime object rather than by reading filenames. Measured surface: 61 static members (2 duration, 6 position, 2 icon-position, 1 icon-size, 3 icon-shape, 21 animation, 21 style preset, 5 other), 20 prototype methods (12 public, 8 internal), 23 accepted style aliases including the historical misspellings `defult_1` and `defult_2`, 3 event names, and 2 package subpaths. `tests/contracts/public-api-inventory.test.mjs` fails when the contract omits any of them.
+
+Seven gaps between the current implementation and the approved decisions are recorded in `contracts/public-api.md` §11 and are deliberately excluded from the contract: the queue is global rather than per-position (DEC-026, DEC-027); there is no per-notification timer or pause-reason state (DEC-028, DEC-029); exit is a fixed 350 ms delay rather than an animation-completion event (DEC-030); the renderer and manager are entangled (DEC-031); `hide()` is not chainable and `setIconShape()` fails silently; CSS is injected implicitly at module load (DEC-017, DEC-018); and the `exports` map has unreachable `browser` and `default` conditions.
+
 ## 3. Known Conflicts to Resolve in Design
 
 | Conflict | Resolution rule |
@@ -138,5 +142,6 @@ Inspect source, changelog, README, package exports, and existing distribution. D
 | 2026-11-12 | Type-check scope | The no-emit check covers the `.mjs` surface only; including the legacy `.js` runtime would add 165 errors that Setup is not authorized to fix. |
 | 2026-11-12 | Setup hardening | All four logged packaging/hygiene defects fixed: declared artifacts are now built, `npm audit` is clean at 0 vulnerabilities, dependency postinstalls are approved, and the agent-tooling directories are ignored. A package-artifact test now enforces the packaging gate. |
 | 2026-11-12 | `exports` condition ordering | TypeScript 7 surfaced that `browser` and `default` are dead conditions in `exports["."]`. Recorded as OPEN; `exports` stays frozen until T014. |
+| 2026-11-13 | T006 current-main API inventory | Completed in `contracts/public-api.md` from a runtime enumeration: 61 statics, 20 prototype methods, 23 style aliases, 3 events, 2 package subpaths. Guarded by `tests/contracts/public-api-inventory.test.mjs`. Seven gaps against approved decisions recorded in §11. |
 | 2026-11-12 | Build-tool PoC | Not run. Must be executed during the foundational phase before locking the bundler. |
 | 2026-11-12 | Runtime matrix | Not established. Existing package metadata is not treated as proof. |
