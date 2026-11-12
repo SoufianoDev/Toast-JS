@@ -19,6 +19,20 @@
 | Package version metadata | `package.json` says `2.1.0`; README prominently references `2.1.0-beta` docs/distribution | Current `package.json` and `README.md` | Do not infer a new release version from either value; verify registry/tags before release planning. |
 | Tooling | `package.json` lists Playwright and Puppeteer as development dependencies | `package.json` | Development-tool Node requirements must be separated from library runtime support. |
 | Repository hygiene | Audited tree contains a large tracked `node_modules/` directory and no root `.gitignore` | Static audit | Keep cleanup as a separate scoped change. |
+| Branch baseline (T001) | Working branch `chore/spec-kit-bootstrap` is at `b4b2a0c77a522a237a8971d149f1809a7a059943`, three commits ahead of the audited baseline. Those commits add planning/agent documentation, replace `README.md`, and remove the tracked `node_modules/` tree | `git log 701371fd..HEAD`, `git diff --name-status 701371fd..HEAD` | The audited runtime baseline is unchanged: no diff under `src/`, `scripts/`, `libs/`, `tests/`, `package.json`, or `package-lock.json`. |
+| Dependency tree on branch (T001) | `node_modules/` is untracked (0 of the baseline's 4,527 tracked entries remain tracked), absent from disk, and ignored via `.gitignore` `node_modules/` and `**/node_modules/` | `git ls-files -- node_modules`, `git ls-tree -r 701371fd -- node_modules`, `git check-ignore -v node_modules/foo` | The hygiene concern in the row above is resolved on this branch and remains a `main` concern. No history rewrite is needed or authorized. |
+| Baseline drift (T001) | None against the audited baseline. Live `refs/heads/main` on the remote is `701371fd42423d034fc649aeac900f13b99b183d`, identical to the recorded baseline | `git ls-remote --heads origin`, `git rev-parse origin/main` | The DEC-019 compatibility baseline and `contracts/legacy-compatibility.md` stand unchanged; the static audit does not need to be re-run. |
+| Working tree (T001) | No tracked modifications; untracked only `.planning/` and `.ua/`, both local tooling output | `git diff HEAD --stat`, `git status --short` | No pre-existing user changes to preserve. Neither untracked path is covered by `.gitignore`. |
+| Development toolchain (Setup) | Vitest 5.1.0, jsdom 31, `@vitest/coverage-v8` 5.1.0, `@playwright/test` 1.65.0, TypeScript 7.0.2, and `@types/node` 24 added as dev dependencies | `package.json`, `npm ls` | Vitest 5 requires Node `^22.12 \|\| ^24 \|\| >=26`; `@playwright/test` requires Node >=20. These are toolchain floors for contributors, not the library runtime floor, which stays unvalidated (R-002). |
+| Dependency audit (Setup) | `npm audit` reports 10 high-severity advisories, all inside the pre-existing `puppeteer@^24.40.0` chain (`ws`, `zod` via `chromium-bidi`, `js-yaml`, `extract-zip`). Vitest and Vite appear in no advisory chain | `npm audit --json` | Pre-existing exposure, not introduced by Setup. The available fix is `puppeteer@25`, a breaking change outside the Setup scope. |
+| Package artifact gaps (Setup) | `npm pack --dry-run` packs 10 files, but the declared `types` path `dist/types/index.d.ts` and the `unpkg`/`jsdelivr` path `dist/toast.umd.min.js` are not produced by the current build | `npm pack --dry-run`, `package.json` | Pre-existing packaging defect. T045 must verify these paths, and T042 must correct or produce them. |
+| Test runner ownership (Setup) | Vitest collects `tests/**/*.test.mjs`; Playwright collects `tests/browser/**/*.spec.mjs` | `vitest.config.mjs`, `playwright.config.mjs` | Vitest's default include matched the Playwright spec and broke `npm test`. The split is now enforced on both sides so neither runner collects the other's files. |
+| Install-script policy (Setup) | npm 12 blocks dependency install scripts unless allow-listed, so `puppeteer`'s postinstall does not run and it downloads no Chrome | `npm ci` output | `scripts/record-demo.js` cannot run without a separately approved puppeteer postinstall or a manual browser install. Playwright browsers are fetched with `npx playwright install chromium`. |
+| Package artifacts (Setup hardening) | The build now emits every path `package.json` declares: `dist/toast.umd.js`, `dist/toast.esm.js`, `dist/toast.umd.min.js` (esbuild), and `dist/types/Toast.d.ts` (TypeScript from JSDoc, via `tsconfig.types.json`) | `npm run build`, `npm pack --dry-run` | The tarball grew from 10 to 12 files and every declared path resolves. `types` was corrected from the never-produced `dist/types/index.d.ts` to `dist/types/Toast.d.ts`; TypeScript 7 removed `--outFile`, so the declaration cannot be emitted under another name. |
+| Dependency advisories (Setup hardening) | `puppeteer` raised from `^24.40.0` to `^25.17.0`; `npm audit` now reports 0 vulnerabilities | `npm audit` | All 10 high-severity advisories were inside the old puppeteer chain. `scripts/record-demo.js` uses only `launch`, `click`, and `screenshot`, all verified working against puppeteer 25.17.0. |
+| Install-script approvals (Setup hardening) | `package.json` now carries `allowScripts: { puppeteer: true, esbuild: true }` | `package.json`, `npm ci` | Dependency postinstalls run on install, so puppeteer downloads Chrome and esbuild installs its binary. The unpinned form survives dependency version bumps. |
+| Package artifact test (Setup hardening) | `tests/package/artifacts.test.mjs` builds the package and asserts every declared `main`/`module`/`browser`/`unpkg`/`jsdelivr`/`types`/`exports` path exists in the `npm pack` file list, and that no declaration file ships outside `dist/types/` | `npm test` | This is the check that would have caught the missing-artifact defect. It partially covers T045's intent; T045 still owns full artifact verification once the ESM package shape lands. |
+| `exports` condition ordering (Setup hardening, OPEN) | TypeScript 7 reports that the `browser` and `default` conditions in `exports["."]` are unreachable because `import` and `require` precede them | `npm run build` warning | A real defect in the audited `package.json`, but `exports` is frozen until the consumer-evidence task (T014) records a migration decision. T042 must reorder the conditions. Left unchanged and reported. |
 
 ## 2. Research Decisions and Open Evidence
 
@@ -53,6 +67,8 @@ Separate these axes:
 
 Inspect used syntax and Web APIs, test the lowest proposed versions, and document any unsupported browser behavior. Add no polyfill unless a required supported environment demonstrably needs it.
 
+**Setup evidence (2026-11-12):** The added development toolchain requires Node `^22.12 || ^24 || >=26` (Vitest 5) and Node >=20 (`@playwright/test`). These are contributor toolchain floors and do not establish a library runtime floor. `package.json` `engines.node: >=12.0.0` still describes the library runtime only, and remains unvalidated.
+
 ### R-003 — `./src/Toast.js` Deep Export
 
 **Status:** `NEEDS USAGE EVIDENCE`  
@@ -81,6 +97,8 @@ Keep static checking and declaration emission separate:
 - Declaration configuration: verify declaration-only output from JavaScript/JSDoc sources without converting implementation files to TypeScript.
 - Do not hand-maintain `.d.ts` that can drift from runtime exports.
 - Compile a TypeScript consumer fixture against the produced declarations.
+
+**Setup evidence (2026-11-12):** `tsconfig.check.json` checks `*.mjs`, `src/**/*.mjs`, and `tests/**/*.mjs` with `allowJs`, `checkJs`, `strict`, and `noEmit`. Extending the same check to the legacy `src/**/*.js` and `scripts/**/*.js` produced 165 errors in code the Setup phase must not change, so the legacy runtime stays outside the check until the ESM source replaces it (T015+). Declaration emission is still unconfigured and belongs to T043.
 
 ### R-007 — Existing Behavior Characterization
 
@@ -114,5 +132,11 @@ Inspect source, changelog, README, package exports, and existing distribution. D
 |---|---|---|
 | 2026-11-12 | Spec Kit workflow | Full SDD path verified: constitution, specify, clarify, plan, checklist, tasks, analyze, implement, converge. |
 | 2026-11-12 | Existing repository baseline | `main` still resolves to the audited commit `701371fd42423d034fc649aeac900f13b99b183d`. |
+| 2026-11-12 | T001 branch and baseline verification | Branch `chore/spec-kit-bootstrap` at `b4b2a0c`; no tracked working-tree changes; live remote `refs/heads/main` = `701371fd` — no baseline drift; `node_modules/` untracked, absent on disk, and ignored. |
+| 2026-11-12 | T001 branch-vs-baseline delta | The branch is three documentation/hygiene commits ahead of the baseline. Runtime, package metadata, lockfile, and `libs/js/` content are unchanged, so the compatibility baseline is unaffected. |
+| 2026-11-12 | Setup harness (T002–T005) | `npm ci`, `npm test`, `npm run typecheck`, `npm run test:browser`, `npm run build`, and `npm pack --dry-run` all execute. Vitest and Playwright each own a distinct file-naming pattern so neither collects the other's files. |
+| 2026-11-12 | Type-check scope | The no-emit check covers the `.mjs` surface only; including the legacy `.js` runtime would add 165 errors that Setup is not authorized to fix. |
+| 2026-11-12 | Setup hardening | All four logged packaging/hygiene defects fixed: declared artifacts are now built, `npm audit` is clean at 0 vulnerabilities, dependency postinstalls are approved, and the agent-tooling directories are ignored. A package-artifact test now enforces the packaging gate. |
+| 2026-11-12 | `exports` condition ordering | TypeScript 7 surfaced that `browser` and `default` are dead conditions in `exports["."]`. Recorded as OPEN; `exports` stays frozen until T014. |
 | 2026-11-12 | Build-tool PoC | Not run. Must be executed during the foundational phase before locking the bundler. |
 | 2026-11-12 | Runtime matrix | Not established. Existing package metadata is not treated as proof. |

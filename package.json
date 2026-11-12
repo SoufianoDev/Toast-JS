@@ -7,7 +7,7 @@
   "browser": "dist/toast.umd.js",
   "unpkg": "dist/toast.umd.min.js",
   "jsdelivr": "dist/toast.umd.min.js",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/Toast.d.ts",
   "exports": {
     ".": {
       "import": "./dist/toast.esm.js",
@@ -27,7 +27,9 @@
   "scripts": {
     "build": "node scripts/build.js",
     "publish:npm": "node scripts/publish.js",
-    "test": "node tests/regression/issue4/verify-issue4.js",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "typecheck": "tsc -p tsconfig.check.json",
     "prepublishOnly": "npm run build"
   },
   "keywords": [
@@ -63,7 +65,18 @@
   },
   "sideEffects": false,
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
+    "@types/node": "^24.19.2",
+    "@vitest/coverage-v8": "^5.1.0",
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.0",
     "playwright": "^1.61.1",
-    "puppeteer": "^24.40.0"
+    "puppeteer": "^25.17.0",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  },
+  "allowScripts": {
+    "puppeteer": true,
+    "esbuild": true
   }
 }

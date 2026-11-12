@@ -36,11 +36,11 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 
 **Independent validation:** The project can run a basic Vitest test, type-check a small `.mjs` fixture, and launch a Playwright browser smoke test. The final commands are recorded in `quickstart.md`.
 
-- [ ] T001 Verify the implementation branch, clean working tree, current `main` head against the audited baseline, and that `node_modules/` remains absent and ignored; record any baseline drift in `research.md` before source work.
-- [ ] T002 Add Vitest configuration in `vitest.config.mjs` and replace the stale `npm test` target in `package.json` with the verified unit/integration test command.
-- [ ] T003 Configure jsdom and progressive coverage settings in `vitest.config.mjs`; keep thresholds behavior-oriented and avoid an arbitrary initial global percentage.
-- [ ] T004 Add Playwright configuration in `playwright.config.mjs` and a minimal browser smoke-test entry under `tests/browser/`.
-- [ ] T005 Add a no-emit JavaScript type-check configuration in `tsconfig.check.json` and a `typecheck` script in `package.json` using `allowJs`, `checkJs`, JSDoc, and `noEmit`.
+- [x] T001 Verify the implementation branch, clean working tree, current `main` head against the audited baseline, and that `node_modules/` remains absent and ignored; record any baseline drift in `research.md` before source work.
+- [x] T002 Add Vitest configuration in `vitest.config.mjs` and replace the stale `npm test` target in `package.json` with the verified unit/integration test command.
+- [x] T003 Configure jsdom and progressive coverage settings in `vitest.config.mjs`; keep thresholds behavior-oriented and avoid an arbitrary initial global percentage.
+- [x] T004 Add Playwright configuration in `playwright.config.mjs` and a minimal browser smoke-test entry under `tests/browser/`.
+- [x] T005 Add a no-emit JavaScript type-check configuration in `tsconfig.check.json` and a `typecheck` script in `package.json` using `allowJs`, `checkJs`, JSDoc, and `noEmit`.
 
 ## Phase 2: Foundational
 

@@ -2,6 +2,17 @@
 
 These instructions apply to every coding agent and automated contributor working in this repository.
 
+## Communication Style
+
+Always use the `@i-have-adhd` skill for every response in this repository. Load it before replying.
+
+- Lead with the next action, not with context or a plan.
+- Number multi-step tasks; cap visible lists at five items per group.
+- Restate the current step and make completed work visible each turn.
+- Give concrete time estimates. State errors as cause and fix.
+- End after the answer. No preamble, recap, or closing pleasantries.
+- The rules persist for the whole session. Turn them off only when the owner says "stop adhd mode" or "normal mode".
+
 ## Read Before Making Changes
 
 1. Read `DECISION_REGISTER.md` first. Its approved decisions are binding; do not ask the owner to choose them again.
@@ -102,6 +113,26 @@ Do not claim any skill was used unless its instructions were actually loaded and
 - Keep implementation changes small, scoped, and reversible. Add regression tests with behavior changes.
 - Distinguish static inspection, unit tests, browser tests, package tests, and real consumer validation. Never report a check that was not run.
 - Use the review checklists as human-owned quality gates; do not self-mark them complete.
+
+## GitHub Issue Closure Policy
+
+Never close a GitHub Issue merely because the implementation appears complete or the code has been written. Issue closure is a verification decision, not a progress-reporting mechanism.
+
+An issue may only be closed when **all** of these hold:
+
+1. All task requirements and acceptance criteria are fully implemented.
+2. All relevant unit, integration, regression, and browser tests pass.
+3. Type checking, build, and package validation pass whenever relevant to the task.
+4. No required test has been silently skipped, disabled, or ignored.
+5. The final changes have been reviewed for regressions, unintended behavior, and incomplete implementation.
+6. The implementation is committed and available in the authorized GitHub branch or Pull Request — or, when the owner has explicitly withheld commit authorization for the session, the issue itself carries the reviewable evidence needed to inspect the work: the implementation content and the verification output.
+7. The issue contains traceable evidence: relevant commit/PR references when a commit exists, plus actual test results.
+
+If any condition is unmet, **keep the issue open**. Mark it `status: blocked` and document the specific unmet condition and what would resolve it. Never close an issue to make project progress appear better than it actually is. A passing build alone does not prove correctness; tests must cover the actual behavior and acceptance criteria of the task.
+
+When the work is not committed, state that plainly in the issue. Never imply the implementation is on the branch when it is not.
+
+This policy applies to every existing and future task, including T001–T049. Marking the canonical `tasks.md` checkbox is not by itself a reason to close the matching Issue. Never batch-close multiple Issues because their checkboxes were marked complete.
 
 ## Git and Release Safety
 

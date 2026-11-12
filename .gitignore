@@ -30,3 +30,7 @@ Thumbs.db
 # Spec Kit active feature pointer and machine-local extension settings.
 .specify/feature.json
 .specify/extensions/*/local-config.yml
+
+# Agent tooling output (knowledge graph, planning state).
+.ua/
+.planning/

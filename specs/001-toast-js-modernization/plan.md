@@ -53,7 +53,7 @@ Verified against `SoufianoDev/Toast-JS` `main` at `701371fd42423d034fc649aeac900
 - The current `npm test` script targets `tests/regression/issue4/verify-issue4.js`, which is absent from the audited tree.
 - The audited `main` snapshot contains a large tracked root `node_modules/` tree and has no root `.gitignore`. The separate bootstrap branch removes that tree from its snapshot and adds ignore rules; this does not rewrite history or modify `main`. Ongoing runtime modernization tasks do not include a Git-history rewrite or unrelated asset cleanup.
 
-The current branch still points to the audited commit. Re-check this baseline at the start of implementation before changing any source.
+The implementation branch `chore/spec-kit-bootstrap` sits three commits ahead of that audited commit (`b4b2a0c77a522a237a8971d149f1809a7a059943`). Those commits add planning and agent documentation, replace `README.md`, and remove the tracked `node_modules/` tree; they change nothing under `src/`, `scripts/`, `libs/`, `tests/`, `package.json`, or `package-lock.json`. The audited baseline itself has not moved — the live remote `refs/heads/main` still resolves to `701371fd42423d034fc649aeac900f13b99b183d` — so the compatibility baseline stands and the static audit does not need to be re-run. Re-check this baseline at the start of implementation before changing any source.
 
 ## 4. Constitution Check
 

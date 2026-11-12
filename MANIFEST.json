@@ -53,5 +53,5 @@
     "specs/001-toast-js-modernization/",
     "skills/toast-js/SKILL.md"
   ],
-  "repository_write_scope": "One explicitly requested initial branch and commit only; no PR, merge, release, publish, or main change."
+  "repository_write_scope": "Bootstrap branch plus the owner-authorized Setup phase (T001-T005) on the same branch; no PR, merge, release, publish, or main change."
 }

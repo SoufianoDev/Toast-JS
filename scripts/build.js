@@ -12,6 +12,8 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
+const esbuild = require('esbuild');
 
 const ROOT_DIR = path.join(__dirname, '..');
 const SRC_DIR = path.join(ROOT_DIR, 'src');
@@ -87,5 +89,31 @@ const esmBundle = header + 'var Toast = (function () {\n' + factoryBody + '\n})(
 
 fs.writeFileSync(path.join(DIST_DIR, 'toast.esm.js'), esmBundle);
 console.log('Created dist/toast.esm.js');
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Minified UMD — CDN artifact declared by package.json unpkg/jsdelivr
+// ══════════════════════════════════════════════════════════════════════════
+
+esbuild.buildSync({
+  entryPoints: [path.join(DIST_DIR, 'toast.umd.js')],
+  outfile: path.join(DIST_DIR, 'toast.umd.min.js'),
+  minify: true,
+});
+console.log('Created dist/toast.umd.min.js');
+
+// ══════════════════════════════════════════════════════════════════════════
+//  Type declarations — generated from JSDoc by the TypeScript compiler
+// ══════════════════════════════════════════════════════════════════════════
+
+execFileSync(
+  process.execPath,
+  [
+    path.join(path.dirname(require.resolve('typescript/package.json')), 'bin', 'tsc'),
+    '-p',
+    path.join(ROOT_DIR, 'tsconfig.types.json'),
+  ],
+  { stdio: 'inherit' }
+);
+console.log('Created dist/types/Toast.d.ts');
 
 console.log('Build complete!');
