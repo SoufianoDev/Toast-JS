@@ -50,7 +50,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 
 - [x] T006 Complete the current-main API inventory in `specs/001-toast-js-modernization/contracts/public-api.md`, including every export, property, method, alias, default, event, callback, and package subpath.
 - [x] T007 Create legacy/new loading adapters under `tests/contracts/adapters/` without changing files under `libs/js/`.
-- [ ] T008 Create the Shared Contract Test suite in `tests/contracts/public-api.contract.test.mjs` and run it against the current implementation through the legacy adapter.
+- [x] T008 Create the Shared Contract Test suite in `tests/contracts/public-api.contract.test.mjs` and run it against the current implementation through the legacy adapter.
 - [ ] T009 Add characterization tests for preset shape, immutability, values, aliases, and defaults under `tests/contracts/styles.contract.test.mjs`.
 - [ ] T010 [P] Build an isolated Rollup proof of concept under `experiments/build-poc/rollup/` using a minimal `.mjs` entry and the approved output acceptance criteria.
 - [ ] T011 [P] Build an isolated Vite Library Mode proof of concept under `experiments/build-poc/vite/` using the same entry and acceptance criteria as the Rollup experiment.
