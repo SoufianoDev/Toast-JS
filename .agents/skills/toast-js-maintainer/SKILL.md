@@ -1,6 +1,6 @@
 ---
 name: toast-js-maintainer
-description: Use when planning, reviewing, testing, or changing the Toast-JS repository. Enforces its approved decisions, compatibility constraints, Spec Kit workflow, and scoped AI-assisted code review.
+description: Use when planning, reviewing, testing, or changing the Toast-JS repository. Enforces its approved decisions, compatibility constraints, Spec Kit workflow, and mandatory AI-assisted engineering skills.
 ---
 
 # Toast-JS Maintainer Skill
@@ -28,10 +28,13 @@ Do not infer that a draft is ratified. Record the exact file/section that suppor
 1. Inspect the actual Git branch, working tree, and current `main` head. The audit baseline is historical and must be revalidated if `main` has moved.
 2. Identify the exact task ID and its acceptance criteria before editing.
 3. Read the affected source and existing tests. Preserve behavior unless the task explicitly changes it and the specification permits it.
-4. Make the smallest coherent change. New runtime source uses `.mjs`; new styles use Plain CSS.
-5. Add or update tests at the appropriate level. Run only checks that are relevant and report exact commands and outcomes.
-6. Inspect the diff for scope creep, duplicate logic, unused abstractions, generated noise, accidental binary assets, and dependency directories.
-7. Update the owning planning artifact only when evidence or an approved decision changes. Do not duplicate canonical plan/tasks elsewhere.
+4. Activate Ponytail in Ultra mode before coding. Keep its smallest-complete-change and requirement-challenge rules active throughout the task.
+5. Load the owner's Hush skill and apply it while writing every code change. Do not defer its no-noise comment rules until the final cleanup pass.
+6. Make the smallest coherent change. New runtime source uses `.mjs`; new styles use Plain CSS.
+7. Add or update tests at the appropriate level. Run only checks that are relevant and report exact commands and outcomes.
+8. Run Deslop on the current task diff, then run Hush's scoped comment review/formatting and the relevant final checks.
+9. Inspect the diff for scope creep, duplicate logic, unused abstractions, generated noise, accidental binary assets, and dependency directories.
+10. Update the owning planning artifact only when evidence or an approved decision changes. Do not duplicate canonical plan/tasks elsewhere.
 
 ## Locked Constraints
 
@@ -44,15 +47,15 @@ Do not infer that a draft is ratified. Record the exact file/section that suppor
 - No React Native support claims.
 - Never commit `node_modules/`.
 
-## Use of External Review Skills
+## AI-Assisted Engineering Skills
 
-When the corresponding skills are installed and available, use their own instructions rather than recreating them:
+Follow the detailed mandatory rules in `AGENTS.md`:
 
-- **Ponytail Ultra:** architecture and complexity review after a meaningful design or structural change.
-- **Hush:** remove redundant commentary and noisy code after implementation, preserving comments that explain why, constraints, or invariants.
-- **Deslop:** inspect changed code for unnecessary AI-generated scaffolding, generic wrappers, redundant validation, over-commenting, and needless dependencies.
+- **Ponytail Ultra** is active before and throughout every coding task. It challenges unjustified scope and selects the smallest complete solution without cutting required correctness, safety, accessibility, compatibility, or tests.
+- **Hush** is applied during each code write/edit/refactor/review, not only afterward. It prevents redundant comments while preserving useful rationale, invariants, JSDoc/type information, and tool directives. Its final cleanup is limited to comments in code changed during this task.
+- **Deslop** performs the final behavior-preserving review of the current task diff for AI-generated boilerplate, unjustified defensive code, unsafe type escapes, nested logic, and style drift.
 
-Do not run all three mechanically on every tiny edit. Restrict them to changed files and the review question they are meant to answer. If a skill is absent, state that it was not run; do not invent commands or substitute another tool silently.
+Use the installed skill instructions and the host's native invocation syntax. If a skill is unavailable, follow the relevant fallback rules in `AGENTS.md` and report that it could not be invoked; never claim it ran. Do not send skill ratings, telemetry, or external feedback without explicit owner authorization.
 
 ## Boundaries
 
