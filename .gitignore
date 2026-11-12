@@ -1,0 +1,32 @@
+# JavaScript dependencies: install locally; never commit dependency trees.
+node_modules/
+**/node_modules/
+
+# Package-manager and runtime logs.
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Test and coverage output.
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Local environment and secrets.
+.env
+.env.*
+!.env.example
+
+# Local caches and editor/OS state.
+.cache/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Spec Kit active feature pointer and machine-local extension settings.
+.specify/feature.json
+.specify/extensions/*/local-config.yml

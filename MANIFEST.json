@@ -1,0 +1,57 @@
+{
+  "project": "Toast-JS",
+  "feature": "001-toast-js-modernization",
+  "prepared": "2026-11-12",
+  "workflow": "Constitution -> Specify -> Clarify -> Plan -> Checklist -> Tasks -> Analyze -> Implement -> Converge",
+  "task_count": 49,
+  "parallel_task_ids": [
+    "T010",
+    "T011",
+    "T017",
+    "T019",
+    "T024",
+    "T026",
+    "T043",
+    "T046"
+  ],
+  "constitution_status": "Draft for owner review; not formally ratified",
+  "checklists_status": "Reviewer-owned; all items intentionally unchecked",
+  "analysis_status": "Manual read-only analysis modeled on Spec Kit; official CLI not run",
+  "repository_mutations": false,
+  "source_implementation_started": false,
+  "historical_paths_immutable": [
+    "libs/js/v1.0.0",
+    "libs/js/v2.0.0",
+    "libs/js/v2.1.0-beta"
+  ],
+  "clarify_result": "No blocking product-level questions; technical unknowns assigned to research/tasks",
+  "specification_status": "Feature spec is draft for review; plan and tasks are draft planning artifacts",
+  "bootstrap_branch": "chore/spec-kit-bootstrap",
+  "base_ref": "main",
+  "base_commit": "701371fd42423d034fc649aeac900f13b99b183d",
+  "repository_bootstrap": {
+    "root_node_modules_removed_from_branch_tree": true,
+    "root_gitignore_added": true,
+    "history_rewritten": false,
+    "main_modified": false,
+    "pull_request_opened": false
+  },
+  "bootstrap_only_paths": [
+    ".agents/skills/toast-js-maintainer/",
+    ".agents/skills/spec-kit-workflow/",
+    "ai-evals/toast-js-discoverability/",
+    "BOOTSTRAP_BRANCH.md"
+  ],
+  "promotion_candidates": [
+    "AGENTS.md",
+    ".gitignore",
+    ".specify/.gitignore",
+    ".specify/memory/constitution.md",
+    "ARCHITECTURE.md",
+    "DECISION_REGISTER.md",
+    "SPECIFICATION.md",
+    "specs/001-toast-js-modernization/",
+    "skills/toast-js/SKILL.md"
+  ],
+  "repository_write_scope": "One explicitly requested initial branch and commit only; no PR, merge, release, publish, or main change."
+}

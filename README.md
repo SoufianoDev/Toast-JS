@@ -1,427 +1,69 @@
-<div  style="vertical-align: middle;" >
-  <!-- Library Version -->
-  <a href="https://soufianodev.github.io/Toast-JS/docs/v2.1.0-beta/" target="_blank">
-<img src="https://img.shields.io/badge/Version-2.1.0--beta-3B8A57?style=for-the-badge&logo=bookstack&logoColor=white" alt="Version Badge">  &nbsp;&nbsp;&nbsp;
-
-  <!-- JavaScript -->
-  <a href="https://www.javascript.com" target="_blank">
-    <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
-  </a>
-  &nbsp;&nbsp;&nbsp;
-
-  <!-- React -->
-  <a href="https://react.dev/" target="_blank">
-    <img src="https://img.shields.io/badge/-React-007BFF?style=for-the-badge&logo=react&logoColor=white" alt="React">
-  </a>
-  &nbsp;&nbsp;&nbsp;
-
-<a href = "https://github.com/SoufianoDev/Toast-JS/blob/main/LICENSE">
-<img src="https://img.shields.io/badge/License-MIT-FF5733?style=for-the-badge&logo=open-source-initiative&logoColor=white" alt="MIT License Badge"> </a>
-
-</div>
-
-<h1 class="title"><strong>🍞 Toast-JS Library  - By Soufiano Dev 🎩🪄</strong></h1>
-
-<div align="center">
-  <img src="/assets/welcome_to_my_library.gif" alt="Toast.js Logo" style="max-width: 300px; height: 300px; border-radius: 20px; object-fit: cover;">
-</div>
-
-## Introduction
-
-**Toast-JS** is an open-source JavaScript library created by **Soufiano Dev** 🎉. It provides an elegant, flexible, and developer-friendly way to display toast notifications in your web applications. It also supports integration with React.
-
-### Why Choose Toast-JS?
-
-- 🚀 **Customizable**: Easily style and animate toasts to match your app's theme.
-- 🎨 **Predefined Styles**: Choose from success, error, warning, and info notifications.
-- 🌍 **Accessible**: Fully customizable icons, animations, and positions.
-- 🛠️ **Developer-Friendly**: Minimal setup and robust API.
-- ⚛️ **React Support**: Seamlessly integrate with React applications.
-
-### Quick Links
-
-- <a href="https://soufianodev.github.io/Toast-JS/docs/v2.1.0-beta/" target="_blank">Full Documentation</a>
-- <a href="https://soufianodev.github.io/Toast-JS/demos/v2.1.0-beta/" target="_blank">JavaScript Live Demo</a>
-- <a href="https://soufianodev.github.io/Toast-JS/demos/v2.1.0-beta/react.html" target="_blank">React Live Demo</a>
-
-### **Demo Test:**
-
-![DemoTest](/assets/toast-demo-v2.1.0-beta.gif)
-
-# Installation:
-
-### Add Toast.js to Your Project
-
-Include the library via CDN in your HTML file:
-
-```html
-<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
-```
-
-Add the notification container to your body:
-
-```html
-<div id="toast-notification" class="toast-notification"></div>
-```
-
-## Simple HTML Example
-
-```javascript
-const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT).show();
-```
-
-Here's a basic HTML file demonstrating Toast-JS:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Toast.js Example</title>
-  </head>
-  <body>
-    <!-- Notification Container -->
-    <div id="toast-notification" class="toast-notification"></div>
-
-    <!-- Buttons to Trigger Toasts -->
-    <button onclick="showSuccessToast()">Show Success Toast</button>
-    <button onclick="showErrorToast()">Show Error Toast</button>
-
-    <!-- Include Toast.js Library -->
-    <script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
-
-    <!-- Example Scripts -->
-    <script>
-      function showSuccessToast() {
-        const successToast = Toast.makeText(
-          document.body,
-          "✅ Success! Operation completed.",
-          Toast.LENGTH_SHORT
-        );
-        successToast.setStyle(Toast.STYLE_SUCCESS)
-        successToast.setPosition(Toast.POSITION_TOP_CENTER)
-        successToast.setAnimation(Toast.SLIDE_IN_TOP_CENTER,Toast.SLIDE_OUT_TOP_CENTER)
-        successToast.show();
-      }
-
-      function showErrorToast() {
-        const errorToast = Toast.makeText(
-          document.body,
-          "Error! Something went wrong.",
-          Toast.LENGTH_LONG
-        );
-        errorToast.setStyle("error"); //Toast.STYLE_ERROR
-        errorToast.setPosition(Toast.POSITION_TOP_RIGHT);
-        errorToast.setAnimation(Toast.WOBBLE_IN, Toast.WOBBLE_OUT);
-        errorToast.show();
-      }
-    </script>
-  </body>
-</html>
-```
-
-## Usage Examples
-
-### ✅ Success Toast
-
-Use this toast to show success messages (e.g., operation completed).
-
-```javascript
-const successToast = Toast.makeText(document.body, "✅ Success! Your action was completed successfully.", Toast.LENGTH_SHORT);
-
-    successToast.setStyle("success") // Toast.STYLE_SUCCESS
-    .setPosition(Toast.POSITION_BOTTOM_CENTER)
-    .setAnimation(Toast.WAVE_IN,Toast.WAVE_OUT)    
-    .show();
-```
-
-### ❌ Error Toast
-
-Display error notifications with a predefined error style.
-
-```javascript
-const errorToast = Toast.makeText(
-  document.body,
-  "Oops! Something went wrong. Please try again later.",
-  Toast.LENGTH_LONG
-);
-    errorToast.setStyle(Toast.STYLE_ERROR)
-    .setPosition(Toast.POSITION_TOP_RIGHT)
-    .setAnimation(Toast.SLIDE_IN_TOP,Toast.SLIDE_OUT_TOP)
-    .setDismissible(true,"#fff")
-    errorToast.show();
-```
-
-### ℹ️ Information Toast
-
-Use for informational messages, like user tips or updates.
-
-```javascript
-const infoToast = Toast.makeText(document.body, "ℹ️ Here's an important update for you!", Toast.LENGTH_SHORT);
-
-    infoToast.setStyle("info"); // Toast.STYLE_INFO
-    infoToast.setPosition(Toast.POSITION_TOP_LEFT);
-    infoToast.setAnimation(Toast.FADE);
-    infoToast.show();
-```
-
-### 🎨 Custom Toast
-
-Create a unique toast with custom styles, icons, and animations.
-
-```javascript
-const toast = Toast.makeText(
-  document.body,
-  " This is a beautifully styled custom toast!",
-  Toast.LENGTH_LONG
-);
-
-let toastStyle = {
-  background: "linear-gradient(90deg, #ff7eb3, #ff758c)",
-  color: "#fff",
-  borderRadius: "10px",
-  padding: "15px",
-  fontSize: "16px",
-  boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-};
-
-toast
-  .setStyle(toastStyle)
-  .setIcon("./assets/custom-icon.svg", Toast.ICON_SIZE.EXTRA_LARGE) // You Can Add An Image Using Link
-  .setPosition(Toast.POSITION_BOTTOM_RIGHT)
-  .setAnimation(Toast.SLIDE_BOTTOM_RIGHT, Toast.SLIDE_BOTTOM_OUT)
-  .show();
-```
-
-
-### **SetIcon Using URL:**
-
-```javascript
-let iconUrl =
-  "https://soufianodev.github.io/Toast-JS/assets/checkmark_150x150.webm";
-
-const toastIcon = Toast.makeText(document.body, "Hello Toast Icon");
-toastIcon.setStyle(Toast.STYLE_DEFAULT_2); // you can use   toastIcon.setStyle("defult_1")
-toastIcon.setIcon(iconUrl); //Supported formats: .svg , .png, .jpg, .jpeg, .gif, .webm, .mp4.
-toastIcon.show();
-```
-
-### ⏳ Custom Duration Toast
-
-Set a custom duration for your toast notification.
-
-```javascript
-const customDurationToast1 = Toast.makeText(
-  document.body,
-  "This toast will be visible for 9 seconds.",
-  9000
-); // 9 seconds
-customDurationToast1.setStyle("info");
-customDurationToast1.setPosition(Toast.POSITION_BOTTOM_LEFT);
-customDurationToast1.show();
-```
-
-### ⏲️ Another Custom Duration Example
-
-```javascript
-const customDurationToast2 = Toast.makeText(
-  document.body,
-  "This toast will be visible for 15 seconds.",
-  Toast.LENGTH_SHORT
-); // LEGTH_SHORT = 3000 But now Duration = 15000
-customDurationToast2.setDuration(15000); // 15 seconds
-customDurationToast2.show();
-```
-
-### **Make toast dismissible:**
-
-```javascript
-const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT);
-toast.setDismissible(true);
-toast.show();
-```
-
-### **Make toast dismissible with custom close button color:**
-
-```javascript
-const customCloseToast = Toast.makeText(
-  document.body, "This toast has a custom close button color!", 7000); //Note: Toast notification will be automatically hidden if duration < 6.5 seconds.
-
-customCloseToast.setStyle(Toast.STYLE_LIGHT_MODE)
-.setPosition(Toast.POSITION_TOP_CENTER)
-.setDismissible(true,"#000000") // Set close button color to black);
-customCloseToast.show();
-
-```
-
-&nbsp;&nbsp;&nbsp;
-
-### **Result :**
-<div align="center">
-
-<img src="/assets/SED.png">
-</div>
-
-## New in v2.1.0-beta
-
-### Event System
-
-The v2.1.0-beta introduces an event system that allows you to listen for toast lifecycle events:
-
-```javascript
-const toast = Toast.makeText(document.body, "Hello Toast", Toast.LENGTH_SHORT);
-
-// Listen for events
-toast.on('show', function(t) {
-  console.log('Toast is visible!');
-});
-
-toast.on('hide', function(t) {
-  console.log('Toast was hidden!');
-});
-
-toast.on('dismiss', function(t) {
-  console.log('User dismissed the toast!');
-});
-
-toast.show();
-```
-
-### setTextOverflow Method
-
-Control how text overflow is handled in your toasts:
-
-```javascript
-const toast = Toast.makeText(document.body, "This is a very long message that might overflow the toast container", Toast.LENGTH_LONG);
-
-// Options: 'ellipsis' (default), 'wrap', 'clip'
-toast.setTextOverflow('wrap');  // Text will wrap to multiple lines
-toast.setTextOverflow('ellipsis'); // Text will be truncated with ...
-toast.setTextOverflow('clip'); // Text will be clipped without ellipsis
-toast.show();
-```
-
-### ToastManager - Queue Multiple Toasts
-
-The new ToastManager prevents toast overlap by queuing multiple toasts:
-
-```javascript
-// Instead of toast.show(), use Toast.Manager.show() for automatic queuing
-const toast1 = Toast.makeText(document.body, "First toast", Toast.LENGTH_SHORT);
-const toast2 = Toast.makeText(document.body, "Second toast", Toast.LENGTH_SHORT);
-const toast3 = Toast.makeText(document.body, "Third toast", Toast.LENGTH_SHORT);
-
-// These will be queued and displayed one after another (max 3 visible at once)
-Toast.Manager.show(toast1);
-Toast.Manager.show(toast2);
-Toast.Manager.show(toast3);
-```
-
-
-### ARIA Accessibility
-
-Toasts now include proper ARIA attributes for screen reader support:
-- `role="alert"` for important notifications
-- `aria-live="assertive"` for immediate announcement
-- `aria-atomic="true"` for complete content reading
-
-## Using Toast-JS with React
-
-To use **Toast-JS** in a React web application, follow these steps:
-
-1. **Include the Toast.js Library**: Add the Toast.js script to your HTML file.
-
-```html
-<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
-```
-
-2. **Create a React Component**: Create a React component that will use the **Toast-JS** library to display notifications. Ensure your HTML file has a root element where the React component will be rendered, and include the notification container.
-
-```html
-<div id="root"></div>
-<div id="toast-notification" class="toast-notification"></div>
-```
-
-3. **React Component Example**: Here is a simple React component that demonstrates how to use Toast-JS.
-
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-class App extends React.Component {
-  showToast = () => {
-    const toast = Toast.makeText(
-      document.body,
-      "Hello I'm a Toast From React!",
-      Toast.LENGTH_SHORT
-    );
-    toast.setStyle(Toast.STYLE_SUCCESS);
-    toast.setPosition(Toast.POSITION_TOP_CENTER);
-    toast.show();
-  };
-
-  render() {
-    return (
-      <div>
-        <button onClick={this.showToast}>Show Toast</button>
-      </div>
-    );
-  }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
-```
-
-## **Actual Use Of The Library By Dev Soufiano :**
-
-<img src="/assets/Real_Use_By_Dev.gif" alt="Actual Use By Dev" ></img>
-
-### **Script:**
-
-<div style="display: flex; justify-content: center;">
-  <img src="/assets/Script_From_Translate_js.png" alt="">
-</div>
-
-## Features
-
-- **Predefined Styles:** Success, error, info, warning, gradient, neon, metallic, glow, transparent, and more.
-- **Custom Decorations:** Set your own background, fonts, borders, and shadows.
-- **Dynamic Icons:** Add images, SVGs, or videos (webm & mp4) as toast icons.
-- **Animations:** Fade, slide, light-speed, wave, wobble, and custom keyframe animations.
-- **Positioning:** Display toasts at various screen locations (top-left, top-center, bottom-right, etc.).
-- **Custom Durations:** Define how long each toast should remain visible.
-- **Responsive Design:** Automatically adjusts layout for smaller screens.
-- **React Support:** Easily integrate with React web applications.
-- **Event System:** Listen for show, hide, and dismiss lifecycle events.
-- **ToastManager:** Queue multiple toasts to prevent overlap.
-- **Accessibility:** ARIA attributes for screen reader support.
-- **UMD Support:** Works with CommonJS, AMD, and browser globals (alpha).
-
-## Adding Toasts to Your Application
-
-1. Include the **Toast-js** CDN in your HTML file.
-2. Add the `<div id="toast-notification"></div>` to your HTML body.
-3. Create toast notifications using the API methods, e.g., `Toast.makeText`.
-
-## Developer Notes
-
-- For a better, easier, and faster experience when working with the Toast-JS library, it is recommended to develop your project in the <a href="https://www.jetbrains.com/webstorm/" target="_blank">WebStorm IDE</a> if you have the capability. However, if not, there's no issue you can work normally within the <a href="https://code.visualstudio.com/"  target="_blank"  >Visual Studio Code</a> environment.
-
-<a href="https://www.jetbrains.com/webstorm/" target="_blank">
-<div align ="center">
-<img src="/assets/webstorm.svg" align ="center"  alt="">
-</div>
-</a>
-&nbsp;&nbsp;&nbsp;
-
-- Toast-Js is authored by **SoufianoDev**. The library prioritizes ease of use while offering extensive customization options for developers. For full documentation, visit <a href="https://soufianodev.github.io/Toast-JS/docs/v2.1.0-beta/">Toast-JS V2.1.0-beta Docs</a>
-
-### Old Versions
-
-- <a href="https://soufianodev.github.io/Toast-JS/docs/v2/">Toast-JS V2.0.0 Docs</a>
-- <a href="https://soufianodev.github.io/Toast-JS/docs/v1/">Toast-JS V1.0.0 (Beta) Docs</a>
-
----
-
-<p>Created with 💛💜 by <strong>Soufiano Dev</strong> | Made in <strong>Morocco</strong> <img src="https://flagcdn.com/ma.svg" alt="Moroccan Flag" width="20" height="20" style="vertical-align: middle;"></p>
+# Toast-JS — Spec Kit Planning Bundle
+
+This bundle extends the approved Toast-JS specification and architecture into a Spec Kit-aligned planning package for the `001-toast-js-modernization` feature.
+
+## Canonical Documents
+
+| Document | Role |
+|---|---|
+| `DECISION_REGISTER.md` | Authoritative approved decisions and deferred evidence work. |
+| `SPECIFICATION.md` | Project-level product and technical requirements. |
+| `ARCHITECTURE.md` | Existing implementation audit and target architecture. |
+| `.specify/memory/constitution.md` | Project principles governing later plans and implementation. |
+| `specs/001-toast-js-modernization/spec.md` | Feature specification with prioritized user stories and success criteria. |
+| `specs/001-toast-js-modernization/clarification-log.md` | Records the Clarify gate: no blocking product questions remain; technical unknowns are assigned to research. |
+| `specs/001-toast-js-modernization/plan.md` | Detailed technical plan, research gates, design outputs, and implementation strategy. |
+| `specs/001-toast-js-modernization/research.md` | Repository facts and technical decisions requiring evidence. |
+| `specs/001-toast-js-modernization/data-model.md` | In-memory runtime concepts and lifecycle invariants. |
+| `specs/001-toast-js-modernization/contracts/` | Public API, compatibility, lifecycle, CSS, and packaging contracts. |
+| `specs/001-toast-js-modernization/quickstart.md` | Target verification commands and expected outcomes. |
+| `specs/001-toast-js-modernization/checklists/` | Reviewer-owned requirements and design quality gates. |
+| `specs/001-toast-js-modernization/tasks.md` | Canonical actionable task list. |
+| `specs/001-toast-js-modernization/analysis-report.md` | Manual, read-only pre-implementation consistency analysis. |
+
+`IMPLEMENTATION_PLAN.md` and `TASKS.md` are root navigation files. The nested `plan.md` and `tasks.md` are the canonical Spec Kit feature artifacts; this avoids maintaining two conflicting copies.
+
+## Workflow Applied
+
+The current GitHub Spec Kit full SDD workflow is:
+
+`Constitution -> Specify -> Clarify -> Plan -> Checklist -> Tasks -> Analyze -> Implement -> Converge`
+
+- Constitution is a draft consolidated from approved decisions; formal ratification remains a project-owner review. Once ratified, it is maintained once per project.
+- Specify creates a what/why feature spec with prioritized user stories.
+- Clarify recorded that no blocking product decisions remain; unresolved technical matters are research tasks, not repeated questions.
+- Plan creates research/design outputs (`research.md`, `data-model.md`, `contracts/`, `quickstart.md`).
+- Checklist is a reviewer-owned quality gate.
+- Tasks creates dependency-ordered tasks grouped by user story.
+- Analyze checks consistency across artifacts and is read-only.
+- Implement executes tasks in dependency order.
+- Converge checks the implementation against the artifacts and appends missing tasks until complete.
+
+For Toast-JS, the Clarify gate found no new user product decisions that need to be asked. Open technical matters are evidence-driven research tasks, not questions to repeat to the user.
+
+## Important Status Notes
+
+- The planning artifacts were prepared by applying the current Spec Kit methodology and template structure. The official `specify-cli` has **not** been installed or run in the repository, and no `.specify/feature.json` or agent integration files have been initialized.
+- This bundle is a reviewable artifact set, not a commit to the repository.
+- The checklists are intentionally unchecked. A generated checklist is not self-approved.
+- The analysis report is a manual read-only analysis modeled on `/speckit.analyze`; it is not falsely represented as output from the official command.
+- The Rollup/Vite PoCs, runtime support matrix, package-consumer tests, and implementation tasks have not been executed.
+- No GitHub files, branches, commits, pull requests, tags, releases, or npm packages were changed or created.
+- No file under `libs/js/` may be modified by tasks in this feature.
+
+## Official References
+
+- [GitHub Spec Kit](https://github.com/github/spec-kit)
+- [Specify CLI installation](https://github.github.io/spec-kit/installation.html)
+- [Spec-Driven Development Quickstart](https://github.github.io/spec-kit/quickstart.html)
+- [Agentic SDD command reference](https://github.github.io/spec-kit/reference/agentic-sdd.html)
+- [Adopting Spec Kit in an existing project](https://github.github.io/spec-kit/how-to/existing-projects.html)
+- [Plan template](https://github.com/github/spec-kit/blob/main/templates/plan-template.md)
+- [Tasks command template](https://github.com/github/spec-kit/blob/main/templates/commands/tasks.md)
+
+
+## Preliminary GitHub Branch
+
+The first repository snapshot is intended for `chore/spec-kit-bootstrap`. It includes the planning package plus temporary maintainer/spec-workflow skills and an AI discoverability evaluation draft. It deliberately removes the tracked root `node_modules/` tree and adds `.gitignore`.
+
+Read `BOOTSTRAP_BRANCH.md` before promoting files. The `.agents/skills/` and `ai-evals/` paths are bootstrap-only and must not be copied wholesale into the eventual clean PR branch. `skills/toast-js/SKILL.md` is a provisional consumer-facing candidate and must be validated against the actual modernized release before promotion. No PR is part of this bootstrap step.
