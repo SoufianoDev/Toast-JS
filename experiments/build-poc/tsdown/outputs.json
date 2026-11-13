@@ -1,0 +1,9 @@
+{
+  "esm": "dist/index.mjs",
+  "browser": "dist/browser.js",
+  "injection": "dist/injection.js",
+  "consumer": "dist/consumer.js",
+  "css": "dist/style.css",
+  "dts": "dist/index.d.ts",
+  "minDir": "dist-min"
+}

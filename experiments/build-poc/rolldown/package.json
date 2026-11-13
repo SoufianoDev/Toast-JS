@@ -1,0 +1,32 @@
+{
+  "name": "toast-js-build-poc-rolldown",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "buildTool": "rolldown",
+  "description": "Isolated Rolldown proof of concept for the Toast-JS modernization.",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./browser": "./dist/browser.js",
+    "./injection": "./dist/injection.js",
+    "./consumer": "./dist/consumer.js",
+    "./style.css": "./dist/style.css",
+    "./min": "./dist-min/index.mjs",
+    "./min/browser": "./dist-min/browser.js",
+    "./min/injection": "./dist-min/injection.js",
+    "./min/consumer": "./dist-min/consumer.js",
+    "./min/style.css": "./dist-min/style.css"
+  },
+  "scripts": {
+    "build": "rolldown -c rolldown.config.mjs"
+  },
+  "files": [
+    "dist",
+    "dist-min",
+    "outputs.json",
+    "rolldown.config.mjs"
+  ],
+  "devDependencies": {
+    "rolldown": "1.3.2"
+  }
+}

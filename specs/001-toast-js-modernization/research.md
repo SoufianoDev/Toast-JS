@@ -60,6 +60,8 @@ Required checks:
 
 Three candidates were compared for the decision — **Rollup**, **Vite 8** and **tsdown** — with a fourth, **raw Rolldown**, measured alongside as the baseline that explains the other two. All four were executed on **one shared fixture** (`experiments/build-poc/fixture/`) against the 12 criteria in `experiments/build-poc/ACCEPTANCE.md`, and all four were measured by the same script, `experiments/build-poc/measure.mjs`. The fixture is shared deliberately: identical inputs are what make the comparison fair. Source: `experiments/build-poc/rollup/`, `experiments/build-poc/vite/`, `experiments/build-poc/tsdown/` and `experiments/build-poc/rolldown/`, each with its own `package.json`, lockfile and `node_modules/`, so no tool enters the project's dependency graph.
 
+**The proof-of-concepts are tracked in the repository** — inputs, configurations, lockfiles, harnesses, built outputs and the measured results are all committed under `experiments/build-poc/`, and `experiments/build-poc/README.md` documents how to reproduce any candidate and how to read the results.
+
 - **Rollup 4.68.2** — the JavaScript bundler, the incumbent.
 - **Vite 8.3.8** — the library-mode option. Its bundler is **Rolldown 1.2.19** (Rust) with `lightningcss`; its minifier is `oxc`.
 - **tsdown 0.23.7** — the Rolldown-powered **library** bundler, with declaration generation and package validation built in.

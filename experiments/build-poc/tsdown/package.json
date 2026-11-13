@@ -1,0 +1,42 @@
+{
+  "name": "toast-js-build-poc-tsdown",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "buildTool": "tsdown",
+  "description": "Isolated tsdown proof of concept for the Toast-JS modernization.",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    },
+    "./browser": "./dist/browser.js",
+    "./injection": "./dist/injection.js",
+    "./consumer": "./dist/consumer.js",
+    "./style.css": "./dist/style.css",
+    "./min": "./dist-min/index.mjs",
+    "./min/browser": "./dist-min/browser.js",
+    "./min/injection": "./dist-min/injection.js",
+    "./min/consumer": "./dist-min/consumer.js",
+    "./min/style.css": "./dist-min/style.css"
+  },
+  "scripts": {
+    "build": "npm run build:dist && npm run build:min",
+    "build:dist": "POC_TARGET=index POC_MIN=0 tsdown -c tsdown.config.mjs && POC_TARGET=modules POC_MIN=0 tsdown -c tsdown.config.mjs && POC_TARGET=browser POC_MIN=0 tsdown -c tsdown.config.mjs",
+    "build:min": "POC_TARGET=index POC_MIN=1 tsdown -c tsdown.config.mjs && POC_TARGET=modules POC_MIN=1 tsdown -c tsdown.config.mjs && POC_TARGET=browser POC_MIN=1 tsdown -c tsdown.config.mjs",
+    "validate": "publint && node probe/attw.mjs"
+  },
+  "files": [
+    "dist",
+    "dist-min",
+    "outputs.json",
+    "tsdown.config.mjs"
+  ],
+  "devDependencies": {
+    "@arethetypeswrong/core": "^0.18.1",
+    "@tsdown/css": "0.23.7",
+    "publint": "^0.3.8",
+    "tsdown": "0.23.7",
+    "typescript": "^5.9.3"
+  }
+}

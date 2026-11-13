@@ -1,0 +1,128 @@
+{
+  "tool": "rollup",
+  "nodeVersion": "v26.7.0",
+  "exitCode": 0,
+  "buildDurationMs": 708,
+  "buildStderr": "",
+  "buildWarnings": [],
+  "stableOutput": true,
+  "outputs": {
+    "esm": {
+      "exists": true,
+      "bytes": 543,
+      "gzipBytes": 371,
+      "sha256": "ad9b2374c4204569bfc02b6ccfb414f77ffbbb9eecc7e62b6397a47e2be4cd64",
+      "isEsm": true,
+      "referencesCss": false
+    },
+    "browser": {
+      "exists": true,
+      "bytes": 592,
+      "gzipBytes": 345,
+      "sha256": "3c0e9c0195410628f47e93d071a2a753802cc05bc33c20692cba8f9af02b3676",
+      "hasTopLevelEsm": false,
+      "referencesCss": false
+    },
+    "injection": {
+      "exists": true,
+      "bytes": 337,
+      "gzipBytes": 248,
+      "sha256": "181ed201609878c556fc2a0d840bff93b915fc97b57c087164a3870f5f3e64c2",
+      "referencesCss": true
+    },
+    "consumer": {
+      "exists": true,
+      "bytes": 247,
+      "gzipBytes": 197,
+      "sha256": "b61780213ff706b3ff0e94feae01a1f99892262883c0bcdd173db56071a92550",
+      "containsUnusedMarker": false
+    },
+    "css": {
+      "exists": true,
+      "bytes": 123,
+      "gzipBytes": 120,
+      "sha256": "5330e16cc7af0c99b01c423ab896c1b39c2025736121bc02b7d430b325030a69"
+    },
+    "dts": null
+  },
+  "minified": {
+    "esmBytes": 315,
+    "browserBytes": 345,
+    "unminifiedDistBytes": 5742,
+    "minifiedDistBytes": 5006,
+    "minifiedRatio": 0.8718
+  },
+  "sourceMaps": {
+    "produced": [
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map",
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map"
+    ],
+    "referencedByEsm": true,
+    "referencedByBrowser": true
+  },
+  "ssr": {
+    "imported": true,
+    "exports": [
+      "DEFAULT_STYLE",
+      "UNUSED_MARKER",
+      "render"
+    ],
+    "leaked": false
+  },
+  "package": {
+    "declaredExports": [
+      "./dist/index.mjs",
+      "./dist/browser.js",
+      "./dist/injection.js",
+      "./dist/consumer.js",
+      "./dist/style.css",
+      "./dist-min/index.mjs",
+      "./dist-min/browser.js",
+      "./dist-min/injection.js",
+      "./dist-min/consumer.js",
+      "./dist-min/style.css"
+    ],
+    "exportsMissingFromPack": [],
+    "packFiles": [
+      "dist-min/browser.js",
+      "dist-min/browser.js.map",
+      "dist-min/consumer.js",
+      "dist-min/consumer.js.map",
+      "dist-min/index.mjs",
+      "dist-min/index.mjs.map",
+      "dist-min/injection.js",
+      "dist-min/injection.js.map",
+      "dist-min/style.css",
+      "dist/browser.js",
+      "dist/browser.js.map",
+      "dist/consumer.js",
+      "dist/consumer.js.map",
+      "dist/index.mjs",
+      "dist/index.mjs.map",
+      "dist/injection.js",
+      "dist/injection.js.map",
+      "dist/style.css",
+      "outputs.json",
+      "package.json",
+      "rollup.config.mjs"
+    ],
+    "runtimeDependencies": {}
+  },
+  "config": {
+    "files": [
+      "rollup.config.mjs"
+    ],
+    "lines": 45
+  },
+  "devDependencies": [
+    "@rollup/plugin-terser",
+    "rollup",
+    "rollup-plugin-css-only"
+  ]
+}

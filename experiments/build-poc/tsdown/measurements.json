@@ -1,0 +1,137 @@
+{
+  "tool": "tsdown",
+  "nodeVersion": "v26.7.0",
+  "exitCode": 0,
+  "buildDurationMs": 1905,
+  "buildStderr": "",
+  "buildWarnings": [],
+  "stableOutput": true,
+  "outputs": {
+    "esm": {
+      "exists": true,
+      "bytes": 430,
+      "gzipBytes": 316,
+      "sha256": "6cdc7e056c6267d441997ba133cd704b0235388a67a85ad47b3d19602463d777",
+      "isEsm": true,
+      "referencesCss": false
+    },
+    "browser": {
+      "exists": true,
+      "bytes": 935,
+      "gzipBytes": 513,
+      "sha256": "30cb3a25f75023436eea47109e144e0ea86da3abb624cda3bce4c3ea5902b1a1",
+      "hasTopLevelEsm": false,
+      "referencesCss": false
+    },
+    "injection": {
+      "exists": true,
+      "bytes": 359,
+      "gzipBytes": 260,
+      "sha256": "edd7835a35d5407816d229781db9e43caa1de44f740037689e9707c17cac48c5",
+      "referencesCss": true
+    },
+    "consumer": {
+      "exists": true,
+      "bytes": 264,
+      "gzipBytes": 209,
+      "sha256": "e0e8ccf214436005e2452821d71750551a29fafccc0f37f4b8aa77c722a243af",
+      "containsUnusedMarker": false
+    },
+    "css": {
+      "exists": true,
+      "bytes": 122,
+      "gzipBytes": 120,
+      "sha256": "d80c89dc1c663f72086329b7c912c2e875ec484409ad2bc8f7acf781ba493656"
+    },
+    "dts": {
+      "exists": true,
+      "bytes": 240,
+      "gzipBytes": 183,
+      "sha256": "fffe85bbd6a3f3be7189a59b7f6d15f9e5ed86bd7413a0b501b8eb86940963c0"
+    }
+  },
+  "minified": {
+    "esmBytes": 312,
+    "browserBytes": 566,
+    "unminifiedDistBytes": 5599,
+    "minifiedDistBytes": 4960,
+    "minifiedRatio": 0.8859
+  },
+  "sourceMaps": {
+    "produced": [
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map",
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map"
+    ],
+    "referencedByEsm": true,
+    "referencedByBrowser": true
+  },
+  "ssr": {
+    "imported": true,
+    "exports": [
+      "DEFAULT_STYLE",
+      "UNUSED_MARKER",
+      "render"
+    ],
+    "leaked": false
+  },
+  "package": {
+    "declaredExports": [
+      "./dist/index.d.ts",
+      "./dist/index.mjs",
+      "./dist/browser.js",
+      "./dist/injection.js",
+      "./dist/consumer.js",
+      "./dist/style.css",
+      "./dist-min/index.mjs",
+      "./dist-min/browser.js",
+      "./dist-min/injection.js",
+      "./dist-min/consumer.js",
+      "./dist-min/style.css"
+    ],
+    "exportsMissingFromPack": [],
+    "packFiles": [
+      "dist-min/browser.js",
+      "dist-min/browser.js.map",
+      "dist-min/consumer.js",
+      "dist-min/consumer.js.map",
+      "dist-min/index.mjs",
+      "dist-min/index.mjs.map",
+      "dist-min/injection.js",
+      "dist-min/injection.js.map",
+      "dist-min/style.css",
+      "dist/browser.js",
+      "dist/browser.js.map",
+      "dist/consumer.js",
+      "dist/consumer.js.map",
+      "dist/index.d.ts",
+      "dist/index.mjs",
+      "dist/index.mjs.map",
+      "dist/injection.js",
+      "dist/injection.js.map",
+      "dist/style.css",
+      "outputs.json",
+      "package.json",
+      "tsdown.config.mjs"
+    ],
+    "runtimeDependencies": {}
+  },
+  "config": {
+    "files": [
+      "tsdown.config.mjs"
+    ],
+    "lines": 62
+  },
+  "devDependencies": [
+    "@arethetypeswrong/core",
+    "@tsdown/css",
+    "publint",
+    "tsdown",
+    "typescript"
+  ]
+}

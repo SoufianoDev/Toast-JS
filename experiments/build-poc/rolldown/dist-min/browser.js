@@ -1,0 +1,2 @@
+var ToastPoc=(function(e){Object.defineProperty(e,Symbol.toStringTag,{value:`Module`});let t={display:`flex`,borderRadius:`10px`,padding:`8px 16px`};function n(e,t){let n=e.ownerDocument.createElement(`div`);return n.className=`toast`,n.textContent=t,e.appendChild(n),n}function r(e,r){let i=n(e,r);return Object.assign(i.style,t),i}return e.mount=r,e})({});
+//# sourceMappingURL=browser.js.map

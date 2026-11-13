@@ -1,0 +1,3 @@
+import './style.css';
+function e(e){let t=e.ownerDocument.createElement(`style`);return t.textContent=`.toast { display: flex; border-radius: 10px; padding: 8px 16px; }`,e.ownerDocument.head.appendChild(t),t}export{e as injectStyles};
+//# sourceMappingURL=injection.js.map

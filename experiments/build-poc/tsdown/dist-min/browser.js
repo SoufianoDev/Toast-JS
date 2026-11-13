@@ -1,0 +1,2 @@
+(function(e,t){typeof exports==`object`&&typeof module<`u`?t(exports):typeof define==`function`&&define.amd?define([`exports`],t):(e=typeof globalThis<`u`?globalThis:e||self,t(e.ToastPoc={}))})(this,function(e){Object.defineProperty(e,Symbol.toStringTag,{value:`Module`});let t={display:`flex`,borderRadius:`10px`,padding:`8px 16px`};function n(e,t){let n=e.ownerDocument.createElement(`div`);return n.className=`toast`,n.textContent=t,e.appendChild(n),n}function r(e,r){let i=n(e,r);return Object.assign(i.style,t),i}e.mount=r});
+//# sourceMappingURL=browser.js.map

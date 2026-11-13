@@ -1,0 +1,15 @@
+{
+  "//": "Only used by rolldown-plugin-dts to emit declarations for the plain .mjs fixture.",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "esnext"
+  },
+  "include": []
+}

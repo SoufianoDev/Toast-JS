@@ -1,0 +1,16 @@
+{
+  "//": "Probe-only tsconfig: DOM lib so the JSDoc `@param {HTMLElement}` resolves.",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "esnext",
+    "lib": ["esnext", "dom"]
+  },
+  "include": []
+}

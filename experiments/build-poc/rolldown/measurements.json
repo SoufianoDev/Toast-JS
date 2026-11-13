@@ -1,0 +1,126 @@
+{
+  "tool": "rolldown",
+  "nodeVersion": "v26.7.0",
+  "exitCode": 0,
+  "buildDurationMs": 204,
+  "buildStderr": "",
+  "buildWarnings": [],
+  "stableOutput": true,
+  "outputs": {
+    "esm": {
+      "exists": true,
+      "bytes": 430,
+      "gzipBytes": 316,
+      "sha256": "6cdc7e056c6267d441997ba133cd704b0235388a67a85ad47b3d19602463d777",
+      "isEsm": true,
+      "referencesCss": false
+    },
+    "browser": {
+      "exists": true,
+      "bytes": 660,
+      "gzipBytes": 406,
+      "sha256": "1f2ce5dec8b94899daa57eb639c16b517896289b626d2968b9564bf41a297649",
+      "hasTopLevelEsm": false,
+      "referencesCss": false
+    },
+    "injection": {
+      "exists": true,
+      "bytes": 360,
+      "gzipBytes": 260,
+      "sha256": "1c5410cf1e60d30f5d0ad624718686dfdff512790265475800bb8269e0c42e48",
+      "referencesCss": true
+    },
+    "consumer": {
+      "exists": true,
+      "bytes": 264,
+      "gzipBytes": 209,
+      "sha256": "e0e8ccf214436005e2452821d71750551a29fafccc0f37f4b8aa77c722a243af",
+      "containsUnusedMarker": false
+    },
+    "css": {
+      "exists": true,
+      "bytes": 122,
+      "gzipBytes": 119,
+      "sha256": "5270351870253463186f11295c68bf3002743cf9920bd129aa65ccedbeeabeca"
+    },
+    "dts": null
+  },
+  "minified": {
+    "esmBytes": 312,
+    "browserBytes": 394,
+    "unminifiedDistBytes": 5084,
+    "minifiedDistBytes": 4770,
+    "minifiedRatio": 0.9382
+  },
+  "sourceMaps": {
+    "produced": [
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map",
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map"
+    ],
+    "referencedByEsm": true,
+    "referencedByBrowser": true
+  },
+  "ssr": {
+    "imported": true,
+    "exports": [
+      "DEFAULT_STYLE",
+      "UNUSED_MARKER",
+      "render"
+    ],
+    "leaked": false
+  },
+  "package": {
+    "declaredExports": [
+      "./dist/index.mjs",
+      "./dist/browser.js",
+      "./dist/injection.js",
+      "./dist/consumer.js",
+      "./dist/style.css",
+      "./dist-min/index.mjs",
+      "./dist-min/browser.js",
+      "./dist-min/injection.js",
+      "./dist-min/consumer.js",
+      "./dist-min/style.css"
+    ],
+    "exportsMissingFromPack": [],
+    "packFiles": [
+      "dist-min/browser.js",
+      "dist-min/browser.js.map",
+      "dist-min/consumer.js",
+      "dist-min/consumer.js.map",
+      "dist-min/index.mjs",
+      "dist-min/index.mjs.map",
+      "dist-min/injection.js",
+      "dist-min/injection.js.map",
+      "dist-min/style.css",
+      "dist/browser.js",
+      "dist/browser.js.map",
+      "dist/consumer.js",
+      "dist/consumer.js.map",
+      "dist/index.mjs",
+      "dist/index.mjs.map",
+      "dist/injection.js",
+      "dist/injection.js.map",
+      "dist/style.css",
+      "outputs.json",
+      "package.json",
+      "rolldown.config.mjs"
+    ],
+    "runtimeDependencies": {}
+  },
+  "config": {
+    "files": [
+      "rolldown.config.mjs"
+    ],
+    "lines": 56
+  },
+  "devDependencies": [
+    "rolldown"
+  ]
+}

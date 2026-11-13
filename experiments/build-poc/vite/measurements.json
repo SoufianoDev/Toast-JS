@@ -1,0 +1,119 @@
+{
+  "tool": "vite",
+  "nodeVersion": "v26.7.0",
+  "exitCode": 0,
+  "buildDurationMs": 1374,
+  "buildStderr": "",
+  "buildWarnings": [],
+  "stableOutput": true,
+  "outputs": {
+    "esm": {
+      "exists": true,
+      "bytes": 426,
+      "gzipBytes": 317,
+      "sha256": "d69bfee044b2423277cf3ed22a34180e3a5f887d35e90b0845568bc3fd606636",
+      "isEsm": true,
+      "referencesCss": false
+    },
+    "browser": {
+      "exists": true,
+      "bytes": 661,
+      "gzipBytes": 405,
+      "sha256": "5a35f45b902a3a6c6e42a89992b211c0f3b46ffe882ca468ddf8b7080d34da51",
+      "hasTopLevelEsm": false,
+      "referencesCss": false
+    },
+    "injection": {
+      "exists": true,
+      "bytes": 337,
+      "gzipBytes": 249,
+      "sha256": "aa849a81a3ef7769e0cfa8e206d5f7661b60574ae547ce5e18ecb28c19239477",
+      "referencesCss": false
+    },
+    "consumer": {
+      "exists": true,
+      "bytes": 264,
+      "gzipBytes": 209,
+      "sha256": "70d38bac43c8b015caef04ae50d4f12cb3e157cdf02e25e1a810ec3ceaa7f7f3",
+      "containsUnusedMarker": false
+    },
+    "css": {
+      "exists": true,
+      "bytes": 134,
+      "gzipBytes": 130,
+      "sha256": "847b8b358b58e0f6ff9f024e8a3faf7570b03d6dc6f6747a9634d523cb3bf3a8"
+    },
+    "dts": null
+  },
+  "minified": {
+    "esmBytes": 371,
+    "browserBytes": 394,
+    "unminifiedDistBytes": 5066,
+    "minifiedDistBytes": 4866,
+    "minifiedRatio": 0.9605
+  },
+  "sourceMaps": {
+    "produced": [
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map",
+      "browser.js.map",
+      "consumer.js.map",
+      "index.mjs.map",
+      "injection.js.map"
+    ],
+    "referencedByEsm": true,
+    "referencedByBrowser": true
+  },
+  "ssr": {
+    "imported": true,
+    "exports": [
+      "DEFAULT_STYLE",
+      "UNUSED_MARKER",
+      "render"
+    ],
+    "leaked": false
+  },
+  "package": {
+    "declaredExports": [
+      "./dist/index.mjs",
+      "./dist/browser.js",
+      "./dist/injection.js",
+      "./dist/consumer.js",
+      "./dist/style.css"
+    ],
+    "exportsMissingFromPack": [],
+    "packFiles": [
+      "dist-min/browser.js",
+      "dist-min/browser.js.map",
+      "dist-min/consumer.js",
+      "dist-min/consumer.js.map",
+      "dist-min/index.mjs",
+      "dist-min/index.mjs.map",
+      "dist-min/injection.js",
+      "dist-min/injection.js.map",
+      "dist-min/style.css",
+      "dist/browser.js",
+      "dist/browser.js.map",
+      "dist/consumer.js",
+      "dist/consumer.js.map",
+      "dist/index.mjs",
+      "dist/index.mjs.map",
+      "dist/injection.js",
+      "dist/injection.js.map",
+      "dist/style.css",
+      "package.json"
+    ],
+    "runtimeDependencies": {}
+  },
+  "config": {
+    "files": [
+      "vite.config.mjs"
+    ],
+    "lines": 52
+  },
+  "devDependencies": [
+    "vite"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "toast-js-build-poc-rollup",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "buildTool": "rollup",
+  "description": "Isolated Rollup proof of concept for the Toast-JS modernization (task T010).",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./browser": "./dist/browser.js",
+    "./injection": "./dist/injection.js",
+    "./consumer": "./dist/consumer.js",
+    "./style.css": "./dist/style.css",
+    "./min": "./dist-min/index.mjs",
+    "./min/browser": "./dist-min/browser.js",
+    "./min/injection": "./dist-min/injection.js",
+    "./min/consumer": "./dist-min/consumer.js",
+    "./min/style.css": "./dist-min/style.css"
+  },
+  "scripts": {
+    "build": "rollup --config rollup.config.mjs"
+  },
+  "files": [
+    "dist",
+    "dist-min",
+    "outputs.json",
+    "rollup.config.mjs"
+  ],
+  "devDependencies": {
+    "@rollup/plugin-terser": "^1.0.2",
+    "rollup": "^4.68.2",
+    "rollup-plugin-css-only": "^4.5.5"
+  }
+}

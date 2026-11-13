@@ -1,0 +1,27 @@
+{
+  "name": "toast-js-build-poc-vite",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Proof of concept: building the Toast-JS build-poc fixture with Vite library mode.",
+  "buildTool": "vite",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./browser": "./dist/browser.js",
+    "./injection": "./dist/injection.js",
+    "./consumer": "./dist/consumer.js",
+    "./styles": "./dist/style.css"
+  },
+  "files": [
+    "dist/",
+    "dist-min/"
+  ],
+  "scripts": {
+    "build": "npm run build:unmin && npm run build:min",
+    "build:unmin": "POC_CLEAN=1 POC_TARGET=esm vite build && POC_TARGET=consumer vite build && POC_TARGET=browser vite build",
+    "build:min": "POC_CLEAN=1 POC_TARGET=esm POC_MIN=1 vite build && POC_TARGET=consumer POC_MIN=1 vite build && POC_TARGET=browser POC_MIN=1 vite build"
+  },
+  "devDependencies": {
+    "vite": "8.3.8"
+  }
+}
