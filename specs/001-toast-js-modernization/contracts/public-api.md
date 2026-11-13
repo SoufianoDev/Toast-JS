@@ -232,6 +232,8 @@ Every callback receives the `Toast` instance as its single argument. Callbacks r
 
 `addCallback(callback)` is the legacy spelling of `on("show", callback)`.
 
+**Ownership.** The event API lives with the lifecycle that raises it — `src/core/Toast.mjs` (T020) — and stays there: no other module raises or subscribes to these events, so a second owner does not justify a separate event module. The manager is notified directly after the `hide` event rather than through the event list, which is why it does not count as a second owner.
+
 ## 9. Observable DOM Output
 
 | Element | Contract |

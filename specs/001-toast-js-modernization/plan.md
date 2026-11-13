@@ -86,6 +86,7 @@ The implementation branch `chore/spec-kit-bootstrap` sits three commits ahead of
 - **Timer:** owns duration, remaining time, and independent pause reasons for a notification.
 - **DOMRenderer:** owns DOM creation, update, attachment/removal, and renderer-related accessibility attributes. It does not own queue policy or timers.
 - **Animation lifecycle:** waits for browser completion events with a bounded fallback and cleanup.
+- **Events:** the `show` / `hide` / `dismiss` callbacks belong to the Toast lifecycle that raises them and stay in `src/core/Toast.mjs`; no second owner justifies a separate event module.
 - **Style data/resolution:** immutable presets and pure style normalization; CSS owns static structure and keyframes. The 21 frozen presets, the shared base and the alias map live in `src/styles/presets.mjs`; the pure normalization and validation live in `src/styles/resolveStyle.mjs`, which returns the resolved style, the captured keyframes and the reason a warning is owed, and leaves the warning text to the public method.
 - **Context/environment helpers:** focused utilities; no module touches browser globals at import time. Lazy context resolution, the lazy-context detection and the `getWebAppContext()` / `getContextFor()` helpers live in `src/context/LazyContext.mjs`.
 

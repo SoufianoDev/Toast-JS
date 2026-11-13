@@ -68,7 +68,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 - [x] T017 [P] [US1] Move the 21 frozen public style preset objects and the complete accepted alias map into `src/styles/presets.mjs` without changing shape or values.
 - [x] T018 [US1] Implement pure style normalization and validation in `src/styles/resolveStyle.mjs`, retaining all aliases characterized by the compatibility suite.
 - [x] T019 [P] [US1] Implement lazy context resolution using `src/context/LazyContext.mjs` only for behavior verified in the current API contract; defer DOM access until a runtime operation requires it.
-- [ ] T020 [US1] Implement and test the existing event and callback API within the owning Toast lifecycle in `src/core/Toast.mjs`; keep it internal unless a second real owner justifies a separate module.
+- [x] T020 [US1] Implement and test the existing event and callback API within the owning Toast lifecycle in `src/core/Toast.mjs`; keep it internal unless a second real owner justifies a separate module.
 - [ ] T021 [US1] Complete US1 compatibility tests in `tests/contracts/public-api.contract.test.mjs` and `tests/contracts/styles.contract.test.mjs` against both the current and new implementations.
 
 ## Phase 4: US2 — Display and Manage Notifications Reliably (P1)
