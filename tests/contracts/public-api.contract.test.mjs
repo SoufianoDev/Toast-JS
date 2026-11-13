@@ -1,10 +1,5 @@
-import { existsSync } from 'node:fs';
-import { join } from 'node:path';
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
-import { legacyAdapter } from './adapters/legacy.mjs';
-import { newAdapter } from './adapters/new.mjs';
-
-const ROOT_DIR = process.cwd();
+import { forEachImplementation } from './contract-implementations.mjs';
 
 const CONTRACT = {
   durations: { LENGTH_SHORT: 3000, LENGTH_LONG: 6500 },
@@ -349,12 +344,4 @@ function defineContractSuite(adapter, pending) {
   });
 }
 
-defineContractSuite(legacyAdapter, false);
-
-// The new implementation does not exist until T015 creates src/index.mjs. Its
-// block is reported as skipped, not silently omitted, and the same assertions
-// run against it as soon as the entry lands.
-defineContractSuite(
-  newAdapter,
-  !existsSync(join(ROOT_DIR, newAdapter.entry)),
-);
+forEachImplementation(defineContractSuite);
