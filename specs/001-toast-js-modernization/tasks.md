@@ -52,11 +52,11 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 - [x] T007 Create legacy/new loading adapters under `tests/contracts/adapters/` without changing files under `libs/js/`.
 - [x] T008 Create the Shared Contract Test suite in `tests/contracts/public-api.contract.test.mjs` and run it against the current implementation through the legacy adapter.
 - [x] T009 Add characterization tests for preset shape, immutability, values, aliases, and defaults under `tests/contracts/styles.contract.test.mjs`.
-- [ ] T010 [P] Build an isolated Rollup proof of concept under `experiments/build-poc/rollup/` using a minimal `.mjs` entry and the approved output acceptance criteria.
-- [ ] T011 [P] Build an isolated Vite Library Mode proof of concept under `experiments/build-poc/vite/` using the same entry and acceptance criteria as the Rollup experiment.
-- [ ] T012 Compare both proof-of-concept outputs and record build behavior, output formats, CSS handling, tree-shaking, source maps, minification, package validity, and maintenance cost in `specs/001-toast-js-modernization/research.md`; select the simpler passing tool with a recorded rationale.
-- [ ] T013 Determine and test separate browser-runtime, Node/SSR-import, and development/build Node support boundaries; record the tested matrix in `specs/001-toast-js-modernization/research.md` without adding speculative polyfills.
-- [ ] T014 Investigate downstream use of `./src/Toast.js` and evidence for CommonJS in repository history, documentation, issues, and available consumer data; record retain/migrate and include/omit recommendations in `research.md` before changing package exports.
+- [x] T010 [P] Build an isolated Rollup proof of concept under `experiments/build-poc/rollup/` using a minimal `.mjs` entry and the approved output acceptance criteria.
+- [x] T011 [P] Build an isolated Vite Library Mode proof of concept under `experiments/build-poc/vite/` using the same entry and acceptance criteria as the Rollup experiment.
+- [x] T012 Compare both proof-of-concept outputs and record build behavior, output formats, CSS handling, tree-shaking, source maps, minification, package validity, and maintenance cost in `specs/001-toast-js-modernization/research.md`; select the simpler passing tool with a recorded rationale.
+- [x] T013 Determine and test separate browser-runtime, Node/SSR-import, and development/build Node support boundaries; record the tested matrix in `specs/001-toast-js-modernization/research.md` without adding speculative polyfills.
+- [x] T014 Investigate downstream use of `./src/Toast.js` and evidence for CommonJS in repository history, documentation, issues, and available consumer data; record retain/migrate and include/omit recommendations in `research.md` before changing package exports.
 ## Phase 3: US1 — Preserve the Existing Consumer Contract (P1)
 
 **Goal:** Deliver the verified current-main API through the new ESM source without breaking the compatibility suite.

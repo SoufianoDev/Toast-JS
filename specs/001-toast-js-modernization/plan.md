@@ -13,7 +13,7 @@
 
 Modernize Toast-JS from the audited UMD-centered implementation into a single-source JavaScript ESM implementation, retaining the current `main` public contract and immutable historical distributions. The work is phased: characterize the existing contract and establish verification first; perform focused technical research; implement the core lifecycle and queue; add persistent/actionable/async behavior; complete accessibility and CSS separation; then finalize packaging, types, documentation, and CI.
 
-The architecture is constrained by approved decisions. This plan does not choose Rollup or Vite prematurely, does not assume CommonJS is required, does not set unverified runtime minimums, and does not select a release version.
+The architecture is constrained by approved decisions. The build tool was selected from measured proof-of-concept evidence rather than preference (Rolldown 1.3.2, DEC-032). This plan does not assume CommonJS is required, does not set unverified runtime minimums, and does not select a release version.
 
 ## 2. Technical Context
 
@@ -33,8 +33,8 @@ This section carries the approved implementation constraints out of `DECISION_RE
 | Coverage | Progressive, behavior-oriented | Approved |
 | Compatibility | Shared Contract Tests against current `main` | Approved |
 | Runtime support | Balanced, modern-browser target; exact versions evidence-based | Policy approved; exact matrix pending research |
-| Build tool | Rollup vs Vite Library Mode proof of concept | Pending research; no selection yet |
-| CommonJS | ESM-first; add only when consumer need is demonstrated | Conditional |
+| Build tool | **Rolldown 1.3.2, used directly** | Approved on 2026-11-13 on four-way measured evidence (`research.md` R-001, DEC-032) |
+| CommonJS | ESM-first; add only when consumer need is demonstrated | No publicly discoverable demand evidence found 2026-11-13 (`research.md` R-004) — so no `.cjs` output; the existing UMD-based `require` condition is kept because it is the only path that provides named-export parity today |
 | CSS | Plain CSS; explicit import default; injection opt-in | Approved |
 | Persistence | None; notification state is in-memory runtime state | N/A |
 | Project type | Browser notification library with Node/SSR-safe module evaluation | Approved direction |
@@ -67,7 +67,7 @@ The implementation branch `chore/spec-kit-bootstrap` sits three commits ahead of
 | Deterministic lifecycle | PASS | Manager owns coordination; queue/timer/renderer own distinct behaviors. |
 | Accessibility | PASS | A11y work is a release story, not polish-only. |
 | CSS loading | PASS | Import default; injection explicit opt-in; no implicit core-side effect. |
-| Evidence-based tooling | RESEARCH GATE | Rollup/Vite, support matrix, CJS need, and declaration generation are validated before final packaging. |
+| Evidence-based tooling | PASS | Build tool selected on measured proof-of-concept evidence (DEC-032, Rolldown 1.3.2). Support matrix, CJS need, and declaration generation remain validated before final packaging. |
 | Controlled changes | PASS | Only the explicitly requested bootstrap branch and its initial documentation commit are in scope; no PR, merge, release, or publish is included. |
 
 **Gate:** No implementation starts until the review checklists are evaluated, foundational characterization is complete, and the build/runtime research required by the affected implementation phase is resolved.
@@ -96,8 +96,11 @@ See [`data-model.md`](data-model.md). Core lifecycle is modeled as `created -> q
 
 - `.mjs` is the primary source and ESM output.
 - Browser standalone/UMD output is retained only where the package/CDN distribution requires it.
-- `.cjs` is conditional on evidence.
-- The old `./src/Toast.js` package subpath is not removed until consumer use and a compatibility shim/migration path are reviewed.
+- `.cjs` is conditional on evidence — the evidence is now gathered and shows no publicly discoverable demand, so `.cjs` is omitted (`research.md` R-004, DEC-033).
+- The old `./src/Toast.js` package subpath is retained and repointed, not removed; consumer use has been reviewed (`research.md` R-003) and shows no publicly discoverable usage, so no deprecation cycle is run. The repointed subpath keeps both `import` and `require` conditions, **and a physical CommonJS file remains at `src/Toast.js`** so Node below 12.17, which resolves the deep path by physical path, keeps working (`research.md` R-003.4b).
+- `main` and the `require` condition stay CommonJS artifacts, because on Node below 12.17 the root entry is resolved through `main` (`research.md` R-003.4b).
+- The ESM and CommonJS entry points must resolve to **one** shared instance — no duplicated `Manager`, queue, or module-level state — verified from the packed tarball by T044 (`research.md` R-003.4e).
+- `engines.node` is not changed by the evidence task; the consumer support policy is settled separately, and the packaging task sets the value against what actually ships.
 - CSS is a separate explicit asset by default; opt-in injection has a distinct entry point/API and duplicate protection.
 - Checking with `noEmit` and generating declaration files are separate compiler configurations so the selected check does not accidentally suppress declaration output.
 
@@ -107,10 +110,10 @@ The plan command's research phase resolves implementation unknowns before detail
 
 | ID | Research item | Required evidence / exit condition |
 |---|---|---|
-| R-001 | Rollup vs Vite Library Mode | Two isolated PoCs evaluated against identical inputs and outputs: `.mjs` ESM, required browser output, CSS extraction, minification/source maps, output determinism, package exports, and SSR import. Decision recorded with rationale and rejected alternative. |
+| R-001 | Build-tool selection | Four isolated proof-of-concepts (Rollup, Vite 8, tsdown, raw Rolldown) evaluated against identical inputs and outputs: `.mjs` ESM, required browser output, CSS handling, minification/source maps, output determinism, package exports, SSR import, and declaration generation. **Completed 2026-11-13: Rolldown 1.3.2 selected** on measured evidence, with the rejected alternatives and their numbers recorded in `research.md` R-001. |
 | R-002 | Runtime support matrix | Inspect actual syntax and Web APIs used; separate runtime browser support from development/build Node requirements; test declared lower bounds; no speculative polyfills. |
-| R-003 | Existing `./src/Toast.js` deep export | Search project history/docs and consumer evidence; decide whether to retain a compatibility wrapper, deprecate with a transition, or preserve unchanged. No silent removal. |
-| R-004 | CommonJS demand | Inspect consumer requests, package usage evidence, and integration needs; ship `.cjs` only if supported by evidence. |
+| R-003 | Existing `./src/Toast.js` deep export | Search project history/docs and consumer evidence; decide whether to retain a compatibility wrapper, deprecate with a transition, or preserve unchanged. No silent removal. **Completed 2026-11-13: retain the path and migrate its target** — no publicly discoverable external reference to the deep path or the package, and no package published under this name, so no deprecation cycle is warranted; the repointed subpath must carry both `import` and `require` conditions, **and a physical CommonJS file must remain at `src/Toast.js`** because Node below 12.17 resolves the deep path by physical path only (`research.md` R-003, R-003.4b, R-003.4c). |
+| R-004 | CommonJS demand | Inspect consumer requests, package usage evidence, and integration needs; ship `.cjs` only if supported by evidence. **Completed 2026-11-13: no publicly discoverable demand evidence, so no `.cjs` and no `.d.cts`**; the existing `require` condition keeps pointing at the already-built UMD artifact, which is also the only path providing named-export parity today (`research.md` R-004, DEC-033). |
 | R-005 | CSS injection contract | Choose a concrete opt-in mechanism, cleanup ownership, duplicate detection, and CSP behavior; keep explicit stylesheet import as default. |
 | R-006 | JSDoc declaration generation | Verify a separate declaration-emission configuration for `.mjs` JavaScript sources and TypeScript consumer fixture; preserve `noEmit` for the static-check configuration. |
 | R-007 | Existing behavior characterization | Inspect active source, README/changelog, package map, and tests; classify documented contract vs implementation defect before encoding behavior. |
@@ -151,8 +154,10 @@ Tests are included in each story phase because the specification explicitly requ
 | Risk | Impact | Mitigation |
 |---|---|---|
 | Existing source behavior is incompletely inventoried | Silent API breakage | Complete API inventory and Shared Contract Tests before refactoring. |
-| Current `src/Toast.js` is also a package subpath | Downstream deep-import breakage | Consumer evidence and deliberate compatibility wrapper/migration decision. |
-| Build tool selected by preference instead of output evidence | Incompatible or excessive build pipeline | Isolated Rollup/Vite PoCs with identical acceptance criteria. |
+| Current `src/Toast.js` is also a package subpath | Downstream deep-import breakage | Consumer evidence gathered and the subpath retained with a migrated target (`research.md` R-003); a physical CommonJS file remains at the path for Node below 12.17; T044 verifies it resolves from the packed tarball under both `import` and `require`. |
+| The same package is loaded through both the ESM and the CommonJS entry | Two `Manager` singletons, two queues, split state — a direct violation of the documented singleton contract | Measured on the current tarball (`research.md` R-003.4e). The entry-point design must yield one shared instance, and **T044** must prove it from the packed tarball by comparing object identity across both entry points in one process. |
+| `main` or the `require` target is repointed at an ESM module | Root entry breaks on every Node version below 12.17, where the `exports` map is not operative | `main` must remain a CommonJS artifact (`research.md` R-003.4b); verified from the packed tarball by T044. |
+| Build tool selected by preference instead of output evidence | Incompatible or excessive build pipeline | Four isolated proof-of-concepts with identical acceptance criteria; selection recorded from measured results (`research.md` R-001, DEC-032). |
 | Browser globals touched at import time | SSR/Node import failure | Import-safety tests and lazy DOM access. |
 | Timer/animation races | Stuck or early-dismissed notifications | State-machine tests and Playwright verification. |
 | CSS injection conflicts with CSP or explicit import | Styling failure or duplicate CSS | Opt-in API, duplicate protection, explicit stylesheet fallback. |
@@ -164,7 +169,7 @@ Tests are included in each story phase because the specification explicitly requ
 - **Before Phase 0:** constitution check passes; baseline and current branch are known.
 - **Before detailed design approval:** research unknowns are resolved or explicitly bounded.
 - **Before task execution:** specification and design checklists are reviewed; task/spec/plan analysis has no critical or high unresolved issue.
-- **Before release candidate:** all required story acceptance criteria pass, shared contracts pass, package fixture passes, and no legacy files changed.
+- **Before release candidate:** all required story acceptance criteria pass, shared contracts pass, package fixture passes — including the mixed ESM/CJS single-instance assertion (`research.md` R-003.4e) — and no legacy files changed.
 - **Before publish:** registry/version/tag verification and explicit user authorization are required.
 
 ## 11. Spec Kit Mapping
