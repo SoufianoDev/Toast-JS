@@ -63,7 +63,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 
 **Independent test:** The Shared Contract Tests and preset contract tests pass against the new implementation and the current baseline.
 
-- [ ] T015 [US1] Create the primary ESM entry at `src/index.mjs` and export the verified current-main public API without importing DOM globals during module evaluation.
+- [x] T015 [US1] Create the primary ESM entry at `src/index.mjs` and export the verified current-main public API without importing DOM globals during module evaluation.
 - [ ] T016 [US1] Implement the public Toast instance contract in `src/core/Toast.mjs`, preserving verified current-main methods, defaults, chaining behavior, and observable lifecycle semantics.
 - [ ] T017 [P] [US1] Move the 21 frozen public style preset objects and the complete accepted alias map into `src/styles/presets.mjs` without changing shape or values.
 - [ ] T018 [US1] Implement pure style normalization and validation in `src/styles/resolveStyle.mjs`, retaining all aliases characterized by the compatibility suite.
