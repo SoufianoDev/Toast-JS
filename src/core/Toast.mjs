@@ -35,18 +35,18 @@ import {
   STYLE_TRANSPARENT,
 } from '../styles/presets.mjs';
 import { resolveStyle } from '../styles/resolveStyle.mjs';
+import {
+  createLazyContext,
+  getBody,
+  getContextFor,
+  getWebAppContext,
+  isLazyContext,
+} from '../context/LazyContext.mjs';
 
 /**
  * A context that resolves once the document body exists.
  *
- * @typedef {object} LazyContext
- * @property {() => boolean} isLazy
- * @property {() => boolean} isReady
- * @property {() => HTMLElement | null} resolve
- * @property {(callback: (context: HTMLElement | null) => void) => void} onReady
- * @property {(element: HTMLElement) => void} forceResolve
- * @property {() => void} reset
- * @property {() => string} toString
+ * @typedef {import('../context/LazyContext.mjs').LazyContext} LazyContext
  */
 
 /**
@@ -63,10 +63,6 @@ import { resolveStyle } from '../styles/resolveStyle.mjs';
 
 /** The three public event names. */
 const EVENTS = /** @type {const} */ (['show', 'hide', 'dismiss']);
-
-const LAZY_CONTEXT_MARKER = typeof Symbol !== 'undefined'
-  ? Symbol('toast.lazy.context')
-  : '__toast_lazy_context__';
 
 const ALLOWED_ICON_EXTENSIONS = /\.(svg|png|jpg|jpeg|gif|webm|mp4)(\?.*)?$/i;
 
@@ -93,61 +89,6 @@ function createElement(tagName) {
   } catch {
     return null;
   }
-}
-
-/**
- * Creates a context that resolves once the document body exists.
- *
- * @returns {LazyContext}
- */
-function createLazyContext() {
-  /** @type {HTMLElement | null} */
-  let resolvedElement = null;
-  /** @type {Array<(context: HTMLElement | null) => void>} */
-  const pendingCallbacks = [];
-
-  return {
-    isLazy: () => resolvedElement === null,
-    isReady: () => typeof document !== 'undefined' && document.body != null,
-    resolve: () => {
-      if (resolvedElement) return resolvedElement;
-      if (typeof document === 'undefined' || !document.body) return null;
-      resolvedElement = document.body;
-      return resolvedElement;
-    },
-    onReady: (callback) => {
-      if (typeof callback !== 'function') return;
-      if (isDOMAvailable()) {
-        callback(resolvedElement ?? document.body);
-        return;
-      }
-      pendingCallbacks.push(callback);
-      if (typeof document !== 'undefined' && document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => {
-          const context = resolvedElement ?? document.body ?? null;
-          pendingCallbacks.forEach((pending) => pending(context));
-          pendingCallbacks.length = 0;
-        });
-      }
-    },
-    forceResolve: (element) => {
-      if (element && element.nodeType === 1) resolvedElement = element;
-    },
-    reset: () => {
-      resolvedElement = null;
-    },
-    toString: () => '[Toast LazyContext]',
-  };
-}
-
-/**
- * @param {unknown} candidate
- * @returns {boolean} Whether the value is a lazy context.
- */
-function isLazyContext(candidate) {
-  if (!candidate || typeof candidate !== 'object') return false;
-  const lazy = /** @type {{ _marker?: unknown, isLazy?: unknown }} */ (candidate);
-  return lazy._marker === LAZY_CONTEXT_MARKER || typeof lazy.isLazy === 'function';
 }
 
 /**
@@ -187,43 +128,6 @@ function validateIconPath(iconPath) {
 }
 
 /**
- * The context to render into.
- *
- * @returns {HTMLElement | LazyContext} The body, or a lazy context in SSR.
- */
-function getWebAppContext() {
-  if (typeof document !== 'undefined' && document.body) return document.body;
-  return createLazyContext();
-}
-
-/**
- * Resolves a container reference to a render target.
- *
- * @param {unknown} container
- * @returns {HTMLElement | LazyContext}
- */
-function getContextFor(container) {
-  if (container && typeof container === 'object' && /** @type {Node} */ (container).nodeType === 1) {
-    return /** @type {HTMLElement} */ (container);
-  }
-  if (typeof container === 'string') {
-    const lazyContext = createLazyContext();
-    const originalResolve = lazyContext.resolve;
-    lazyContext.resolve = () => {
-      if (typeof document === 'undefined') return null;
-      const element = document.querySelector(container);
-      if (element instanceof HTMLElement) {
-        lazyContext.forceResolve(element);
-        return element;
-      }
-      return originalResolve();
-    };
-    return lazyContext;
-  }
-  return getWebAppContext();
-}
-
-/**
  * A toast notification.
  */
 class Toast {
@@ -239,8 +143,8 @@ class Toast {
 
     /** @type {unknown} */
     this._originalContext = context;
-    /** @type {HTMLElement | null} */
-    this.context = /** @type {HTMLElement | null} */ (this._resolveContext(context));
+    /** @type {Element | null} */
+    this.context = this._resolveContext(context);
     /** @type {string} */
     this.text = text;
     /** @type {number} */
@@ -300,15 +204,15 @@ class Toast {
    * Resolves a context reference to a DOM element.
    *
    * @param {unknown} context
-   * @returns {HTMLElement | null}
+   * @returns {Element | null}
    */
   _resolveContext(context) {
     if (!isDOMAvailable()) return null;
     if (isLazyContext(context)) return /** @type {LazyContext} */ (context).resolve();
     if (context && typeof context === 'object' && /** @type {Node} */ (context).nodeType === 1) {
-      return /** @type {HTMLElement} */ (context);
+      return /** @type {Element} */ (context);
     }
-    return document.body;
+    return getBody();
   }
 
   /**
@@ -668,7 +572,7 @@ class Toast {
           });
           return this;
         }
-        this.context = document.body;
+        this.context = getBody();
         if (!this.context) {
           console.warn('[Toast-JS] show(): No valid context available.');
           return this;

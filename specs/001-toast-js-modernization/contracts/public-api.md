@@ -189,6 +189,8 @@ The 21 frozen presets, the shared base they spread, and the alias map live in **
 
 Style normalization lives in **`src/styles/resolveStyle.mjs`** (T018). It is pure: it resolves a style input into the style to use, the custom keyframes it carried, and the reason a warning is owed, and performs no side effect of its own. The warning text stays with `setStyle()`, so the messages the contract fixes are unchanged.
 
+Lazy context resolution lives in **`src/context/LazyContext.mjs`** (T019). It owns the lazy-context factory, the lazy-context detection, and the `getWebAppContext()` / `getContextFor()` helpers, and it reaches the DOM only when a runtime operation needs it: an element container resolves directly, a string selector resolves lazily through `document.querySelector()`, an invalid selector throws at **resolve** time in a browser, and in SSR resolution returns `null` instead of reaching for a DOM global that is not there. No DOM global is touched while the module is evaluated.
+
 Two differences are deliberate and bounded:
 
 - **`Manager` is not on it yet.** The manager singleton belongs to the manager module (T023), so the new instance carries 60 of the 61 statics. **The primary ESM entry therefore cannot be repointed at the new instance until the manager module exists** — until then the entry keeps importing the current implementation, which is what keeps the shared contract suite green.
