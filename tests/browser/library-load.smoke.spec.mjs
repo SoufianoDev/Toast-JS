@@ -1,3 +1,4 @@
+// @ts-check
 import { fileURLToPath } from 'node:url';
 import { expect, test } from '@playwright/test';
 

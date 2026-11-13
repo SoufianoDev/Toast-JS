@@ -1,6 +1,6 @@
+// @ts-check
 import { legacyAdapter } from '../legacy.mjs';
 
-// Stands in for src/index.mjs until task T015 creates the real ESM entry.
-// It exports the audited implementation the way the new entry will: a default
-// export of the Toast constructor.
+// A minimal ESM entry with the same export shape as `src/index.mjs`, used to
+// exercise the adapter's entry resolution independently of the real entry.
 export default await legacyAdapter.load();

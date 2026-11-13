@@ -1,3 +1,4 @@
+// @ts-check
 import { beforeAll, describe, expect, it } from 'vitest';
 import { forEachImplementation } from './contract-implementations.mjs';
 

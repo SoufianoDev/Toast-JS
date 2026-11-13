@@ -1,8 +1,12 @@
 {
-  // Legacy `.js` runtime stays out of this check until the ESM source replaces it (T015+).
+  // The legacy `.js` runtime stays out of this check: importing it from
+  // `src/index.mjs` would pull it into the program, and it predates the
+  // project's type standard. `checkJs` is therefore off and each checked file
+  // opts in with `// @ts-check`, so the legacy runtime is excluded while the
+  // `.mjs` sources are still checked in full.
   "compilerOptions": {
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "noEmit": true,
     "strict": true,
     "module": "nodenext",

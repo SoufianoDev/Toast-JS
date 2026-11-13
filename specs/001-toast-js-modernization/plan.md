@@ -32,7 +32,9 @@ This section carries the approved implementation constraints out of `DECISION_RE
 | Real-browser verification | Playwright | Approved |
 | Coverage | Progressive, behavior-oriented | Approved |
 | Compatibility | Shared Contract Tests against current `main` | Approved |
-| Runtime support | Balanced, modern-browser target; exact versions evidence-based | Policy approved; exact matrix pending research |
+| Runtime support | Balanced, modern-browser target; exact versions evidence-based | Browser matrix measured 2026-11-13 (`research.md` R-002): Chrome 54+, Edge 14+, Firefox 61+, Safari 10.1+ (DEC-034) |
+| Consumer Node.js support | Oldest currently supported LTS release line | **Node.js 22.0.0** as of 2026-11-13 — the target for the final packaged artifact, pending T041/T042 verification before `engines.node` is set; supported lines 22.x / 24.x / 26.x, EOL releases excluded (DEC-038) |
+| Development toolchain Node.js | Independent of the consumer minimum | Node.js 22.22.2, set by jsdom 31 (R-002.4); not the consumer minimum (DEC-038) |
 | Build tool | **Rolldown 1.3.2, used directly** | Approved on 2026-11-13 on four-way measured evidence (`research.md` R-001, DEC-032) |
 | CommonJS | ESM-first; add only when consumer need is demonstrated | No publicly discoverable demand evidence found 2026-11-13 (`research.md` R-004) — so no `.cjs` output; the existing UMD-based `require` condition is kept because it is the only path that provides named-export parity today |
 | CSS | Plain CSS; explicit import default; injection opt-in | Approved |
@@ -76,7 +78,8 @@ The implementation branch `chore/spec-kit-bootstrap` sits three commits ahead of
 
 ### 5.1 Responsibility Boundaries
 
-- **Public entry:** exports the documented consumer API and stable package symbols.
+- **Public entry:** exports the documented consumer API and stable package symbols. There is **one canonical runtime implementation**; the ESM and CommonJS entry points are thin, format-specific wrappers over it, so a process that loads both observes a single instance (DEC-040).
+- **Public ESM entry export shape:** the default export, the constructor by name, and the 61 public statics as named exports, bound to the runtime's own values (DEC-041). The additive named exports are required in the **final packaged ESM artifact**; the legacy CommonJS/UMD formats keep their current shape. T041 must emit this shape and T044/T045 must verify it from the packed tarball.
 - **Toast instance:** owns the public instance contract and its lifecycle state.
 - **ToastManager:** coordinates managed notifications and per-position queues; it must not create a circular back-reference from `Toast` to manager internals.
 - **Queue:** owns FIFO ordering and visible-capacity accounting per position.
@@ -97,9 +100,9 @@ See [`data-model.md`](data-model.md). Core lifecycle is modeled as `created -> q
 - `.mjs` is the primary source and ESM output.
 - Browser standalone/UMD output is retained only where the package/CDN distribution requires it.
 - `.cjs` is conditional on evidence — the evidence is now gathered and shows no publicly discoverable demand, so `.cjs` is omitted (`research.md` R-004, DEC-033).
-- The old `./src/Toast.js` package subpath is retained and repointed, not removed; consumer use has been reviewed (`research.md` R-003) and shows no publicly discoverable usage, so no deprecation cycle is run. The repointed subpath keeps both `import` and `require` conditions, **and a physical CommonJS file remains at `src/Toast.js`** so Node below 12.17, which resolves the deep path by physical path, keeps working (`research.md` R-003.4b).
-- `main` and the `require` condition stay CommonJS artifacts, because on Node below 12.17 the root entry is resolved through `main` (`research.md` R-003.4b).
-- The ESM and CommonJS entry points must resolve to **one** shared instance — no duplicated `Manager`, queue, or module-level state — verified from the packed tarball by T044 (`research.md` R-003.4e).
+- The old `./src/Toast.js` package subpath is retained and repointed, not removed; consumer use has been reviewed (`research.md` R-003) and shows no publicly discoverable usage, so no deprecation cycle is run. The repointed subpath keeps both `import` and `require` conditions. The **physical** CommonJS file that served Node.js below 12.17 is **superseded** by DEC-038 and DEC-039 — the subpath is retained because the public API compatibility decision requires it, not because of obsolete Node.js releases.
+- `main` and the `require` condition stay CommonJS artifacts. Their role as the resolution fallback for Node.js below 12.17 is **superseded** by DEC-038, but the CommonJS consumer path itself is **in force** (DEC-033), so `main` remains the conventional CommonJS entry.
+- The ESM and CommonJS entry points resolve to **one** shared instance — no duplicated `Manager`, queue, or module-level state — through one canonical runtime with thin format-specific entry points (DEC-040), verified by reference identity from the packed tarball by T044 (`research.md` R-003.4e).
 - `engines.node` is not changed by the evidence task; the consumer support policy is settled separately, and the packaging task sets the value against what actually ships.
 - CSS is a separate explicit asset by default; opt-in injection has a distinct entry point/API and duplicate protection.
 - Checking with `noEmit` and generating declaration files are separate compiler configurations so the selected check does not accidentally suppress declaration output.
@@ -154,9 +157,10 @@ Tests are included in each story phase because the specification explicitly requ
 | Risk | Impact | Mitigation |
 |---|---|---|
 | Existing source behavior is incompletely inventoried | Silent API breakage | Complete API inventory and Shared Contract Tests before refactoring. |
-| Current `src/Toast.js` is also a package subpath | Downstream deep-import breakage | Consumer evidence gathered and the subpath retained with a migrated target (`research.md` R-003); a physical CommonJS file remains at the path for Node below 12.17; T044 verifies it resolves from the packed tarball under both `import` and `require`. |
+| Current `src/Toast.js` is also a package subpath | Downstream deep-import breakage | Consumer evidence gathered and the subpath retained with a migrated target (`research.md` R-003); the subpath is retained by the public API compatibility decision, not by obsolete-Node.js resolution, which is superseded (DEC-039); T044 verifies it resolves from the packed tarball under both `import` and `require`. |
 | The same package is loaded through both the ESM and the CommonJS entry | Two `Manager` singletons, two queues, split state — a direct violation of the documented singleton contract | Measured on the current tarball (`research.md` R-003.4e). The entry-point design must yield one shared instance, and **T044** must prove it from the packed tarball by comparing object identity across both entry points in one process. |
-| `main` or the `require` target is repointed at an ESM module | Root entry breaks on every Node version below 12.17, where the `exports` map is not operative | `main` must remain a CommonJS artifact (`research.md` R-003.4b); verified from the packed tarball by T044. |
+| `main` or the `require` target is repointed at an ESM module | Root entry breaks on every Node.js release below 12.17, where the `exports` map is not operative | Those releases are outside the support commitment (DEC-038), so the constraint is superseded; `main` and the `require` condition stay CommonJS artifacts regardless, because the CommonJS consumer path is in force (DEC-033, DEC-039). |
+| The declared consumer Node.js minimum drifts from what actually ships | Consumers install on a release the package does not support | The consumer minimum is the oldest supported LTS line (DEC-038); `engines.node` is set by the packaging task against the shipped artifact and verified from the packed tarball (VAL-009), and the target is not declared as supported until T041/T042 have fixed and verified the artifact. |
 | Build tool selected by preference instead of output evidence | Incompatible or excessive build pipeline | Four isolated proof-of-concepts with identical acceptance criteria; selection recorded from measured results (`research.md` R-001, DEC-032). |
 | Browser globals touched at import time | SSR/Node import failure | Import-safety tests and lazy DOM access. |
 | Timer/animation races | Stuck or early-dismissed notifications | State-machine tests and Playwright verification. |

@@ -1,3 +1,4 @@
+// @ts-check
 import { expect, it } from 'vitest';
 
 it('provides a DOM environment', () => {

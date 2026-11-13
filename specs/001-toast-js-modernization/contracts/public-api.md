@@ -17,16 +17,32 @@ This inventory was produced by enumerating the runtime object (`tests/contracts/
 | CommonJS | `module.exports = factory()` — the `Toast` constructor itself |
 | AMD | `define(factory)` — the `Toast` constructor |
 | Browser global | `globalThis.Toast = factory()` |
-| ESM build (`dist/toast.esm.js`) | `export default Toast` — a default export, no named exports |
+| ESM build (`dist/toast.esm.js`, baseline) | `export default Toast` — a default export only |
 
-There are **no named exports** on any format. The entire public surface hangs off the single `Toast` constructor.
+**On the legacy formats there are no named exports.** The entire public surface hangs off the single `Toast` constructor. That is the audited `main` behavior and it is preserved.
+
+### 2.2 The primary ESM entry `src/index.mjs` — additive named exports
+
+**Owner decision (2026-11-13):** the named exports are part of the **new public ESM entry API**. They are **additive**, and they are **not required** in the legacy CommonJS/UMD formats, which keep their current shape.
+
+| Export | Value |
+|---|---|
+| `default` | the `Toast` constructor |
+| `Toast` | the same constructor, also by name |
+| 61 named exports | the runtime's own public static values |
+
+The named exports are the runtime's own objects, not copies, so reference identity holds across the ESM and CommonJS entries. The set is asserted against the runtime's own static names by `tests/unit/esm-entry.test.mjs`, so a drift between the entry and the runtime fails the suite.
+
+**The final packaged ESM artifact must expose the same named exports.** The build (T041) must emit this export shape, and the packaging verification (T044, T045) must confirm it from the packed tarball.
+
+**Snapshot semantics.** The named exports are initialized once, when the entry module is evaluated. The runtime assigns every static during its own initialization, which completes before the entry body runs, so the bindings hold the runtime's final values: primitive exports are value snapshots, and object exports are references to the runtime's own objects. Twenty-six of the twenty-seven object statics are frozen; the only mutable one, `Manager`, is exported as the object itself, so its internal state stays visible through the binding.
 
 ## 3. Package Entry Points and Subpaths
 
 | Subpath | Target | Notes |
 |---|---|---|
-| `.` | `import` → `dist/toast.esm.js`; `require` → `dist/toast.umd.js`; `browser` → `dist/toast.umd.js`; `default` → `dist/toast.umd.js` | The `browser` and `default` conditions are unreachable because `import` and `require` precede them. Recorded as an open defect; `exports` stays frozen until the consumer-evidence task. |
-| `./src/Toast.js` | `./src/Toast.js` | Legacy deep import. Retained; migration is decided by the consumer-evidence task. |
+| `.` | `import` → `dist/toast.esm.js`; `require` → `dist/toast.umd.js`; `browser` → `dist/toast.umd.js`; `default` → `dist/toast.umd.js` | The `browser` and `default` conditions are unreachable because `import` and `require` precede them. Recorded as an open defect; `exports` stays frozen until the packaging task. |
+| `./src/Toast.js` | `./src/Toast.js` | Legacy deep import. Retained and repointed by the consumer-evidence decision (R-003, VAL-003); the target migration is implemented by the packaging task. |
 
 Top-level metadata fields: `main`, `module`, `browser`, `unpkg`, `jsdelivr`, `types`, `files`.
 

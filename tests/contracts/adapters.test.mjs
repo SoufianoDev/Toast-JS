@@ -1,3 +1,4 @@
+// @ts-check
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -27,8 +28,8 @@ function surfaceOf(implementation) {
   };
 }
 
-// The new adapter's own entry (src/index.mjs) lands with task T015. Until then
-// it is exercised against an ESM fixture shaped like that entry will be.
+// The adapter is exercised against a fixture with the same export shape, so its
+// entry resolution is tested independently of the real entry.
 const ADAPTERS = [
   { name: 'legacy', load: () => legacyAdapter.load() },
   { name: 'new', load: () => newAdapter.load('tests/contracts/adapters/fixtures/esm-entry.mjs') },

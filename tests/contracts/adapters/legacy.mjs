@@ -1,3 +1,4 @@
+// @ts-check
 import { createRequire } from 'node:module';
 import { join } from 'node:path';
 
@@ -8,8 +9,8 @@ const require = createRequire(import.meta.url);
  *
  * The default entry is the audited current-`main` implementation. `src/Toast.js`
  * is byte-identical to the audited baseline commit and is the package's
- * retained `./src/Toast.js` subpath, so it stays a stable baseline after the
- * ESM source lands.
+ * retained `./src/Toast.js` subpath, so it stays a stable baseline alongside
+ * the ESM entry.
  *
  * @param {string} [entry] Repository-relative module path.
  * @returns {Promise<any>} The implementation's public export.
