@@ -181,6 +181,15 @@ These are implementation details of the current runtime. They are recorded so th
 
 `src/core/env.js`, `src/core/dom.js`, and `src/core/context.js` exist in the repository but are **not** exported by the package, **not** reachable from `src/Toast.js`, and carry their own copies of the environment, DOM, and context logic. They are outside the compatibility baseline and are candidates for reuse only after review.
 
+### 5.6 The new instance module (T016)
+
+`src/core/Toast.mjs` is the ESM implementation of this section. It exposes the same 21 prototype members as the current implementation and the same 60 static members it can own today.
+
+Two differences are deliberate and bounded:
+
+- **`Manager` is not on it yet.** The manager singleton belongs to the manager module (T023), so the new instance carries 60 of the 61 statics. **The primary ESM entry therefore cannot be repointed at the new instance until the manager module exists** — until then the entry keeps importing the current implementation, which is what keeps the shared contract suite green.
+- **It injects no global stylesheet at module load.** The current implementation injects its stylesheet when the module is evaluated; the approved decision (DEC-017, DEC-018) makes CSS an explicit import with opt-in injection, so the new module does not. This is the recorded gap in section 11, not a regression.
+
 ## 6. Style Alias Map
 
 `setStyle(string)` accepts exactly these 23 aliases, matched case-insensitively:
