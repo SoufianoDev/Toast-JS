@@ -286,16 +286,30 @@ function defineContractSuite(adapter, pending) {
     });
 
     it('registers and removes callbacks', () => {
-      /** @type {any[]} */
-      const seen = [];
+      let calls = 0;
+      const callback = () => {
+        calls += 1;
+      };
       const toast = Toast.makeText(document.body, 'hello');
 
-      toast.addCallback((/** @type {any} */ instance) => seen.push(instance));
+      toast.addCallback(callback);
       toast.show();
-      expect(seen).toEqual([toast]);
+      expect(calls).toBe(1);
 
-      toast.off('show', seen[0]);
+      toast.off('show', callback);
       toast.hide();
+      vi.advanceTimersByTime(350);
+      toast.show();
+
+      expect(calls, 'the removed callback must not be called again').toBe(1);
+    });
+
+    it('returns undefined from hide()', () => {
+      const toast = Toast.makeText(document.body, 'hello');
+      toast.show();
+
+      expect(toast.hide()).toBeUndefined();
+
       vi.advanceTimersByTime(350);
     });
 

@@ -60,7 +60,7 @@ Values: `"top-left"`, `"top-center"`, `"top-right"`, `"bottom-left"`, `"bottom-c
 
 ### 4.4 Icon size constants
 
-`ICON_SIZE` is a frozen object with four frozen members: `SMALL` (`20px`/`20px`), `MEDIUM` (`24px`/`24px`), `LARGE` (`32px`/`32px`), `EXTRA_LARGE` (`48px`/`48px`).
+`ICON_SIZE` is a frozen object. Its four members — `SMALL` (`20px`/`20px`), `MEDIUM` (`24px`/`24px`), `LARGE` (`32px`/`32px`), `EXTRA_LARGE` (`48px`/`48px`) — are plain objects and are **not** themselves frozen. Only the outer container is.
 
 ### 4.5 Icon shape constants
 
@@ -205,7 +205,7 @@ Every callback receives the `Toast` instance as its single argument. Callbacks r
 
 | Element | Contract |
 |---|---|
-| Container | `div` with class `toast-js-element`, the entry-animation class, and `is-dismissible` when dismissible. `role="alert"`, `aria-live="assertive"`, `aria-atomic="true"`. |
+| Container | `div` with class `toast-js-element`, the entry-animation class, and `is-dismissible` when dismissible. `role="alert"`, `aria-live="assertive"`, `aria-atomic="true"`. The announcement semantics conflict with the feature specification — see section 11, item 8. |
 | Content wrapper | `div`, `display: flex`, `min-height: 48px`, `padding: 8px 12px`, `width: 100%`. |
 | Text | `span` with `flex: 1`. `white-space`/`overflow`/`text-overflow` follow the `textOverflow` mode: `wrap` → normal/visible, `clip` → nowrap/hidden/clip, otherwise nowrap/hidden/ellipsis. |
 | Icon | A wrapper `div` with the icon size and shape applied. `.webm` and `.mp4` icons render as `video` (`autoplay`, `loop`, `muted`, `playsInline`); all others render as `img`. Both carry an accessible name of `Toast notification icon`. |
@@ -239,6 +239,7 @@ These are current-implementation facts, not contract to preserve.
 5. **`hide()` is not chainable** and `setIconShape()` fails silently, unlike the other setters.
 6. **CSS is injected implicitly at module load**, which DEC-017 and DEC-018 change to explicit import by default with opt-in injection.
 7. **`exports` has unreachable `browser` and `default` conditions** — see section 3.
+8. **Announcement semantics conflict with the feature specification — OWNER REVIEW REQUIRED.** The legacy runtime renders every toast with `role="alert"` and `aria-live="assertive"`, which interrupts whatever the user is doing. The feature specification's US4 acceptance criterion requires routine messages to use **polite status semantics by default** (`role="status"`, `aria-live="polite"`), with assertive alerts reserved for urgent cases. The two cannot both hold for the same rendered node. This contract records the legacy behaviour as the compatibility baseline and does **not** change it. Whether the new implementation adopts the specification's default is a design decision, not a mechanical migration, because adopting it is an observable behaviour change against the strict baseline. Tracked in `research.md` §3 and raised for owner review.
 
 ## 12. Contract Rules
 

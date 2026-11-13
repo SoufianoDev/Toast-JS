@@ -120,6 +120,7 @@ Seven gaps between the current implementation and the approved decisions are rec
 | ESM-first package vs old UMD/browser paths | Keep ESM primary and preserve historical `libs/js/` paths; decide new browser output from current consumer requirements. |
 | `noEmit` checking vs generated declarations | Use separate compiler configurations and test both. |
 | README version references vs package.json version | Do not use the README badge or manifest alone to pick the next release; verify npm Registry, Git tags, and release artifacts. |
+| Legacy announcement semantics vs the US4 acceptance criterion — **OWNER REVIEW REQUIRED** | The audited baseline renders every toast with `role="alert"` and `aria-live="assertive"`. `spec.md` US4 requires routine messages to use polite status semantics by default (`role="status"`, `aria-live="polite"`), with assertive alerts reserved for urgent cases. Both cannot hold for the same node. Evidence: `contracts/public-api.md` §9 and §11.8. Resolution rule: the legacy behaviour stays the strict compatibility baseline (DEC-019) and is **not** changed here; whether the new implementation adopts the specification's default is an owner decision, because adopting it is an observable behaviour change against that baseline. |
 
 ## 4. Research Sources
 
