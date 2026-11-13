@@ -187,6 +187,8 @@ These are implementation details of the current runtime. They are recorded so th
 
 The 21 frozen presets, the shared base they spread, and the alias map live in **`src/styles/presets.mjs`** (T017). The constructor's `STYLE_*` statics are the presets module's own objects, not copies, and the historical misspellings `defult_1` and `defult_2` resolve to the very same objects as `default_1` and `default_2` — so `toast.customStyle` is identical by reference to `Toast.STYLE_DEFAULT_1` whichever spelling resolved it.
 
+Style normalization lives in **`src/styles/resolveStyle.mjs`** (T018). It is pure: it resolves a style input into the style to use, the custom keyframes it carried, and the reason a warning is owed, and performs no side effect of its own. The warning text stays with `setStyle()`, so the messages the contract fixes are unchanged.
+
 Two differences are deliberate and bounded:
 
 - **`Manager` is not on it yet.** The manager singleton belongs to the manager module (T023), so the new instance carries 60 of the 61 statics. **The primary ESM entry therefore cannot be repointed at the new instance until the manager module exists** — until then the entry keeps importing the current implementation, which is what keeps the shared contract suite green.

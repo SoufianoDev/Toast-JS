@@ -12,8 +12,6 @@
  * the module stays safe in Node and SSR.
  */
 import {
-  BASE_STYLE,
-  PRESET_BY_ALIAS,
   STYLE_DEFAULT_1,
   STYLE_DEFAULT_2,
   STYLE_SUCCESS,
@@ -36,6 +34,7 @@ import {
   STYLE_GLOW,
   STYLE_TRANSPARENT,
 } from '../styles/presets.mjs';
+import { resolveStyle } from '../styles/resolveStyle.mjs';
 
 /**
  * A context that resolves once the document body exists.
@@ -334,23 +333,19 @@ class Toast {
    * @returns {this}
    */
   setStyle(style) {
-    if (typeof style === 'string') {
-      const alias = style.toLowerCase();
-      const preset = PRESET_BY_ALIAS[alias];
-      if (preset) {
-        this.customStyle = preset;
-      } else {
-        console.warn(`[Toast-JS] setStyle(): Unknown style "${style}".`);
-        this.customStyle = Toast.STYLE_DEFAULT_1;
-      }
-    } else if (style !== null && typeof style === 'object') {
-      const custom = /** @type {Record<string, string>} */ (style);
-      this.customStyle = { ...BASE_STYLE, ...custom };
-      if (typeof custom.keyframes === 'string') {
-        this.customKeyframes = custom.keyframes;
-      }
-    } else {
+    const resolution = resolveStyle(style);
+
+    if (resolution.warning === 'unknown-alias') {
+      console.warn(`[Toast-JS] setStyle(): Unknown style "${style}".`);
+    } else if (resolution.warning === 'invalid-type') {
       console.warn('[Toast-JS] setStyle(): argument must be a string or an object.');
+    }
+
+    if (resolution.resolved) {
+      this.customStyle = resolution.style;
+      if (resolution.keyframes !== null) {
+        this.customKeyframes = resolution.keyframes;
+      }
     }
     return this;
   }
