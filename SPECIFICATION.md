@@ -492,9 +492,9 @@ The new implementation is not ready for release until all applicable criteria be
 
 ### 11.4 Build, types, and package
 
-- [ ] The build tool has been selected through the approved Rollup/Vite proof of concept.
+- [x] The build tool has been selected on measured evidence: Rolldown 1.3.2, used directly.
 - [ ] ESM is the primary package format.
-- [ ] CommonJS is included only if its need is demonstrated and documented.
+- [x] CommonJS need was demonstrated and documented: no `.cjs` output is added and the existing UMD-based consumer path is retained (DEC-033).
 - [ ] JSDoc is the type-contract source of truth.
 - [ ] `checkJs` and `noEmit` static checks pass.
 - [ ] Generated declarations match actual exports and pass a TypeScript consumer fixture.
@@ -512,13 +512,13 @@ The new implementation is not ready for release until all applicable criteria be
 
 ## 12. Deferred evidence and design outputs
 
-The following are intentionally not selected by preference and must be resolved in later design/validation work. They do not require reopening approved decisions:
+The following are intentionally not selected by preference and must be resolved in later design/validation work. They do not require reopening approved decisions. Items 1, 2, 3 and 5 are now resolved; the rest are still open:
 
-1. **Build tool:** perform the agreed Rollup vs Vite Library Mode proof of concept and select from measured package outputs.
-2. **Exact Node.js/browser minimums:** inspect runtime APIs and tooling, test the proposed boundaries, and publish the resulting matrix.
-3. **CommonJS:** evaluate real consumer demand. ESM remains primary; do not create `.cjs` unless the evidence justifies it.
+1. **Build tool:** **resolved** — Rolldown 1.3.2 used directly, selected on the measured proof of concept recorded in `research.md` R-001 (DEC-032). The production build and package integration remain to be implemented.
+2. **Exact Node.js/browser minimums:** **resolved** — the support commitment is fixed by DEC-038: a consumer floor of Node.js 22.0.0 (the oldest currently supported LTS line) and a development/build floor of Node.js 22.22.2, the latter measured in `research.md` R-002.4. The measured *capability* of the corrected packaging is lower — Node 12.17+ for the ESM entry and 12.0.0+ for the UMD `require()` entry (R-002.5); the commitment is what the project promises, not the lowest version that happens to work.
+3. **CommonJS:** **resolved** — no `.cjs` output is added; the existing UMD-based CommonJS consumer path is retained (DEC-033). The declaration pipeline stays separate from the bundler (DEC-037).
 4. **Release number:** verify npm Registry and release history only after the final compatibility and artifact scope is known.
-5. **Existing deep package export:** verify actual usage of `./src/Toast.js` and preserve or deliberately migrate it.
+5. **Existing deep package export:** **resolved** — the `./src/Toast.js` subpath is retained and repointed at the ESM entry (VAL-003, `research.md` R-003).
 6. **API signatures for new capabilities:** specify IDs, updates, actions, persistent options, and async integration while maintaining the required current API.
 7. **Internal class/module boundaries:** derive them from real responsibilities and dependencies in `ARCHITECTURE.md`.
 8. **CSS injection API details:** define the explicit opt-in path, duplicate prevention, cleanup, and CSP behavior without changing the approved default.

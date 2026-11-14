@@ -47,8 +47,8 @@ For Toast-JS, the Clarify gate found no new user product decisions that need to 
 - This bundle is a reviewable artifact set, not a commit to the repository.
 - The checklists are intentionally unchecked. A generated checklist is not self-approved.
 - The analysis report is a manual read-only analysis modeled on `/speckit.analyze`; it is not falsely represented as output from the official command.
-- The Rollup/Vite PoCs, runtime support matrix, package-consumer tests, and implementation tasks have not been executed.
-- No GitHub files, branches, commits, pull requests, tags, releases, or npm packages were changed or created.
+- The build-tool proof of concept, the runtime support matrix, and the first implementation tasks have been executed and are recorded in `specs/001-toast-js-modernization/research.md` and `DECISION_REGISTER.md`. The package-consumer and packaging tasks are still open.
+- The planning bundle itself changed no branch, commit, pull request, tag, release, or npm package. The modernization branch has since been committed and pushed, and the historical releases v1.0.0, v2.0.0 and v2.1.0-beta were published as an archival reconstruction. Nothing was published to npm.
 - No file under `libs/js/` may be modified by tasks in this feature.
 
 ## Official References

@@ -71,9 +71,9 @@ As an end user, including a keyboard or assistive-technology user, I want notifi
 
 As a library consumer, I want stable ESM entry points, reliable CSS loading, accurate type declarations, and verifiable package contents, so that Toast-JS integrates cleanly into supported browser, bundler, and SSR workflows.
 
-**Independent acceptance:** ESM is the primary format; core import is safe without browser globals at module evaluation; explicit CSS import is the default; CSS injection requires explicit opt-in and does not duplicate styles; generated declarations describe actual exports; every package export exists in the packed artifact; the tested runtime matrix is documented.
+**Independent acceptance:** ESM is the primary format; core import is safe without browser globals at module evaluation; explicit CSS import is the default; CSS injection requires explicit opt-in and does not duplicate styles; generated declarations describe actual exports; every package export exists in the packed artifact; the tested runtime matrix is documented; every supported entry point loaded in one process resolves to one runtime instance; the ESM artifact exposes the approved default and named export shape.
 
-**Requirement traceability:** FR-CSS-001–008, Specification §8.4–8.5, §9.5, DEC-005–DEC-008, DEC-017–DEC-018, DEC-032–DEC-035.
+**Requirement traceability:** FR-CSS-001–008, Specification §8.4–8.5, §9.5, DEC-005–DEC-008, DEC-017–DEC-018, DEC-032–DEC-041.
 
 ## 5. Cross-Cutting Success Criteria
 

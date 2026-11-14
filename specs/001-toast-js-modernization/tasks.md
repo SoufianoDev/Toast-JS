@@ -46,7 +46,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 
 **Goal:** Capture the existing contract and settle technical choices that would otherwise invalidate implementation work.
 
-**Independent validation:** The current implementation passes the shared contract baseline; the Rollup/Vite comparison and runtime/export/type research are recorded with evidence; no historical file is modified.
+**Independent validation:** The current implementation passes the shared contract baseline; the build-tool comparison and the runtime/export/type research are recorded with evidence; no historical file is modified.
 
 - [x] T006 Complete the current-main API inventory in `specs/001-toast-js-modernization/contracts/public-api.md`, including every export, property, method, alias, default, event, callback, and package subpath.
 - [x] T007 Create legacy/new loading adapters under `tests/contracts/adapters/` without changing files under `libs/js/`.
@@ -54,7 +54,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 - [x] T009 Add characterization tests for preset shape, immutability, values, aliases, and defaults under `tests/contracts/styles.contract.test.mjs`.
 - [x] T010 [P] Build an isolated Rollup proof of concept under `experiments/build-poc/rollup/` using a minimal `.mjs` entry and the approved output acceptance criteria.
 - [x] T011 [P] Build an isolated Vite Library Mode proof of concept under `experiments/build-poc/vite/` using the same entry and acceptance criteria as the Rollup experiment.
-- [x] T012 Compare both proof-of-concept outputs and record build behavior, output formats, CSS handling, tree-shaking, source maps, minification, package validity, and maintenance cost in `specs/001-toast-js-modernization/research.md`; select the simpler passing tool with a recorded rationale.
+- [x] T012 Compare the proof-of-concept outputs and record build behavior, output formats, CSS handling, tree-shaking, source maps, minification, package validity, and maintenance cost in `specs/001-toast-js-modernization/research.md`; select the simpler passing tool with a recorded rationale.
 - [x] T013 Determine and test separate browser-runtime, Node/SSR-import, and development/build Node support boundaries; record the tested matrix in `specs/001-toast-js-modernization/research.md` without adding speculative polyfills.
 - [x] T014 Investigate downstream use of `./src/Toast.js` and evidence for CommonJS in repository history, documentation, issues, and available consumer data; record retain/migrate and include/omit recommendations in `research.md` before changing package exports.
 ## Phase 3: US1 — Preserve the Existing Consumer Contract (P1)
@@ -108,7 +108,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 - [ ] T036 [US4] Implement keyboard-accessible action and dismissal controls, stable focus behavior, and no unexpected focus transfer in `src/rendering/DOMRenderer.mjs`.
 - [ ] T037 [US4] Move static structure/layout rules into `src/styles/base.css` and built-in keyframes into `src/styles/animations.css` while keeping runtime-dependent offsets under JavaScript control.
 - [ ] T038 [US4] Implement RTL, responsive, zoom, long-content, and reduced-motion presentation rules in `src/styles/base.css` and `src/styles/animations.css` without changing the public preset data.
-- [ ] T039 [US4] Add the explicit opt-in CSS injection mechanism in `src/styles/injectStyles.mjs` (or the reviewed equivalent), with deduplication, cleanup ownership, and documented CSP behavior; keep core ESM import side-effect-free.
+- [ ] T039 [US4] Add the explicit opt-in CSS injection mechanism in `src/styles/injectStyles.mjs` (or the reviewed equivalent), with deduplication, cleanup ownership, and documented CSP behavior; keep core ESM import side-effect-free. The injection is runtime behaviour and stays independent of the build configuration: the build copies the stylesheet as a separate asset and never bundles or minifies CSS (DEC-036).
 - [ ] T040 [US4] Add Playwright coverage for live-region semantics, keyboard/focus behavior, RTL, reduced motion, explicit CSS import, opt-in injection, and duplicate prevention under `tests/browser/`.
 
 ## Phase 7: US5 — Consume and Package the Library Predictably (P1)
@@ -117,11 +117,16 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 
 **Independent test:** Packed-package and TypeScript fixtures pass; all declared export paths exist; SSR import is safe.
 
-- [ ] T041 [US5] Implement the selected module-aware build configuration in the chosen root config file (`rollup.config.mjs` or `vite.config.mjs`) and build from the actual `src/**/*.mjs` graph.
-- [ ] T042 [US5] Update `package.json` entry points and exports for the selected ESM/browser/CSS artifacts; retain or deliberately migrate `./src/Toast.js` only according to the completed consumer-evidence decision.
-- [ ] T043 [P] [US5] Add a declaration-generation configuration in `tsconfig.types.json` and generate `.d.ts` from JSDoc; generate `.d.cts` only if the reviewed package plan includes CommonJS.
-- [ ] T044 [US5] Create a packed-package consumer fixture under `tests/consumer/` that verifies ESM import, Node/SSR import safety, CSS loading, the selected deep import contract, and TypeScript declaration compatibility.
-- [ ] T045 [US5] Add package artifact verification in `tests/package/` and confirm every `exports`, `types`, browser/CDN, and CSS path exists in the actual `npm pack` tarball.
+- [ ] T041 [US5] Implement the production build with **Rolldown 1.3.2 used directly** (DEC-032) in the root `rolldown.config.mjs`, building the actual `src/**/*.mjs` dependency graph.
+  - Direct Rolldown usage with no library-bundler layer, producing the ESM output and the browser UMD output, including the global `name` the UMD bundle exposes. The proof-of-concept emitted IIFE, so the UMD shape is confirmed here rather than assumed.
+  - CSS stays a separate Plain CSS asset, copied deterministically by a step outside the bundler: no CSS bundling, no CSS minifier, and no bundler-integrated CSS plugin (DEC-036). Rolldown 1.x no longer bundles CSS natively, and the proof-of-concept's CSS plugin was a measurement workaround, not the production shape. The core ESM entry does not import the stylesheet.
+  - No second hand-copied runtime implementation: the build consumes the one source graph.
+  - The single-runtime requirement of DEC-040 must be met, not assumed. Two outputs built from one graph do not by themselves guarantee one instance; the shared-instance verification belongs to T044.
+  - The final ESM artifact must expose the approved export shape: the `Toast` constructor as the default export, the same constructor as a named `Toast` export, and the 61 public statics as named exports bound to the runtime's own values (DEC-041).
+- [ ] T042 [US5] Update `package.json` entry points and exports for the approved artifacts: the `.mjs` ESM output as the primary entry, the browser UMD distribution, the CSS asset, and the generated declarations; set `engines.node` to `>=22.0.0` only after the packed artifact passes the compatibility checks (DEC-038); add no `.cjs` output and no `.d.cts` pipeline (DEC-033, DEC-037); retain the `./src/Toast.js` subpath, repointed at the ESM entry, as the consumer-evidence decision requires (VAL-003).
+- [ ] T043 [P] [US5] Add the declaration-generation configuration in `tsconfig.types.json` and generate `.d.ts` from JSDoc with the TypeScript compiler, independently of the Rolldown build (DEC-037); add no bundler-integrated declaration plugin; emit no `.d.cts` declaration, because the reviewed package plan ships no CommonJS output (DEC-008, DEC-033).
+- [ ] T044 [US5] Create a packed-package consumer fixture under `tests/consumer/` that verifies ESM import, Node/SSR import safety, CSS loading, the retained deep import contract, TypeScript declaration compatibility, that every supported package entry point loaded in one process resolves to **one** runtime instance — the same API object, `Manager` and queue (DEC-040) — and that the packed ESM artifact exposes the approved default and named export shape (DEC-041).
+- [ ] T045 [US5] Add package artifact verification in `tests/package/` that confirms every `exports`, `types`, browser/CDN, and CSS path exists in the **real `npm pack` tarball** rather than in the source tree or the build directory, that the tarball carries no runtime dependency, and that the packed ESM artifact exposes the approved default and named export shape (DEC-041).
 - [ ] T046 [P] [US5] Update `README.md`, API documentation under `docs/`, and a migration guide under `docs/migration/` to match the verified public API, CSS loading, accessibility, async examples, and actual supported framework adapters.
 
 ## Phase 8: Polish and Cross-Cutting Concerns
@@ -130,7 +135,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 
 **Independent validation:** CI runs required checks; final diff preserves historical files; package/version readiness is recorded.
 
-- [ ] T047 Configure GitHub Actions in `.github/workflows/` to run build, Vitest, typecheck, selected Playwright tests, Shared Contract Tests, and package verification; keep Pages deployment separate.
+- [ ] T047 Configure GitHub Actions in `.github/workflows/` to run the Rolldown build, Vitest, typecheck, selected Playwright tests, Shared Contract Tests, and package verification; keep Pages deployment separate.
 - [ ] T048 Run the full compatibility and acceptance suite, inspect the final diff, and verify that no path under `libs/js/` changed.
 - [ ] T049 Reconcile package version, npm Registry state, Git tags, release history, README references, and changelog only after all package artifacts pass; record a release recommendation without publishing.
 

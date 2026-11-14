@@ -44,7 +44,7 @@ Before asking the project owner anything:
 3. Determine whether the item is already approved, delegated to evidence-based research, or genuinely unresolved.
 4. Never re-ask an approved item. Reopen it only when new repository or consumer evidence demonstrates a material contradiction; state the evidence and impact first.
 
-The exact runtime version matrix, Rollup/Vite choice, deep-import migration, CommonJS demand, CSS injection API shape, and declaration emission details are technical evidence tasks. They are not invitations to ask the owner to pick arbitrary values.
+The exact runtime version matrix, deep-import migration, CommonJS demand, CSS injection API shape, and declaration emission details are technical evidence tasks. They are not invitations to ask the owner to pick arbitrary values.
 
 ## Artifact Ownership
 

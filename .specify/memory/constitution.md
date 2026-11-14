@@ -82,7 +82,7 @@ This draft consolidates principles already established through explicit project 
 - Add tests alongside refactoring; do not defer all tests until the end.
 - Use Vitest, jsdom, selected Playwright real-browser tests, progressive behavior-oriented coverage, and Shared Contract Tests.
 - Test the packed package and declared exports, not only source imports.
-- Compare Rollup and Vite Library Mode through the approved proof of concept; Vitest does not imply Vite as the bundler.
+- Build with Rolldown 1.3.2 used directly (DEC-032); Vitest does not imply Vite as the bundler.
 - Do not invent support versions, performance thresholds, or release numbers without evidence.
 
 **Rationale:** Claims about compatibility and correctness must be backed by repeatable checks.

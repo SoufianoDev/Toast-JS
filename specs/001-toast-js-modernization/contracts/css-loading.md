@@ -20,6 +20,7 @@ The implementation must define:
 ## 3. CSS Ownership
 
 - Static structure/layout and built-in keyframes live in `.css` assets.
+- Those assets are copied deterministically by the build as separate files. The build never bundles, extracts, or minifies CSS, and no bundler-integrated CSS plugin is used (DEC-036); Rolldown 1.x does not bundle CSS natively.
 - Public style preset objects and aliases remain JavaScript data.
 - Runtime-dependent position/stack offsets and consumer-provided inline values remain runtime-controlled.
 - Tailwind is not a runtime dependency.
