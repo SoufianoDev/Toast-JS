@@ -51,9 +51,9 @@ The canonical record is `DECISION_REGISTER.md`. The table below is a summary; st
 | Animation completion | Browser events first, bounded fallback; handle cancellation and reduced motion |
 | Renderer | One DOM renderer with a clear internal contract; queue/timer policy remains outside it |
 | Testing | Add tests alongside refactoring; Vitest, jsdom + selected Playwright tests, progressive coverage, Shared Contract Tests |
-| Build tool | Select Rollup vs Vite only after the approved proof of concept |
+| Build tool | Rolldown 1.3.2 — selected in DEC-032 after the four-way proof of concept. CSS assets are copied separately; Rolldown does not bundle CSS. |
 | CommonJS | ESM first; add `.cjs` only if real consumer need is demonstrated |
-| Runtime support | Balanced policy; separate runtime support from development/build requirements; no speculative polyfills |
+| Runtime support | Balanced policy; separate runtime support from development/build requirements; no speculative polyfills | Consumer floor Node.js 22.0.0 and development/build floor Node.js 22.22.2, measured separately (DEC-038) |
 | AI-assisted workflow | Ponytail Ultra, Hush, and Deslop used within their defined review/cleanup scopes |
 | Repository writes / publishing | Not authorized by the static audit or this document update |
 
@@ -253,9 +253,13 @@ The icon validator accepts `.mp4` and `.webm` URLs with query parameters, but `_
 
 The package has no `type` field, while `exports.import` points to `dist/toast.esm.js`. The project also declares Node `>=12`. A `.js` file containing ESM syntax is not a reliable Node ESM entry across that declared range without explicit package/module configuration. The agreed source and output conventions should use `.mjs` for ESM and `.cjs` for CommonJS where required.
 
+**Status — decided, not yet implemented.** The conventions are fixed in section 7.1 and 7.2, and the consumer engine floor is now decided: **Node.js 22.0.0**, the oldest currently supported LTS release line (DEC-038; supported lines 22.x, 24.x and 26.x, EOL releases excluded). The floor does **not** by itself repair this finding: Node.js only treats an ambiguous `.js` file as ESM through module-syntax detection, which became the default in 22.7, so `dist/toast.esm.js` still fails to load on Node.js 22.0.0–22.6.x. The `.mjs` ESM output is therefore required regardless, and the packaging task (T041/T042) must ship it and verify it from the packed tarball before `engines.node` is set to `>=22.0.0`.
+
 **B. Development-tool Node requirements do not match the declared engine.**
 
 The package declares Node `>=12`, while the locked Playwright and Puppeteer versions and `@puppeteer/browsers` require Node `>=18`. Runtime support and development-tool support must be documented separately and tested against an explicit version matrix.
+
+**Status — resolved.** The two requirements are now measured and documented separately. The **consumer** floor is Node.js 22.0.0 (DEC-038), and the **development/build** floor is Node.js 22.22.2, set by jsdom 31 rather than by any consumer-facing requirement. The toolchain floor does not become the consumer minimum, and the two must never be written into a single field. The measured matrix — browser floor, consumer Node floor and toolchain Node floor, each verified against official Node.js binaries — is recorded in `research.md` R-002; the CI matrix that tests them is part of T047.
 
 **C. Publishing script is not a safe release gate.**
 
@@ -477,7 +481,7 @@ Preserve or deliberately migrate the existing `./src/Toast.js` export; do not si
 
 Do not set package-wide module semantics without evaluating the legacy `.js` deep export. Explicit `.mjs` and `.cjs` files can avoid changing the interpretation of historical `.js` files.
 
-The package's declared Node engine must reflect the actual tested runtime. The existing package says Node `>=12`, but its current Playwright and Puppeteer development toolchain declares Node `>=18`.
+The package's declared Node engine must reflect the actual tested runtime. The existing package says Node `>=12`, but its current Playwright and Puppeteer development toolchain declares Node `>=18`. The two requirements are now separated: the **consumer** floor is Node.js 22.0.0 and the **development/build** floor is Node.js 22.22.2 (DEC-038, `research.md` R-002). `engines.node` is set by the packaging task once the shipped artifact has been verified against that floor.
 
 ---
 
@@ -586,7 +590,7 @@ The approved decisions are consolidated in `DECISION_REGISTER.md`. They include 
 The following are not unanswered user decisions. They are evidence-driven validation or architecture tasks:
 
 1. **Build tool:** compare Rollup and Vite Library Mode through the approved proof of concept; select only after evaluating actual outputs and package behavior.
-2. **Exact Node.js/browser versions:** determine from runtime APIs, development tooling, and tested support boundaries.
+2. **Exact Node.js/browser versions:** determine from runtime APIs, development tooling, and tested support boundaries. **Resolved** — the browser floor and both Node.js floors are measured and recorded in `research.md` R-002 and fixed by DEC-038 (consumer Node.js 22.0.0; development/build Node.js 22.22.2).
 3. **CommonJS output:** evaluate actual consumer need; ESM remains primary and `.cjs` is conditional.
 4. **Release version:** verify npm Registry, tags, and artifact scope before choosing.
 5. **`./src/Toast.js` package export:** investigate consumer usage and preserve or migrate deliberately.
