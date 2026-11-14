@@ -78,7 +78,7 @@ US2 may proceed after US1's public contracts and foundational adapters exist. US
 **Independent test:** Queue/timer/lifecycle integration tests and Playwright rendering/animation tests pass.
 
 - [x] T022 [US2] Implement per-position FIFO queue behavior and visible-slot accounting in `src/core/ToastQueue.mjs`, with no priority scheduler.
-- [ ] T023 [US2] Implement manager coordination in `src/core/ToastManager.mjs`, including independent per-position limits defaulting to three and a consumer configuration path.
+- [x] T023 [US2] Implement manager coordination in `src/core/ToastManager.mjs`, including independent per-position limits defaulting to three and a consumer configuration path.
 - [ ] T024 [P] [US2] Implement independent timer state, remaining-duration calculation, and multiple pause reasons in `src/core/ToastTimer.mjs`.
 - [ ] T025 [US2] Implement DOM creation, update, attachment, removal, and renderer-owned accessibility attributes in `src/rendering/DOMRenderer.mjs`; keep queue and timer policy outside the renderer.
 - [ ] T026 [P] [US2] Implement animation/transition completion handling with bounded fallback, cancellation handling, and reduced-motion completion in `src/animation/AnimationController.mjs`.

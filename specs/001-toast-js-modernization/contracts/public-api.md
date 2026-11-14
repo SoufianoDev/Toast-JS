@@ -183,7 +183,9 @@ These are implementation details of the current runtime. They are recorded so th
 
 ### 5.6 The new instance module (T016)
 
-`src/core/Toast.mjs` is the ESM implementation of this section. It exposes the same 21 prototype members as the current implementation and the same 60 static members it can own today.
+`src/core/Toast.mjs` is the ESM implementation of this section. It exposes the same 21 prototype members as the current implementation and the same 61 static members as the current implementation.
+
+The 61st static, `Manager`, is the manager singleton (T023). The manager module fills it in, so the `Toast` class never imports the manager: the dependency only ever runs from the manager towards the class, and a managed notification carries a reference to whoever manages it.
 
 The 21 frozen presets, the shared base they spread, and the alias map live in **`src/styles/presets.mjs`** (T017). The constructor's `STYLE_*` statics are the presets module's own objects, not copies, and the historical misspellings `defult_1` and `defult_2` resolve to the very same objects as `default_1` and `default_2` — so `toast.customStyle` is identical by reference to `Toast.STYLE_DEFAULT_1` whichever spelling resolved it.
 
@@ -193,7 +195,7 @@ Lazy context resolution lives in **`src/context/LazyContext.mjs`** (T019). It ow
 
 Two differences are deliberate and bounded:
 
-- **`Manager` is not on it yet.** The manager singleton belongs to the manager module (T023), so the new instance carries 60 of the 61 statics. **The primary ESM entry therefore cannot be repointed at the new instance until the manager module exists** — until then the entry keeps importing the current implementation, which is what keeps the shared contract suite green.
+- **`Manager` is filled in by the manager module** (T023). The `Toast` class never imports the manager — the dependency only runs from the manager towards the class — so the class declares the static and the manager module assigns the singleton. The new instance therefore carries all 61 statics. **The primary ESM entry can only be repointed at the new instance once the entry imports the manager module too**; until then the entry keeps importing the current implementation, which is what keeps the shared contract suite green.
 - **It injects no global stylesheet at module load.** The current implementation injects its stylesheet when the module is evaluated; the approved decision (DEC-017, DEC-018) makes CSS an explicit import with opt-in injection, so the new module does not. This is the recorded gap in section 11, not a regression.
 
 ## 6. Style Alias Map
@@ -219,6 +221,23 @@ Two differences are deliberate and bounded:
 | `_onHide` | internal | Removes the hidden toast, re-stacks the remaining ones, and displays the next queued toast. |
 
 **Gap against the approved decisions.** DEC-026 and DEC-027 require independent FIFO queues per display position with a per-position configurable limit defaulting to three. The current implementation has one queue and one limit for all positions. This is recorded as an implementation gap, not as contract to preserve.
+
+### 7.1 The new manager (T023)
+
+`src/core/ToastManager.mjs` implements the approved policy and is exposed as `Toast.Manager`.
+
+| Member | Kind | Behaviour |
+|---|---|---|
+| `maxVisible` | public, mutable | The default visible limit for every position that has no limit of its own. `3`. Read on every `show()` call and on every limit read, so a consumer may change it at runtime. |
+| `show(toast)` | public method | Manages a notification. A non-`Toast` argument → `console.error` and the call is ignored. At capacity for its position the notification waits; otherwise it is displayed. |
+| `setVisibleLimit(position, limit)` | public method | Configures the visible limit of one position, independently of the others. An invalid limit is ignored and the current one stands. |
+| `visibleLimit(position)` | public method | The visible limit that applies to a position. |
+| `_queue` | internal | The queue that holds the per-position order and capacity. The manager keeps no second list of what is waiting or what is showing. |
+| `_display(toast)` | internal | Applies the stack offset and shows the notification. A notification that could not be rendered gives its slot back, so a failed render leaves neither a reserved slot nor an orphan entry. |
+| `_applyStackOffset(toast)` | internal | Sets a 72 px-per-toast offset. |
+| `_onHide(toast)` | internal | Releases the slot of a removed notification and admits the next one waiting for that position. |
+
+The manager knows the `Toast` class; the `Toast` class never imports the manager. A managed notification carries a reference to whoever manages it, so hiding one notifies the manager without the notification reaching into manager internals.
 
 ## 8. Events and Callbacks
 

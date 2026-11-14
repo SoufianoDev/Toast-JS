@@ -46,7 +46,7 @@ export class ToastQueue {
    */
   constructor(defaultVisibleLimit = DEFAULT_VISIBLE_LIMIT) {
     /** @type {number} */
-    this._defaultVisibleLimit = defaultVisibleLimit;
+    this.defaultVisibleLimit = defaultVisibleLimit;
     /** @type {Map<string, PositionQueue>} */
     this._positions = new Map();
   }
@@ -73,7 +73,7 @@ export class ToastQueue {
    * @returns {number}
    */
   visibleLimit(position) {
-    return this._position(position).limit ?? this._defaultVisibleLimit;
+    return this._position(position).limit ?? this.defaultVisibleLimit;
   }
 
   /**

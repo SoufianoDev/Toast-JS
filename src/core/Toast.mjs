@@ -821,6 +821,16 @@ Toast.getWebAppContext = getWebAppContext;
 Toast.getContextFor = getContextFor;
 
 /**
+ * The manager that coordinates managed notifications.
+ *
+ * The manager module fills this in, so the Toast class never imports it and
+ * the dependency only ever runs from the manager towards the class.
+ *
+ * @type {import('./ToastManager.mjs').ToastManager | null}
+ */
+Toast.Manager = null;
+
+/**
  * Mirrors the Android `Toast.makeText()` API.
  *
  * @param {unknown} context
